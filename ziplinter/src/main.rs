@@ -50,8 +50,14 @@ mod test {
                 let Ok(result) = process_zip_file(&path) else {
                     continue;
                 };
-                println!("current file: {}", path.display());
-                assert_json_snapshot!(result);
+                println!(
+                    "current file: {}",
+                    Path::new(path.file_name().unwrap()).display()
+                );
+                assert_json_snapshot!(
+                    format!("{}", Path::new(path.file_name().unwrap()).display()),
+                    result
+                );
             }
         }
     }
