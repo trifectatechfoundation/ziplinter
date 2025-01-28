@@ -12,7 +12,7 @@ use winnow::{
 use crate::error::{Error, FormatError};
 
 /// 4.3.16  End of central directory record:
-#[derive(Debug, ToOwned, IntoOwned, Clone)]
+#[derive(Debug, ToOwned, IntoOwned, Clone, serde::Serialize)]
 pub struct EndOfCentralDirectoryRecord<'a> {
     /// number of this disk
     pub disk_nbr: u16,
@@ -100,7 +100,7 @@ impl EndOfCentralDirectory64Locator {
 }
 
 /// 4.3.14  Zip64 end of central directory record
-#[derive(Debug, Clone, ToOwned, IntoOwned)]
+#[derive(Debug, Clone, ToOwned, IntoOwned, serde::Serialize)]
 pub struct EndOfCentralDirectory64Record {
     /// size of zip64 end of central directory record
     pub record_size: u64,
@@ -153,7 +153,7 @@ impl EndOfCentralDirectory64Record {
 }
 
 /// A zip structure and its location in the input file
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize)]
 pub struct Located<T> {
     /// Absolute by offset from the start of the file
     pub offset: u64,
@@ -191,7 +191,7 @@ where
 }
 
 /// Coalesces zip and zip64 "end of central directory" record info
-#[derive(ToOwned, IntoOwned)]
+#[derive(ToOwned, IntoOwned, serde::Serialize)]
 pub struct EndOfCentralDirectory<'a> {
     /// The end of central directory record
     pub dir: Located<EndOfCentralDirectoryRecord<'a>>,

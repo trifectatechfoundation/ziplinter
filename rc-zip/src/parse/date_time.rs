@@ -12,7 +12,7 @@ use winnow::{
 /// A timestamp in MS-DOS format
 ///
 /// Represents dates from year 1980 to 2180, with 2 second precision.
-#[derive(Clone, Copy, Eq, PartialEq, IntoOwned, ToOwned)]
+#[derive(Clone, Copy, Eq, PartialEq, IntoOwned, ToOwned, serde::Serialize)]
 pub struct MsdosTimestamp {
     /// Time in 2-second intervals
     pub time: u16,

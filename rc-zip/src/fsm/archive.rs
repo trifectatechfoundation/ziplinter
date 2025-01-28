@@ -8,7 +8,7 @@ use crate::{
     },
 };
 
-use ownable::traits::IntoOwned;
+use ownable::traits::{IntoOwned, ToOwned};
 use tracing::trace;
 use winnow::{
     error::ErrMode,
@@ -365,6 +365,8 @@ impl ArchiveFsm {
                             let comment = encoding.decode(eocd.comment())?;
 
                             return Ok(FsmResult::Done(Archive {
+                                eocd: eocd.to_owned(),
+                                directory_headers: directory_headers.to_owned(),
                                 size: self.size,
                                 comment,
                                 entries,

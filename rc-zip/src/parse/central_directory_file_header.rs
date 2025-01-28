@@ -22,7 +22,7 @@ use crate::{
 use super::Method;
 
 /// 4.3.12 Central directory structure: File header
-#[derive(IntoOwned, ToOwned)]
+#[derive(IntoOwned, ToOwned, serde::Serialize)]
 pub struct CentralDirectoryFileHeader<'a> {
     /// version made by
     pub creator_version: Version,

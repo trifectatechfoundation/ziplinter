@@ -1,5 +1,3 @@
-#![warn(missing_docs)]
-
 //! rc-zip is a [sans-io](https://sans-io.readthedocs.io/how-to-sans-io.html) library for reading zip files.
 //!
 //! It's made up of a bunch of types representing the various parts of a zip

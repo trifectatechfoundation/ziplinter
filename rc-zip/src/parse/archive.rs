@@ -8,7 +8,9 @@ use crate::{
     parse::{Mode, Version},
 };
 
-use super::{zero_datetime, ExtraField, NtfsAttr};
+use super::{
+    zero_datetime, CentralDirectoryFileHeader, EndOfCentralDirectory, ExtraField, NtfsAttr,
+};
 
 /// An Archive contains general information about a zip files, along with a list
 /// of [entries][Entry].
@@ -20,10 +22,12 @@ use super::{zero_datetime, ExtraField, NtfsAttr};
 /// [rc-zip-tokio](https://crates.io/crates/rc-zip-tokio).
 #[derive(serde::Serialize)]
 pub struct Archive {
-    pub(crate) size: u64,
-    pub(crate) encoding: Encoding,
-    pub(crate) entries: Vec<Entry>,
-    pub(crate) comment: String,
+    pub eocd: EndOfCentralDirectory<'static>,
+    pub directory_headers: Vec<CentralDirectoryFileHeader<'static>>,
+    pub size: u64,
+    pub encoding: Encoding,
+    pub entries: Vec<Entry>,
+    pub comment: String,
 }
 
 impl Archive {
