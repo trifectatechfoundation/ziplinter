@@ -1,0 +1,171 @@
+---
+source: ziplinter/src/main.rs
+expression: result
+---
+{
+  "comment": "",
+  "directory_headers": [
+    {
+      "comment": "",
+      "compressed_size": 4,
+      "crc32": 2117232040,
+      "creator_version": {
+        "host_system": "Unix",
+        "version": 20
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 2175008768,
+      "extra": [
+        85,
+        84,
+        5,
+        0,
+        3,
+        222,
+        85,
+        89,
+        79,
+        117,
+        120,
+        11,
+        0,
+        1,
+        4,
+        245,
+        1,
+        0,
+        0,
+        4,
+        20,
+        0,
+        0,
+        0
+      ],
+      "flags": 8,
+      "header_offset": 0,
+      "internal_attrs": 0,
+      "method": "Store",
+      "modified": {
+        "date": 16488,
+        "time": 34661
+      },
+      "name": "foo.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "uncompressed_size": 4
+    },
+    {
+      "comment": "",
+      "compressed_size": 4,
+      "crc32": 77771753,
+      "creator_version": {
+        "host_system": "Unix",
+        "version": 20
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 2175008768,
+      "extra": [
+        85,
+        84,
+        5,
+        0,
+        3,
+        224,
+        85,
+        89,
+        79,
+        117,
+        120,
+        11,
+        0,
+        1,
+        4,
+        245,
+        1,
+        0,
+        0,
+        4,
+        20,
+        0,
+        0,
+        0
+      ],
+      "flags": 8,
+      "header_offset": 77,
+      "internal_attrs": 0,
+      "method": "Store",
+      "modified": {
+        "date": 16488,
+        "time": 34662
+      },
+      "name": "bar.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "uncompressed_size": 4
+    }
+  ],
+  "encoding": "Utf8",
+  "entries": [
+    {
+      "accessed": null,
+      "comment": "",
+      "compressed_size": 4,
+      "crc32": 2117232040,
+      "created": null,
+      "flags": 8,
+      "gid": 501,
+      "header_offset": 0,
+      "method": "Store",
+      "mode": 420,
+      "modified": "2012-03-09T00:59:10Z",
+      "name": "foo.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "uid": 501,
+      "uncompressed_size": 4
+    },
+    {
+      "accessed": null,
+      "comment": "",
+      "compressed_size": 4,
+      "crc32": 77771753,
+      "created": null,
+      "flags": 8,
+      "gid": 501,
+      "header_offset": 77,
+      "method": "Store",
+      "mode": 420,
+      "modified": "2012-03-09T00:59:12Z",
+      "name": "bar.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "uid": 501,
+      "uncompressed_size": 4
+    }
+  ],
+  "eocd": {
+    "dir": {
+      "inner": {
+        "comment": [],
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 2,
+        "directory_offset": 154,
+        "directory_records": 2,
+        "directory_size": 154,
+        "disk_nbr": 0
+      },
+      "offset": 308
+    },
+    "dir64": null,
+    "global_offset": 0
+  },
+  "size": 330
+}

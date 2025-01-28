@@ -1,0 +1,313 @@
+---
+source: ziplinter/src/main.rs
+expression: result
+---
+{
+  "comment": "",
+  "directory_headers": [
+    {
+      "comment": "",
+      "compressed_size": 8,
+      "crc32": 2098461837,
+      "creator_version": {
+        "host_system": "Unix",
+        "version": 30
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 2176188416,
+      "extra": [
+        85,
+        84,
+        5,
+        0,
+        3,
+        168,
+        139,
+        224,
+        78,
+        117,
+        120,
+        11,
+        0,
+        1,
+        4,
+        232,
+        3,
+        0,
+        0,
+        4,
+        232,
+        3,
+        0,
+        0
+      ],
+      "flags": 0,
+      "header_offset": 0,
+      "internal_attrs": 1,
+      "method": "Store",
+      "modified": {
+        "date": 16264,
+        "time": 20620
+      },
+      "name": "hello",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uncompressed_size": 8
+    },
+    {
+      "comment": "",
+      "compressed_size": 6,
+      "crc32": 2055117726,
+      "creator_version": {
+        "host_system": "Unix",
+        "version": 30
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 2176188416,
+      "extra": [
+        85,
+        84,
+        5,
+        0,
+        3,
+        194,
+        139,
+        224,
+        78,
+        117,
+        120,
+        11,
+        0,
+        1,
+        4,
+        232,
+        3,
+        0,
+        0,
+        4,
+        232,
+        3,
+        0,
+        0
+      ],
+      "flags": 0,
+      "header_offset": 71,
+      "internal_attrs": 1,
+      "method": "Store",
+      "modified": {
+        "date": 16264,
+        "time": 20633
+      },
+      "name": "dir/bar",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uncompressed_size": 6
+    },
+    {
+      "comment": "",
+      "compressed_size": 0,
+      "crc32": 0,
+      "creator_version": {
+        "host_system": "Unix",
+        "version": 30
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 1107230736,
+      "extra": [
+        85,
+        84,
+        5,
+        0,
+        3,
+        134,
+        140,
+        224,
+        78,
+        117,
+        120,
+        11,
+        0,
+        1,
+        4,
+        232,
+        3,
+        0,
+        0,
+        4,
+        232,
+        3,
+        0,
+        0
+      ],
+      "flags": 0,
+      "header_offset": 142,
+      "internal_attrs": 0,
+      "method": "Store",
+      "modified": {
+        "date": 16264,
+        "time": 20739
+      },
+      "name": "dir/empty/",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uncompressed_size": 0
+    },
+    {
+      "comment": "",
+      "compressed_size": 12,
+      "crc32": 3127775578,
+      "creator_version": {
+        "host_system": "Unix",
+        "version": 30
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 2166620161,
+      "extra": [
+        85,
+        84,
+        5,
+        0,
+        3,
+        16,
+        140,
+        224,
+        78,
+        117,
+        120,
+        11,
+        0,
+        1,
+        4,
+        232,
+        3,
+        0,
+        0,
+        4,
+        232,
+        3,
+        0,
+        0
+      ],
+      "flags": 0,
+      "header_offset": 210,
+      "internal_attrs": 1,
+      "method": "Store",
+      "modified": {
+        "date": 16264,
+        "time": 20676
+      },
+      "name": "readonly",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uncompressed_size": 12
+    }
+  ],
+  "encoding": "Utf8",
+  "entries": [
+    {
+      "accessed": null,
+      "comment": "",
+      "compressed_size": 8,
+      "crc32": 2098461837,
+      "created": null,
+      "flags": 0,
+      "gid": 1000,
+      "header_offset": 0,
+      "method": "Store",
+      "mode": 438,
+      "modified": "2011-12-08T10:04:24Z",
+      "name": "hello",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uid": 1000,
+      "uncompressed_size": 8
+    },
+    {
+      "accessed": null,
+      "comment": "",
+      "compressed_size": 6,
+      "crc32": 2055117726,
+      "created": null,
+      "flags": 0,
+      "gid": 1000,
+      "header_offset": 71,
+      "method": "Store",
+      "mode": 438,
+      "modified": "2011-12-08T10:04:50Z",
+      "name": "dir/bar",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uid": 1000,
+      "uncompressed_size": 6
+    },
+    {
+      "accessed": null,
+      "comment": "",
+      "compressed_size": 0,
+      "crc32": 0,
+      "created": null,
+      "flags": 0,
+      "gid": 1000,
+      "header_offset": 142,
+      "method": "Store",
+      "mode": 2147484159,
+      "modified": "2011-12-08T10:08:06Z",
+      "name": "dir/empty/",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uid": 1000,
+      "uncompressed_size": 0
+    },
+    {
+      "accessed": null,
+      "comment": "",
+      "compressed_size": 12,
+      "crc32": 3127775578,
+      "created": null,
+      "flags": 0,
+      "gid": 1000,
+      "header_offset": 210,
+      "method": "Store",
+      "mode": 292,
+      "modified": "2011-12-08T10:06:08Z",
+      "name": "readonly",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uid": 1000,
+      "uncompressed_size": 12
+    }
+  ],
+  "eocd": {
+    "dir": {
+      "inner": {
+        "comment": [],
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 4,
+        "directory_offset": 288,
+        "directory_records": 4,
+        "directory_size": 310,
+        "disk_nbr": 0
+      },
+      "offset": 598
+    },
+    "dir64": null,
+    "global_offset": 0
+  },
+  "size": 620
+}

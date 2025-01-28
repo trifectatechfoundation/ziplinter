@@ -1,0 +1,121 @@
+---
+source: ziplinter/src/main.rs
+expression: result
+---
+{
+  "comment": "",
+  "directory_headers": [
+    {
+      "comment": "",
+      "compressed_size": 4,
+      "crc32": 2117232040,
+      "creator_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 0,
+      "extra": "",
+      "flags": 8,
+      "header_offset": 0,
+      "internal_attrs": 0,
+      "method": "Store",
+      "modified": {
+        "date": 0,
+        "time": 0
+      },
+      "name": "foo.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "uncompressed_size": 4
+    },
+    {
+      "comment": "",
+      "compressed_size": 4,
+      "crc32": 77771753,
+      "creator_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 0,
+      "extra": "",
+      "flags": 8,
+      "header_offset": 57,
+      "internal_attrs": 0,
+      "method": "Store",
+      "modified": {
+        "date": 0,
+        "time": 0
+      },
+      "name": "bar.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "uncompressed_size": 4
+    }
+  ],
+  "encoding": "Utf8",
+  "entries": [
+    {
+      "accessed": null,
+      "comment": "",
+      "compressed_size": 4,
+      "crc32": 2117232040,
+      "created": null,
+      "flags": 8,
+      "gid": null,
+      "header_offset": 0,
+      "method": "Store",
+      "mode": 438,
+      "modified": "1970-01-01T00:00:00Z",
+      "name": "foo.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "uid": null,
+      "uncompressed_size": 4
+    },
+    {
+      "accessed": null,
+      "comment": "",
+      "compressed_size": 4,
+      "crc32": 77771753,
+      "created": null,
+      "flags": 8,
+      "gid": null,
+      "header_offset": 57,
+      "method": "Store",
+      "mode": 438,
+      "modified": "1970-01-01T00:00:00Z",
+      "name": "bar.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "uid": null,
+      "uncompressed_size": 4
+    }
+  ],
+  "eocd": {
+    "dir": {
+      "inner": {
+        "comment": [],
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 2,
+        "directory_offset": 114,
+        "directory_records": 2,
+        "directory_size": 106,
+        "disk_nbr": 0
+      },
+      "offset": 220
+    },
+    "dir64": null,
+    "global_offset": 0
+  },
+  "size": 242
+}

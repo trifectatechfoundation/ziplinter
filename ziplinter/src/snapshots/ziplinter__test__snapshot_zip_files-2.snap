@@ -1,0 +1,198 @@
+---
+source: ziplinter/src/main.rs
+expression: result
+---
+{
+  "comment": "This is a zipfile comment.",
+  "directory_headers": [
+    {
+      "comment": "",
+      "compressed_size": 25,
+      "crc32": 3287144384,
+      "creator_version": {
+        "host_system": "Unix",
+        "version": 30
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 2175008768,
+      "extra": [
+        85,
+        84,
+        5,
+        0,
+        3,
+        113,
+        252,
+        130,
+        76,
+        117,
+        120,
+        11,
+        0,
+        1,
+        4,
+        245,
+        1,
+        0,
+        0,
+        4,
+        20,
+        0,
+        0,
+        0
+      ],
+      "flags": 0,
+      "header_offset": 0,
+      "internal_attrs": 1,
+      "method": "Deflate",
+      "modified": {
+        "date": 15653,
+        "time": 24961
+      },
+      "name": "test.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "uncompressed_size": 26
+    },
+    {
+      "comment": "",
+      "compressed_size": 785,
+      "crc32": 1423258110,
+      "creator_version": {
+        "host_system": "Unix",
+        "version": 30
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 2175008768,
+      "extra": [
+        85,
+        84,
+        5,
+        0,
+        3,
+        58,
+        48,
+        131,
+        76,
+        117,
+        120,
+        11,
+        0,
+        1,
+        4,
+        245,
+        1,
+        0,
+        0,
+        4,
+        20,
+        0,
+        0,
+        0
+      ],
+      "flags": 0,
+      "header_offset": 91,
+      "internal_attrs": 0,
+      "method": "Store",
+      "modified": {
+        "date": 15653,
+        "time": 32413
+      },
+      "name": "gophercolor16x16.png",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uncompressed_size": 785
+    }
+  ],
+  "encoding": "Utf8",
+  "entries": [
+    {
+      "accessed": null,
+      "comment": "",
+      "compressed_size": 25,
+      "crc32": 3287144384,
+      "created": null,
+      "flags": 0,
+      "gid": 501,
+      "header_offset": 0,
+      "method": "Deflate",
+      "mode": 420,
+      "modified": "2010-09-05T02:12:01Z",
+      "name": "test.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "uid": 501,
+      "uncompressed_size": 26
+    },
+    {
+      "accessed": null,
+      "comment": "",
+      "compressed_size": 785,
+      "crc32": 1423258110,
+      "created": null,
+      "flags": 0,
+      "gid": 501,
+      "header_offset": 91,
+      "method": "Store",
+      "mode": 420,
+      "modified": "2010-09-05T05:52:58Z",
+      "name": "gophercolor16x16.png",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uid": 501,
+      "uncompressed_size": 785
+    }
+  ],
+  "eocd": {
+    "dir": {
+      "inner": {
+        "comment": [
+          84,
+          104,
+          105,
+          115,
+          32,
+          105,
+          115,
+          32,
+          97,
+          32,
+          122,
+          105,
+          112,
+          102,
+          105,
+          108,
+          101,
+          32,
+          99,
+          111,
+          109,
+          109,
+          101,
+          110,
+          116,
+          46
+        ],
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 2,
+        "directory_offset": 954,
+        "directory_records": 2,
+        "directory_size": 168,
+        "disk_nbr": 0
+      },
+      "offset": 1122
+    },
+    "dir64": null,
+    "global_offset": 0
+  },
+  "size": 1170
+}

@@ -1,0 +1,112 @@
+---
+source: ziplinter/src/main.rs
+expression: result
+---
+{
+  "comment": "",
+  "directory_headers": [
+    {
+      "comment": "",
+      "compressed_size": 0,
+      "crc32": 0,
+      "creator_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 0,
+      "extra": [
+        10,
+        0,
+        32,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        24,
+        0,
+        192,
+        31,
+        217,
+        142,
+        199,
+        82,
+        211,
+        1,
+        112,
+        41,
+        243,
+        191,
+        199,
+        82,
+        211,
+        1,
+        192,
+        31,
+        217,
+        142,
+        199,
+        82,
+        211,
+        1
+      ],
+      "flags": 0,
+      "header_offset": 0,
+      "internal_attrs": 0,
+      "method": "Store",
+      "modified": {
+        "date": 19295,
+        "time": 43389
+      },
+      "name": "test.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uncompressed_size": 0
+    }
+  ],
+  "encoding": "Utf8",
+  "entries": [
+    {
+      "accessed": "2017-11-01T04:13:19.623Z",
+      "comment": "",
+      "compressed_size": 0,
+      "crc32": 0,
+      "created": "2017-11-01T04:11:57.244Z",
+      "flags": 0,
+      "gid": null,
+      "header_offset": 0,
+      "method": "Store",
+      "mode": 438,
+      "modified": "2017-11-01T04:11:57.244Z",
+      "name": "test.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uid": null,
+      "uncompressed_size": 0
+    }
+  ],
+  "eocd": {
+    "dir": {
+      "inner": {
+        "comment": [],
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 1,
+        "directory_offset": 38,
+        "directory_records": 1,
+        "directory_size": 90,
+        "disk_nbr": 0
+      },
+      "offset": 128
+    },
+    "dir64": null,
+    "global_offset": 0
+  },
+  "size": 150
+}

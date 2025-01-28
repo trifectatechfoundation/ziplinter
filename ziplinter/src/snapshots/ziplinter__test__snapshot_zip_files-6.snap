@@ -1,0 +1,133 @@
+---
+source: ziplinter/src/main.rs
+expression: result
+---
+{
+  "comment": "",
+  "directory_headers": [
+    {
+      "comment": "",
+      "compressed_size": 4294967295,
+      "crc32": 1778378622,
+      "creator_version": {
+        "host_system": "Unix",
+        "version": 45
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 2175008768,
+      "extra": [
+        1,
+        0,
+        16,
+        0,
+        36,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        36,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        85,
+        84,
+        5,
+        0,
+        3,
+        252,
+        83,
+        37,
+        80,
+        117,
+        120,
+        11,
+        0,
+        1,
+        4,
+        186,
+        33,
+        2,
+        0,
+        4,
+        136,
+        19,
+        0,
+        0
+      ],
+      "flags": 0,
+      "header_offset": 0,
+      "internal_attrs": 0,
+      "method": "Deflate",
+      "modified": {
+        "date": 16650,
+        "time": 29744
+      },
+      "name": "README",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 45
+      },
+      "uncompressed_size": 4294967295
+    }
+  ],
+  "encoding": "Utf8",
+  "entries": [
+    {
+      "accessed": null,
+      "comment": "",
+      "compressed_size": 36,
+      "crc32": 1778378622,
+      "created": null,
+      "flags": 0,
+      "gid": 139706,
+      "header_offset": 0,
+      "method": "Deflate",
+      "mode": 420,
+      "modified": "2012-08-10T18:33:32Z",
+      "name": "README",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 45
+      },
+      "uid": 139706,
+      "uncompressed_size": 36
+    }
+  ],
+  "eocd": {
+    "dir": {
+      "inner": {
+        "comment": [],
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 65535,
+        "directory_offset": 4294967295,
+        "directory_records": 65535,
+        "directory_size": 4294967295,
+        "disk_nbr": 0
+      },
+      "offset": 244
+    },
+    "dir64": {
+      "inner": {
+        "creator_version": 45,
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 1,
+        "directory_offset": 72,
+        "directory_records": 1,
+        "directory_size": 96,
+        "disk_nbr": 0,
+        "reader_version": 45,
+        "record_size": 44
+      },
+      "offset": 168
+    },
+    "global_offset": 0
+  },
+  "size": 266
+}

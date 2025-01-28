@@ -1,0 +1,75 @@
+---
+source: ziplinter/src/main.rs
+expression: result
+---
+{
+  "comment": "",
+  "directory_headers": [
+    {
+      "comment": "",
+      "compressed_size": 0,
+      "crc32": 0,
+      "creator_version": {
+        "host_system": "MsDos",
+        "version": 20
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 0,
+      "extra": "\n\u0000 \u0000\u0000\u0000\u0000\u0000\u0001\u0000\u0018\u0000░¿δçCW╙\u0001`║≡▐CW╙\u0001░¿δçCW╙\u0001",
+      "flags": 2048,
+      "header_offset": 0,
+      "internal_attrs": 0,
+      "method": "Store",
+      "modified": {
+        "date": 19302,
+        "time": 26926
+      },
+      "name": "Σ╕ûτòî",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uncompressed_size": 0
+    }
+  ],
+  "encoding": "Utf8",
+  "entries": [
+    {
+      "accessed": "2017-11-06T21:11:53.862Z",
+      "comment": "",
+      "compressed_size": 0,
+      "crc32": 0,
+      "created": "2017-11-06T21:09:27.867Z",
+      "flags": 2048,
+      "gid": null,
+      "header_offset": 0,
+      "method": "Store",
+      "mode": 438,
+      "modified": "2017-11-06T21:09:27.867Z",
+      "name": "世界",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 10
+      },
+      "uid": null,
+      "uncompressed_size": 0
+    }
+  ],
+  "eocd": {
+    "dir": {
+      "inner": {
+        "comment": [],
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 1,
+        "directory_offset": 36,
+        "directory_records": 1,
+        "directory_size": 88,
+        "disk_nbr": 0
+      },
+      "offset": 124
+    },
+    "dir64": null,
+    "global_offset": 0
+  },
+  "size": 146
+}

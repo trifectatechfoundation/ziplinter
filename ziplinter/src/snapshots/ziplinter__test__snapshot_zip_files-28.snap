@@ -1,0 +1,112 @@
+---
+source: ziplinter/src/main.rs
+expression: result
+---
+{
+  "comment": "",
+  "directory_headers": [
+    {
+      "comment": "",
+      "compressed_size": 539,
+      "crc32": 1745162907,
+      "creator_version": {
+        "host_system": "MsDos",
+        "version": 63
+      },
+      "disk_nbr_start": 0,
+      "external_attrs": 32,
+      "extra": [
+        10,
+        0,
+        32,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        24,
+        0,
+        127,
+        108,
+        181,
+        192,
+        114,
+        80,
+        218,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "flags": 0,
+      "header_offset": 0,
+      "internal_attrs": 0,
+      "method": "Deflate64",
+      "modified": {
+        "date": 22586,
+        "time": 35282
+      },
+      "name": "found-me.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 21
+      },
+      "uncompressed_size": 100000
+    }
+  ],
+  "encoding": "Utf8",
+  "entries": [
+    {
+      "accessed": "1601-01-01T00:00:00Z",
+      "comment": "",
+      "compressed_size": 539,
+      "crc32": 1745162907,
+      "created": "1601-01-01T00:00:00Z",
+      "flags": 0,
+      "gid": null,
+      "header_offset": 0,
+      "method": "Deflate64",
+      "mode": 438,
+      "modified": "2024-01-26T16:14:35.046003100Z",
+      "name": "found-me.txt",
+      "reader_version": {
+        "host_system": "MsDos",
+        "version": 21
+      },
+      "uid": null,
+      "uncompressed_size": 100000
+    }
+  ],
+  "eocd": {
+    "dir": {
+      "inner": {
+        "comment": [],
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 1,
+        "directory_offset": 581,
+        "directory_records": 1,
+        "directory_size": 94,
+        "disk_nbr": 0
+      },
+      "offset": 675
+    },
+    "dir64": null,
+    "global_offset": 0
+  },
+  "size": 697
+}
