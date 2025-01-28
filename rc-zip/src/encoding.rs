@@ -10,7 +10,7 @@
 use std::fmt;
 
 /// Encodings supported by this crate
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug, serde::Serialize)]
 pub enum Encoding {
     /// [UTF-8](https://en.wikipedia.org/wiki/UTF-8), opt-in for ZIP files.
     Utf8,

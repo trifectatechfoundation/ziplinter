@@ -18,6 +18,7 @@ use super::{zero_datetime, ExtraField, NtfsAttr};
 /// higher-levelr interfaces like
 /// [rc-zip-sync](https://crates.io/crates/rc-zip-sync) or
 /// [rc-zip-tokio](https://crates.io/crates/rc-zip-tokio).
+#[derive(serde::Serialize)]
 pub struct Archive {
     pub(crate) size: u64,
     pub(crate) encoding: Encoding,
@@ -59,7 +60,7 @@ impl Archive {
 }
 
 /// Describes a zip archive entry (a file, a directory, a symlink)
-#[derive(Clone)]
+#[derive(Clone, serde::Serialize)]
 pub struct Entry {
     /// Name of the file
     ///
@@ -270,7 +271,17 @@ impl Entry {
 /// However, in the wild, it is not too uncommon to encounter [Bzip2][Method::Bzip2],
 /// [Lzma][Method::Lzma] or others.
 #[derive(
-    Debug, Clone, Copy, PartialEq, Eq, Hash, IntoPrimitive, FromPrimitive, IntoOwned, ToOwned,
+    Debug,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    Hash,
+    IntoPrimitive,
+    FromPrimitive,
+    IntoOwned,
+    ToOwned,
+    serde::Serialize,
 )]
 #[repr(u16)]
 pub enum Method {

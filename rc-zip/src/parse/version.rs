@@ -9,7 +9,7 @@ use winnow::{binary::le_u8, seq, PResult, Parser, Partial};
 /// which features are required when reading a file.
 ///
 /// For more information, see the [.ZIP Application Note](https://support.pkware.com/display/PKZIP/APPNOTE), section 4.4.2.
-#[derive(Clone, Copy, ToOwned, IntoOwned, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, ToOwned, IntoOwned, PartialEq, Eq, Hash, serde::Serialize)]
 pub struct Version {
     /// The host system on which
     pub host_system: HostSystem,
@@ -40,7 +40,17 @@ impl Version {
 ///
 /// See APPNOTE, section 4.4.2.2
 #[derive(
-    Debug, Clone, Copy, IntoPrimitive, FromPrimitive, ToOwned, IntoOwned, PartialEq, Eq, Hash,
+    Debug,
+    Clone,
+    Copy,
+    IntoPrimitive,
+    FromPrimitive,
+    ToOwned,
+    IntoOwned,
+    PartialEq,
+    Eq,
+    Hash,
+    serde::Serialize,
 )]
 #[repr(u8)]
 pub enum HostSystem {

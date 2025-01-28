@@ -5,7 +5,7 @@ use std::fmt;
 /// but not all bits apply to all systems.
 ///
 /// It is modelled after Go's `os.FileMode`.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, serde::Serialize)]
 pub struct Mode(pub u32);
 
 impl Mode {
