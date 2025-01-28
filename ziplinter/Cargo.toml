@@ -1,0 +1,9 @@
+[package]
+name = "ziplinter"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rc-zip-sync = { path = "../rc-zip-sync" }
+rc-zip = { path = "../rc-zip" }
+serde_json = "1.0.137"

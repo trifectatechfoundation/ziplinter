@@ -22,7 +22,7 @@ use crate::{
 use super::Method;
 
 /// 4.3.12 Central directory structure: File header
-#[derive(IntoOwned, ToOwned, serde::Serialize)]
+#[derive(IntoOwned, ToOwned)]
 pub struct CentralDirectoryFileHeader<'a> {
     /// version made by
     pub creator_version: Version,
@@ -68,6 +68,58 @@ pub struct CentralDirectoryFileHeader<'a> {
 
     /// comment field
     pub comment: Cow<'a, [u8]>,
+}
+
+impl<'a> serde::Serialize for CentralDirectoryFileHeader<'a> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+
+        // see APPNOTE 4.4.4: Bit 11 is the language encoding flag (EFS)
+        let has_utf8_flag = self.flags & 0x800 == 0;
+        let encoding = if has_utf8_flag && detect_utf8(&self.name[..]).0 {
+            Encoding::Utf8
+        } else {
+            Encoding::Cp437
+        };
+
+        let mut state = serializer.serialize_struct("CentralDirectoryFileHeader", 15)?;
+
+        if let Ok(string) = encoding.decode(&self.name[..]) {
+            state.serialize_field("name", &string)?;
+        } else {
+            state.serialize_field("name", &self.name)?;
+        }
+
+        state.serialize_field("creator_version", &self.creator_version)?;
+        state.serialize_field("reader_version", &self.reader_version)?;
+        state.serialize_field("flags", &self.flags)?;
+        state.serialize_field("method", &self.method)?;
+        state.serialize_field("modified", &self.modified)?;
+        state.serialize_field("crc32", &self.crc32)?;
+        state.serialize_field("compressed_size", &self.compressed_size)?;
+        state.serialize_field("uncompressed_size", &self.uncompressed_size)?;
+        state.serialize_field("disk_nbr_start", &self.disk_nbr_start)?;
+        state.serialize_field("internal_attrs", &self.internal_attrs)?;
+        state.serialize_field("external_attrs", &self.external_attrs)?;
+        state.serialize_field("header_offset", &self.header_offset)?;
+
+        if let Ok(string) = encoding.decode(&self.extra[..]) {
+            state.serialize_field("extra", &string)?;
+        } else {
+            state.serialize_field("extra", &self.extra)?;
+        }
+
+        if let Ok(string) = encoding.decode(&self.comment[..]) {
+            state.serialize_field("comment", &string)?;
+        } else {
+            state.serialize_field("comment", &self.comment)?;
+        }
+
+        state.end()
+    }
 }
 
 impl<'a> CentralDirectoryFileHeader<'a> {
