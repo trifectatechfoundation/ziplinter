@@ -37,6 +37,8 @@ mod test {
             .canonicalize()
             .unwrap();
 
+        println!("fixtures_dir: {}", fixtures_dir.display());
+
         for entry in std::fs::read_dir(fixtures_dir).expect("Failed to read fixtures directory") {
             let entry = entry.expect("Failed to read entry");
             let path = entry.path();
@@ -48,6 +50,7 @@ mod test {
                 let Ok(result) = process_zip_file(&path) else {
                     continue;
                 };
+                println!("current file: {}", path.display());
                 assert_json_snapshot!(result);
             }
         }
