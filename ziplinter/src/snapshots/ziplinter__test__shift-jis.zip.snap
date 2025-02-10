@@ -4,11 +4,13 @@ expression: result
 ---
 {
   "comment": "",
-  "directory_headers": [
+  "contents": [
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 10,
       "crc32": 0,
+      "created": null,
       "creator_version": {
         "host_system": "Unix",
         "version": 20
@@ -17,24 +19,27 @@ expression: result
       "external_attrs": 2176188416,
       "extra": "UT\u0005\u0000\u0001\u0000Θ&]",
       "flags": 8,
+      "gid": null,
       "header_offset": 0,
       "internal_attrs": 0,
+      "local_header_offset": 0,
       "method": "Deflate",
-      "modified": {
-        "date": 20203,
-        "time": 15778
-      },
-      "name": "should-be-jis/ot_ë^û╜é╠âÅâïâc╚é╝é╚é╝Å¼é│é╚èyé╡é▌ùVé╤é▄.longboi",
+      "mode": 438,
+      "modified": "2019-07-11T07:45:04Z",
+      "name": "should-be-jis/ot_運命のワルツﾈぞなぞ小さな楽しみ遊びま.longboi",
       "reader_version": {
         "host_system": "MsDos",
         "version": 20
       },
+      "uid": null,
       "uncompressed_size": 0
     },
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 0,
       "crc32": 0,
+      "created": null,
       "creator_version": {
         "host_system": "Unix",
         "version": 20
@@ -53,52 +58,10 @@ expression: result
         93
       ],
       "flags": 8,
+      "gid": null,
       "header_offset": 127,
       "internal_attrs": 0,
-      "method": "Store",
-      "modified": {
-        "date": 20203,
-        "time": 15778
-      },
-      "name": "should-be-jis/",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uncompressed_size": 0
-    }
-  ],
-  "encoding": "ShiftJis",
-  "entries": [
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 10,
-      "crc32": 0,
-      "created": null,
-      "flags": 8,
-      "gid": null,
-      "header_offset": 0,
-      "method": "Deflate",
-      "mode": 438,
-      "modified": "2019-07-11T07:45:04Z",
-      "name": "should-be-jis/ot_運命のワルツﾈぞなぞ小さな楽しみ遊びま.longboi",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uid": null,
-      "uncompressed_size": 0
-    },
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 0,
-      "crc32": 0,
-      "created": null,
-      "flags": 8,
-      "gid": null,
-      "header_offset": 127,
+      "local_header_offset": 127,
       "method": "Store",
       "mode": 2147484159,
       "modified": "2019-07-11T07:45:04Z",
@@ -111,6 +74,7 @@ expression: result
       "uncompressed_size": 0
     }
   ],
+  "encoding": "ShiftJis",
   "eocd": {
     "dir": {
       "inner": {

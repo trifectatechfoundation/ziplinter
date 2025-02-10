@@ -4,11 +4,13 @@ expression: result
 ---
 {
   "comment": "",
-  "directory_headers": [
+  "contents": [
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 8,
       "crc32": 2098461837,
+      "created": null,
       "creator_version": {
         "host_system": "Unix",
         "version": 30
@@ -42,24 +44,27 @@ expression: result
         0
       ],
       "flags": 0,
+      "gid": 1000,
       "header_offset": 0,
       "internal_attrs": 1,
+      "local_header_offset": 0,
       "method": "Store",
-      "modified": {
-        "date": 16264,
-        "time": 20620
-      },
+      "mode": 438,
+      "modified": "2011-12-08T10:04:24Z",
       "name": "hello",
       "reader_version": {
         "host_system": "MsDos",
         "version": 10
       },
+      "uid": 1000,
       "uncompressed_size": 8
     },
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 6,
       "crc32": 2055117726,
+      "created": null,
       "creator_version": {
         "host_system": "Unix",
         "version": 30
@@ -93,24 +98,27 @@ expression: result
         0
       ],
       "flags": 0,
+      "gid": 1000,
       "header_offset": 71,
       "internal_attrs": 1,
+      "local_header_offset": 71,
       "method": "Store",
-      "modified": {
-        "date": 16264,
-        "time": 20633
-      },
+      "mode": 438,
+      "modified": "2011-12-08T10:04:50Z",
       "name": "dir/bar",
       "reader_version": {
         "host_system": "MsDos",
         "version": 10
       },
+      "uid": 1000,
       "uncompressed_size": 6
     },
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 0,
       "crc32": 0,
+      "created": null,
       "creator_version": {
         "host_system": "Unix",
         "version": 30
@@ -144,24 +152,27 @@ expression: result
         0
       ],
       "flags": 0,
+      "gid": 1000,
       "header_offset": 142,
       "internal_attrs": 0,
+      "local_header_offset": 142,
       "method": "Store",
-      "modified": {
-        "date": 16264,
-        "time": 20739
-      },
+      "mode": 2147484159,
+      "modified": "2011-12-08T10:08:06Z",
       "name": "dir/empty/",
       "reader_version": {
         "host_system": "MsDos",
         "version": 10
       },
+      "uid": 1000,
       "uncompressed_size": 0
     },
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 12,
       "crc32": 3127775578,
+      "created": null,
       "creator_version": {
         "host_system": "Unix",
         "version": 30
@@ -195,92 +206,10 @@ expression: result
         0
       ],
       "flags": 0,
+      "gid": 1000,
       "header_offset": 210,
       "internal_attrs": 1,
-      "method": "Store",
-      "modified": {
-        "date": 16264,
-        "time": 20676
-      },
-      "name": "readonly",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uncompressed_size": 12
-    }
-  ],
-  "encoding": "Utf8",
-  "entries": [
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 8,
-      "crc32": 2098461837,
-      "created": null,
-      "flags": 0,
-      "gid": 1000,
-      "header_offset": 0,
-      "method": "Store",
-      "mode": 438,
-      "modified": "2011-12-08T10:04:24Z",
-      "name": "hello",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uid": 1000,
-      "uncompressed_size": 8
-    },
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 6,
-      "crc32": 2055117726,
-      "created": null,
-      "flags": 0,
-      "gid": 1000,
-      "header_offset": 71,
-      "method": "Store",
-      "mode": 438,
-      "modified": "2011-12-08T10:04:50Z",
-      "name": "dir/bar",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uid": 1000,
-      "uncompressed_size": 6
-    },
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 0,
-      "crc32": 0,
-      "created": null,
-      "flags": 0,
-      "gid": 1000,
-      "header_offset": 142,
-      "method": "Store",
-      "mode": 2147484159,
-      "modified": "2011-12-08T10:08:06Z",
-      "name": "dir/empty/",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uid": 1000,
-      "uncompressed_size": 0
-    },
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 12,
-      "crc32": 3127775578,
-      "created": null,
-      "flags": 0,
-      "gid": 1000,
-      "header_offset": 210,
+      "local_header_offset": 210,
       "method": "Store",
       "mode": 292,
       "modified": "2011-12-08T10:06:08Z",
@@ -293,6 +222,7 @@ expression: result
       "uncompressed_size": 12
     }
   ],
+  "encoding": "Utf8",
   "eocd": {
     "dir": {
       "inner": {

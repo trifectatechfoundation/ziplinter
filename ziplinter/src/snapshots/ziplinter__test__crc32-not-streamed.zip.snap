@@ -4,11 +4,13 @@ expression: result
 ---
 {
   "comment": "",
-  "directory_headers": [
+  "contents": [
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 4,
       "crc32": 2117232040,
+      "created": null,
       "creator_version": {
         "host_system": "Unix",
         "version": 30
@@ -42,24 +44,27 @@ expression: result
         0
       ],
       "flags": 0,
+      "gid": 501,
       "header_offset": 0,
       "internal_attrs": 1,
+      "local_header_offset": 0,
       "method": "Store",
-      "modified": {
-        "date": 16488,
-        "time": 34661
-      },
+      "mode": 420,
+      "modified": "2012-03-09T00:59:10Z",
       "name": "foo.txt",
       "reader_version": {
         "host_system": "MsDos",
         "version": 10
       },
+      "uid": 501,
       "uncompressed_size": 4
     },
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 4,
       "crc32": 77771753,
+      "created": null,
       "creator_version": {
         "host_system": "Unix",
         "version": 30
@@ -93,52 +98,10 @@ expression: result
         0
       ],
       "flags": 0,
+      "gid": 501,
       "header_offset": 69,
       "internal_attrs": 1,
-      "method": "Store",
-      "modified": {
-        "date": 16488,
-        "time": 34662
-      },
-      "name": "bar.txt",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uncompressed_size": 4
-    }
-  ],
-  "encoding": "Utf8",
-  "entries": [
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 4,
-      "crc32": 2117232040,
-      "created": null,
-      "flags": 0,
-      "gid": 501,
-      "header_offset": 0,
-      "method": "Store",
-      "mode": 420,
-      "modified": "2012-03-09T00:59:10Z",
-      "name": "foo.txt",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uid": 501,
-      "uncompressed_size": 4
-    },
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 4,
-      "crc32": 77771753,
-      "created": null,
-      "flags": 0,
-      "gid": 501,
-      "header_offset": 69,
+      "local_header_offset": 69,
       "method": "Store",
       "mode": 420,
       "modified": "2012-03-09T00:59:12Z",
@@ -151,6 +114,7 @@ expression: result
       "uncompressed_size": 4
     }
   ],
+  "encoding": "Utf8",
   "eocd": {
     "dir": {
       "inner": {

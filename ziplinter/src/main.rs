@@ -60,13 +60,14 @@ mod test {
     use super::*;
 
     use insta::assert_json_snapshot;
-    use std::{error::Error, ops::Deref, path::Path};
+    use std::{error::Error, path::Path};
 
     fn process_zip_file(zip_path: &Path) -> Result<serde_json::Value, Box<dyn Error>> {
         let file = std::fs::File::open(zip_path).unwrap();
-        let archive = file.read_zip();
+        let archive = file.read_zip()?;
 
-        Ok(serde_json::to_value(archive?.deref())?)
+        let metadata = ZipMetadata::from(&*archive);
+        Ok(serde_json::to_value(metadata)?)
     }
 
     #[test]

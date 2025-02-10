@@ -4,11 +4,13 @@ expression: result
 ---
 {
   "comment": "",
-  "directory_headers": [
+  "contents": [
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 4,
       "crc32": 2117232040,
+      "created": null,
       "creator_version": {
         "host_system": "MsDos",
         "version": 20
@@ -17,24 +19,27 @@ expression: result
       "external_attrs": 0,
       "extra": "",
       "flags": 8,
+      "gid": null,
       "header_offset": 0,
       "internal_attrs": 0,
+      "local_header_offset": 0,
       "method": "Store",
-      "modified": {
-        "date": 0,
-        "time": 0
-      },
+      "mode": 438,
+      "modified": "1970-01-01T00:00:00Z",
       "name": "foo.txt",
       "reader_version": {
         "host_system": "MsDos",
         "version": 20
       },
+      "uid": null,
       "uncompressed_size": 4
     },
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 4,
       "crc32": 77771753,
+      "created": null,
       "creator_version": {
         "host_system": "MsDos",
         "version": 20
@@ -43,64 +48,23 @@ expression: result
       "external_attrs": 0,
       "extra": "",
       "flags": 8,
+      "gid": null,
       "header_offset": 57,
       "internal_attrs": 0,
+      "local_header_offset": 57,
       "method": "Store",
-      "modified": {
-        "date": 0,
-        "time": 0
-      },
+      "mode": 438,
+      "modified": "1970-01-01T00:00:00Z",
       "name": "bar.txt",
       "reader_version": {
         "host_system": "MsDos",
         "version": 20
       },
+      "uid": null,
       "uncompressed_size": 4
     }
   ],
   "encoding": "Utf8",
-  "entries": [
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 4,
-      "crc32": 2117232040,
-      "created": null,
-      "flags": 8,
-      "gid": null,
-      "header_offset": 0,
-      "method": "Store",
-      "mode": 438,
-      "modified": "1970-01-01T00:00:00Z",
-      "name": "foo.txt",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uid": null,
-      "uncompressed_size": 4
-    },
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 4,
-      "crc32": 77771753,
-      "created": null,
-      "flags": 8,
-      "gid": null,
-      "header_offset": 57,
-      "method": "Store",
-      "mode": 438,
-      "modified": "1970-01-01T00:00:00Z",
-      "name": "bar.txt",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uid": null,
-      "uncompressed_size": 4
-    }
-  ],
   "eocd": {
     "dir": {
       "inner": {

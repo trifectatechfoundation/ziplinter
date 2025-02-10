@@ -4,11 +4,13 @@ expression: result
 ---
 {
   "comment": "This is the source code repository for the Go programming language.  \r\n\r\nFor documentation about how to install and use Go,\r\nvisit https://golang.org/ or load doc/install.html in your web browser.\r\n\r\nAfter installing Go, you can view a nicely formatted\r\ndoc/install.html by running godoc --http=:6060\r\nand then visiting http://localhost:6060/doc/install.html.\r\n\r\nUnless otherwise noted, the Go source files are distributed\r\nunder the BSD-style license found in the LICENSE file.\r\n\r\n--\r\n\r\nBinary Distribution Notes\r\n\r\nIf you have just untarred a binary Go distribution, you need to set\r\nthe environment variable $GOROOT to the full path of the go\r\ndirectory (the one containing this README).  You can omit the\r\nvariable if you unpack it into /usr/local/go, or if you rebuild\r\nfrom sources by running all.bash (see doc/install.html).\r\nYou should also add the Go binary directory $GOROOT/bin\r\nto your shell's path.\r\n\r\nFor example, if you extracted the tar file into $HOME/go, you might\r\nput the following in your .profile:\r\n\r\n    export GOROOT=$HOME/go\r\n    export PATH=$PATH:$GOROOT/bin\r\n\r\nSee doc/install.html for more details",
-  "directory_headers": [
+  "contents": [
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 598,
       "crc32": 2181565152,
+      "created": null,
       "creator_version": {
         "host_system": "Unix",
         "version": 30
@@ -42,32 +44,10 @@ expression: result
         0
       ],
       "flags": 0,
-      "header_offset": 0,
-      "internal_attrs": 1,
-      "method": "Deflate",
-      "modified": {
-        "date": 15650,
-        "time": 24352
-      },
-      "name": "README",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uncompressed_size": 1096
-    }
-  ],
-  "encoding": "Utf8",
-  "entries": [
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 598,
-      "crc32": 2181565152,
-      "created": null,
-      "flags": 0,
       "gid": 1000,
       "header_offset": 0,
+      "internal_attrs": 1,
+      "local_header_offset": 0,
       "method": "Deflate",
       "mode": 420,
       "modified": "2010-09-02T15:56:59Z",
@@ -80,6 +60,7 @@ expression: result
       "uncompressed_size": 1096
     }
   ],
+  "encoding": "Utf8",
   "eocd": {
     "dir": {
       "inner": {

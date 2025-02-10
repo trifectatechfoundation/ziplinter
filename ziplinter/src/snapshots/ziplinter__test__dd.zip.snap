@@ -4,11 +4,13 @@ expression: result
 ---
 {
   "comment": "",
-  "directory_headers": [
+  "contents": [
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 24,
       "crc32": 2732840659,
+      "created": null,
       "creator_version": {
         "host_system": "MsDos",
         "version": 20
@@ -17,32 +19,10 @@ expression: result
       "external_attrs": 0,
       "extra": "",
       "flags": 8,
-      "header_offset": 0,
-      "internal_attrs": 0,
-      "method": "Deflate",
-      "modified": {
-        "date": 15938,
-        "time": 26826
-      },
-      "name": "filename",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uncompressed_size": 25
-    }
-  ],
-  "encoding": "Utf8",
-  "entries": [
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 24,
-      "crc32": 2732840659,
-      "created": null,
-      "flags": 8,
       "gid": null,
       "header_offset": 0,
+      "internal_attrs": 0,
+      "local_header_offset": 0,
       "method": "Deflate",
       "mode": 438,
       "modified": "2011-02-02T13:06:20Z",
@@ -55,6 +35,7 @@ expression: result
       "uncompressed_size": 25
     }
   ],
+  "encoding": "Utf8",
   "eocd": {
     "dir": {
       "inner": {

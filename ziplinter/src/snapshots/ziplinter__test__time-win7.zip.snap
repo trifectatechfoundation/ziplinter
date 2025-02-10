@@ -4,11 +4,13 @@ expression: result
 ---
 {
   "comment": "",
-  "directory_headers": [
+  "contents": [
     {
+      "accessed": null,
       "comment": "",
       "compressed_size": 0,
       "crc32": 0,
+      "created": null,
       "creator_version": {
         "host_system": "MsDos",
         "version": 20
@@ -17,32 +19,10 @@ expression: result
       "external_attrs": 0,
       "extra": "",
       "flags": 0,
-      "header_offset": 0,
-      "internal_attrs": 0,
-      "method": "Store",
-      "modified": {
-        "date": 19295,
-        "time": 43389
-      },
-      "name": "test.txt",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uncompressed_size": 0
-    }
-  ],
-  "encoding": "Utf8",
-  "entries": [
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 0,
-      "crc32": 0,
-      "created": null,
-      "flags": 0,
       "gid": null,
       "header_offset": 0,
+      "internal_attrs": 0,
+      "local_header_offset": 0,
       "method": "Store",
       "mode": 438,
       "modified": "2017-10-31T21:11:58Z",
@@ -55,6 +35,7 @@ expression: result
       "uncompressed_size": 0
     }
   ],
+  "encoding": "Utf8",
   "eocd": {
     "dir": {
       "inner": {
