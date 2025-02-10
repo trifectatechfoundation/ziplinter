@@ -20,7 +20,6 @@ use super::{
 /// higher-levelr interfaces like
 /// [rc-zip-sync](https://crates.io/crates/rc-zip-sync) or
 /// [rc-zip-tokio](https://crates.io/crates/rc-zip-tokio).
-#[derive(serde::Serialize)]
 pub struct Archive {
     pub eocd: EndOfCentralDirectory<'static>,
     pub directory_headers: Vec<CentralDirectoryFileHeader<'static>>,

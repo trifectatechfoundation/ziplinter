@@ -1345,6 +1345,7 @@ dependencies = [
  "insta",
  "rc-zip",
  "rc-zip-sync",
+ "serde",
  "serde_json",
 ]
 

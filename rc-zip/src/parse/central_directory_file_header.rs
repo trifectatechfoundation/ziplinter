@@ -87,23 +87,10 @@ impl serde::Serialize for CentralDirectoryFileHeader<'_> {
 
         let mut state = serializer.serialize_struct("CentralDirectoryFileHeader", 15)?;
 
-        if let Ok(string) = encoding.decode(&self.name[..]) {
-            state.serialize_field("name", &string)?;
-        } else {
-            state.serialize_field("name", &self.name)?;
-        }
-
-        state.serialize_field("header_offset", &self.header_offset)?;
-
-        state.serialize_field("compressed_size", &self.compressed_size)?;
-        state.serialize_field("uncompressed_size", &self.uncompressed_size)?;
-
+        // Only serialize fields that are not part of the `Entry` generated with `as_entry`
+        // This offset does not have the `global_offset` added to it, unlike the one in `Entry`
+        state.serialize_field("local_header_offset", &self.header_offset)?;
         state.serialize_field("creator_version", &self.creator_version)?;
-        state.serialize_field("reader_version", &self.reader_version)?;
-        state.serialize_field("flags", &self.flags)?;
-        state.serialize_field("method", &self.method)?;
-        state.serialize_field("modified", &self.modified)?;
-        state.serialize_field("crc32", &self.crc32)?;
         state.serialize_field("disk_nbr_start", &self.disk_nbr_start)?;
         state.serialize_field("internal_attrs", &self.internal_attrs)?;
         state.serialize_field("external_attrs", &self.external_attrs)?;
@@ -112,12 +99,6 @@ impl serde::Serialize for CentralDirectoryFileHeader<'_> {
             state.serialize_field("extra", &string)?;
         } else {
             state.serialize_field("extra", &self.extra)?;
-        }
-
-        if let Ok(string) = encoding.decode(&self.comment[..]) {
-            state.serialize_field("comment", &string)?;
-        } else {
-            state.serialize_field("comment", &self.comment)?;
         }
 
         state.end()
