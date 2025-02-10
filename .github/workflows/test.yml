@@ -28,6 +28,9 @@ jobs:
         uses: taiki-e/install-action@v2
         with:
           tool: nextest
+      - name: Run cargo clippy
+        run: |
+          cargo clippy
       - name: Run cargo nextest
         run: |
           cargo nextest run --profile ci --all-features

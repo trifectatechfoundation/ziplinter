@@ -70,7 +70,7 @@ pub struct CentralDirectoryFileHeader<'a> {
     pub comment: Cow<'a, [u8]>,
 }
 
-impl<'a> serde::Serialize for CentralDirectoryFileHeader<'a> {
+impl serde::Serialize for CentralDirectoryFileHeader<'_> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
