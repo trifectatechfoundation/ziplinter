@@ -85,6 +85,7 @@ enum State {
 pub struct EntryFsm {
     state: State,
     entry: Option<Entry>,
+    local_header: Option<LocalFileHeader<'static>>,
     buffer: Buffer,
 }
 
@@ -96,6 +97,7 @@ impl EntryFsm {
         Self {
             state: State::ReadLocalHeader,
             entry,
+            local_header: None,
             buffer: match buffer {
                 Some(buffer) => {
                     assert!(buffer.capacity() >= BUF_CAPACITY, "buffer too small");
@@ -155,10 +157,6 @@ impl EntryFsm {
                     self.entry.as_ref().map(|entry| entry.uncompressed_size),
                 )?;
 
-                if self.entry.is_none() {
-                    self.entry = Some(header.as_entry()?);
-                }
-
                 self.state = State::ReadData {
                     is_zip64: header.compressed_size == u32::MAX
                         || header.uncompressed_size == u32::MAX,
@@ -168,6 +166,13 @@ impl EntryFsm {
                     hasher: crc32fast::Hasher::new(),
                     decompressor,
                 };
+
+                if self.entry.is_none() {
+                    self.entry = Some(header.as_entry()?);
+                }
+
+                self.local_header = Some(header.to_owned());
+
                 self.buffer.consume(consumed);
                 Ok(true)
             }
@@ -189,7 +194,10 @@ impl EntryFsm {
     pub fn process(
         mut self,
         out: &mut [u8],
-    ) -> Result<FsmResult<(Self, DecompressOutcome), Buffer>, Error> {
+    ) -> Result<
+        FsmResult<(Self, DecompressOutcome), (Buffer, Option<LocalFileHeader<'static>>)>,
+        Error,
+    > {
         tracing::trace!(
             state = match &self.state {
                 State::ReadLocalHeader => "ReadLocalHeader",
@@ -358,7 +366,7 @@ impl EntryFsm {
                         }));
                     }
 
-                    Ok(FsmResult::Done(self.buffer))
+                    Ok(FsmResult::Done((self.buffer, self.local_header)))
                 }
                 S::Transition => {
                     unreachable!("the state machine should never be in the transition state")
@@ -383,6 +391,10 @@ impl EntryFsm {
     #[inline]
     pub fn fill(&mut self, count: usize) -> usize {
         self.buffer.fill(count)
+    }
+
+    pub fn local_header_entry(&self) -> &Option<LocalFileHeader> {
+        &self.local_header
     }
 }
 

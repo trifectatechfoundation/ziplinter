@@ -4,57 +4,77 @@ expression: result
 ---
 {
   "comment": "",
-  "directory_headers": [
+  "contents": [
     {
-      "comment": "",
-      "compressed_size": 4294967295,
-      "crc32": 1778378622,
-      "creator_version": {
-        "host_system": "Unix",
-        "version": 45
+      "central": {
+        "comment": "",
+        "compressed_size": 4294967295,
+        "crc32": 1778378622,
+        "creator_version": {
+          "host_system": "Unix",
+          "version": 45
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 2175008768,
+        "extra": [
+          1,
+          0,
+          16,
+          0,
+          36,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          36,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "flags": 0,
+        "header_offset": 0,
+        "internal_attrs": 0,
+        "method": "Deflate",
+        "mode": 420,
+        "modified": "2012-08-10T14:33:32Z",
+        "name": "README",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 45
+        },
+        "uncompressed_size": 4294967295
       },
-      "disk_nbr_start": 0,
-      "external_attrs": 2175008768,
-      "extra": "\u0001\u0000\u0010\u0000$\u0000\u0000\u0000\u0000\u0000\u0000\u0000$\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
-      "flags": 0,
-      "header_offset": 0,
-      "internal_attrs": 0,
-      "method": "Deflate",
-      "modified": {
-        "date": 16650,
-        "time": 29744
-      },
-      "name": "README",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 45
-      },
-      "uncompressed_size": 4294967295
+      "local": {
+        "accessed": null,
+        "compressed_size": 36,
+        "crc32": 1778378622,
+        "created": null,
+        "extra": [],
+        "flags": 0,
+        "gid": null,
+        "header_offset": 0,
+        "method": "Deflate",
+        "method_specific": "None",
+        "mode": 0,
+        "modified": "2012-08-10T14:33:32Z",
+        "name": "README",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uid": null,
+        "uncompressed_size": 36
+      }
     }
   ],
   "encoding": "Utf8",
-  "entries": [
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 36,
-      "crc32": 1778378622,
-      "created": null,
-      "flags": 0,
-      "gid": null,
-      "header_offset": 0,
-      "method": "Deflate",
-      "mode": 420,
-      "modified": "2012-08-10T14:33:32Z",
-      "name": "README",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 45
-      },
-      "uid": null,
-      "uncompressed_size": 36
-    }
-  ],
   "eocd": {
     "dir": {
       "inner": {

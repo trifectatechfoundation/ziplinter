@@ -4,94 +4,93 @@ expression: result
 ---
 {
   "comment": "",
-  "directory_headers": [
+  "contents": [
     {
-      "comment": "",
-      "compressed_size": 37,
-      "crc32": 1745162907,
-      "creator_version": {
-        "host_system": "MsDos",
-        "version": 63
+      "central": {
+        "comment": "",
+        "compressed_size": 37,
+        "crc32": 1745162907,
+        "creator_version": {
+          "host_system": "MsDos",
+          "version": 63
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 128,
+        "extra": [
+          10,
+          0,
+          32,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          24,
+          0,
+          178,
+          67,
+          138,
+          46,
+          12,
+          84,
+          218,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "flags": 0,
+        "header_offset": 0,
+        "internal_attrs": 0,
+        "method": "Zstd",
+        "mode": 438,
+        "modified": "2024-01-31T06:10:25.800491400Z",
+        "name": "found-me.txt",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uncompressed_size": 100000
       },
-      "disk_nbr_start": 0,
-      "external_attrs": 128,
-      "extra": [
-        10,
-        0,
-        32,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        24,
-        0,
-        178,
-        67,
-        138,
-        46,
-        12,
-        84,
-        218,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "flags": 0,
-      "header_offset": 0,
-      "internal_attrs": 0,
-      "method": "Zstd",
-      "modified": {
-        "date": 22591,
-        "time": 14669
-      },
-      "name": "found-me.txt",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uncompressed_size": 100000
+      "local": {
+        "accessed": null,
+        "compressed_size": 37,
+        "crc32": 1745162907,
+        "created": null,
+        "extra": [],
+        "flags": 0,
+        "gid": null,
+        "header_offset": 0,
+        "method": "Zstd",
+        "method_specific": "None",
+        "mode": 0,
+        "modified": "2024-01-31T07:10:26Z",
+        "name": "found-me.txt",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uid": null,
+        "uncompressed_size": 100000
+      }
     }
   ],
   "encoding": "Utf8",
-  "entries": [
-    {
-      "accessed": "1601-01-01T00:00:00Z",
-      "comment": "",
-      "compressed_size": 37,
-      "crc32": 1745162907,
-      "created": "1601-01-01T00:00:00Z",
-      "flags": 0,
-      "gid": null,
-      "header_offset": 0,
-      "method": "Zstd",
-      "mode": 438,
-      "modified": "2024-01-31T06:10:25.800491400Z",
-      "name": "found-me.txt",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uid": null,
-      "uncompressed_size": 100000
-    }
-  ],
   "eocd": {
     "dir": {
       "inner": {

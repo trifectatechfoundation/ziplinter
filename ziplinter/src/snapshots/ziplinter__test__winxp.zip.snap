@@ -4,195 +4,197 @@ expression: result
 ---
 {
   "comment": "",
-  "directory_headers": [
+  "contents": [
     {
-      "comment": "",
-      "compressed_size": 8,
-      "crc32": 2098461837,
-      "creator_version": {
-        "host_system": "Mvs",
-        "version": 20
+      "central": {
+        "comment": "",
+        "compressed_size": 8,
+        "crc32": 2098461837,
+        "creator_version": {
+          "host_system": "Mvs",
+          "version": 20
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 32,
+        "extra": [],
+        "flags": 0,
+        "header_offset": 0,
+        "internal_attrs": 1,
+        "method": "Store",
+        "mode": 0,
+        "modified": "2011-12-08T10:04:24Z",
+        "name": "hello",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 10
+        },
+        "uncompressed_size": 8
       },
-      "disk_nbr_start": 0,
-      "external_attrs": 32,
-      "extra": "",
-      "flags": 0,
-      "header_offset": 0,
-      "internal_attrs": 1,
-      "method": "Store",
-      "modified": {
-        "date": 16264,
-        "time": 20620
-      },
-      "name": "hello",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uncompressed_size": 8
+      "local": {
+        "accessed": null,
+        "compressed_size": 8,
+        "crc32": 2098461837,
+        "created": null,
+        "extra": [],
+        "flags": 0,
+        "gid": null,
+        "header_offset": 0,
+        "method": "Store",
+        "method_specific": "None",
+        "mode": 0,
+        "modified": "2011-12-08T10:04:24Z",
+        "name": "hello",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 10
+        },
+        "uid": null,
+        "uncompressed_size": 8
+      }
     },
     {
-      "comment": "",
-      "compressed_size": 6,
-      "crc32": 2055117726,
-      "creator_version": {
-        "host_system": "Mvs",
-        "version": 20
+      "central": {
+        "comment": "",
+        "compressed_size": 6,
+        "crc32": 2055117726,
+        "creator_version": {
+          "host_system": "Mvs",
+          "version": 20
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 32,
+        "extra": [],
+        "flags": 0,
+        "header_offset": 43,
+        "internal_attrs": 1,
+        "method": "Store",
+        "mode": 0,
+        "modified": "2011-12-08T10:04:50Z",
+        "name": "dir/bar",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 10
+        },
+        "uncompressed_size": 6
       },
-      "disk_nbr_start": 0,
-      "external_attrs": 32,
-      "extra": "",
-      "flags": 0,
-      "header_offset": 43,
-      "internal_attrs": 1,
-      "method": "Store",
-      "modified": {
-        "date": 16264,
-        "time": 20633
-      },
-      "name": "dir/bar",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uncompressed_size": 6
+      "local": {
+        "accessed": null,
+        "compressed_size": 6,
+        "crc32": 2055117726,
+        "created": null,
+        "extra": [],
+        "flags": 0,
+        "gid": null,
+        "header_offset": 0,
+        "method": "Store",
+        "method_specific": "None",
+        "mode": 0,
+        "modified": "2011-12-08T10:04:50Z",
+        "name": "dir/bar",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 10
+        },
+        "uid": null,
+        "uncompressed_size": 6
+      }
     },
     {
-      "comment": "",
-      "compressed_size": 0,
-      "crc32": 0,
-      "creator_version": {
-        "host_system": "Mvs",
-        "version": 20
+      "central": {
+        "comment": "",
+        "compressed_size": 0,
+        "crc32": 0,
+        "creator_version": {
+          "host_system": "Mvs",
+          "version": 20
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 16,
+        "extra": [],
+        "flags": 0,
+        "header_offset": 86,
+        "internal_attrs": 0,
+        "method": "Store",
+        "mode": 2147483648,
+        "modified": "2011-12-08T10:08:06Z",
+        "name": "dir/empty/",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 10
+        },
+        "uncompressed_size": 0
       },
-      "disk_nbr_start": 0,
-      "external_attrs": 16,
-      "extra": "",
-      "flags": 0,
-      "header_offset": 86,
-      "internal_attrs": 0,
-      "method": "Store",
-      "modified": {
-        "date": 16264,
-        "time": 20739
-      },
-      "name": "dir/empty/",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uncompressed_size": 0
+      "local": {
+        "accessed": null,
+        "compressed_size": 0,
+        "crc32": 0,
+        "created": null,
+        "extra": [],
+        "flags": 0,
+        "gid": null,
+        "header_offset": 0,
+        "method": "Store",
+        "method_specific": "None",
+        "mode": 2147483648,
+        "modified": "2011-12-08T10:08:06Z",
+        "name": "dir/empty/",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 10
+        },
+        "uid": null,
+        "uncompressed_size": 0
+      }
     },
     {
-      "comment": "",
-      "compressed_size": 12,
-      "crc32": 3127775578,
-      "creator_version": {
-        "host_system": "Mvs",
-        "version": 20
+      "central": {
+        "comment": "",
+        "compressed_size": 12,
+        "crc32": 3127775578,
+        "creator_version": {
+          "host_system": "Mvs",
+          "version": 20
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 33,
+        "extra": [],
+        "flags": 0,
+        "header_offset": 126,
+        "internal_attrs": 1,
+        "method": "Store",
+        "mode": 0,
+        "modified": "2011-12-08T10:06:08Z",
+        "name": "readonly",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 10
+        },
+        "uncompressed_size": 12
       },
-      "disk_nbr_start": 0,
-      "external_attrs": 33,
-      "extra": "",
-      "flags": 0,
-      "header_offset": 126,
-      "internal_attrs": 1,
-      "method": "Store",
-      "modified": {
-        "date": 16264,
-        "time": 20676
-      },
-      "name": "readonly",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uncompressed_size": 12
+      "local": {
+        "accessed": null,
+        "compressed_size": 12,
+        "crc32": 3127775578,
+        "created": null,
+        "extra": [],
+        "flags": 0,
+        "gid": null,
+        "header_offset": 0,
+        "method": "Store",
+        "method_specific": "None",
+        "mode": 0,
+        "modified": "2011-12-08T10:06:08Z",
+        "name": "readonly",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 10
+        },
+        "uid": null,
+        "uncompressed_size": 12
+      }
     }
   ],
   "encoding": "Utf8",
-  "entries": [
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 8,
-      "crc32": 2098461837,
-      "created": null,
-      "flags": 0,
-      "gid": null,
-      "header_offset": 0,
-      "method": "Store",
-      "mode": 0,
-      "modified": "2011-12-08T10:04:24Z",
-      "name": "hello",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uid": null,
-      "uncompressed_size": 8
-    },
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 6,
-      "crc32": 2055117726,
-      "created": null,
-      "flags": 0,
-      "gid": null,
-      "header_offset": 43,
-      "method": "Store",
-      "mode": 0,
-      "modified": "2011-12-08T10:04:50Z",
-      "name": "dir/bar",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uid": null,
-      "uncompressed_size": 6
-    },
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 0,
-      "crc32": 0,
-      "created": null,
-      "flags": 0,
-      "gid": null,
-      "header_offset": 86,
-      "method": "Store",
-      "mode": 2147483648,
-      "modified": "2011-12-08T10:08:06Z",
-      "name": "dir/empty/",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uid": null,
-      "uncompressed_size": 0
-    },
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 12,
-      "crc32": 3127775578,
-      "created": null,
-      "flags": 0,
-      "gid": null,
-      "header_offset": 126,
-      "method": "Store",
-      "mode": 0,
-      "modified": "2011-12-08T10:06:08Z",
-      "name": "readonly",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 10
-      },
-      "uid": null,
-      "uncompressed_size": 12
-    }
-  ],
   "eocd": {
     "dir": {
       "inner": {

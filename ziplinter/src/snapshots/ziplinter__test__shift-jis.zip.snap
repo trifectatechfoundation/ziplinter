@@ -4,113 +4,143 @@ expression: result
 ---
 {
   "comment": "",
-  "directory_headers": [
+  "contents": [
     {
-      "comment": "",
-      "compressed_size": 10,
-      "crc32": 0,
-      "creator_version": {
-        "host_system": "Unix",
-        "version": 20
+      "central": {
+        "comment": "",
+        "compressed_size": 10,
+        "crc32": 0,
+        "creator_version": {
+          "host_system": "Unix",
+          "version": 20
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 2176188416,
+        "extra": [
+          85,
+          84,
+          5,
+          0,
+          1,
+          0,
+          233,
+          38,
+          93
+        ],
+        "flags": 8,
+        "header_offset": 0,
+        "internal_attrs": 0,
+        "method": "Deflate",
+        "mode": 438,
+        "modified": "2019-07-11T07:45:04Z",
+        "name": "should-be-jis/ot_運命のワルツﾈぞなぞ小さな楽しみ遊びま.longboi",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uncompressed_size": 0
       },
-      "disk_nbr_start": 0,
-      "external_attrs": 2176188416,
-      "extra": "UT\u0005\u0000\u0001\u0000Θ&]",
-      "flags": 8,
-      "header_offset": 0,
-      "internal_attrs": 0,
-      "method": "Deflate",
-      "modified": {
-        "date": 20203,
-        "time": 15778
-      },
-      "name": "should-be-jis/ot_ë^û╜é╠âÅâïâc╚é╝é╚é╝Å¼é│é╚èyé╡é▌ùVé╤é▄.longboi",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uncompressed_size": 0
+      "local": {
+        "accessed": null,
+        "compressed_size": 0,
+        "crc32": 0,
+        "created": null,
+        "extra": [
+          85,
+          84,
+          5,
+          0,
+          1,
+          0,
+          233,
+          38,
+          93
+        ],
+        "flags": 8,
+        "gid": null,
+        "header_offset": 0,
+        "method": "Deflate",
+        "method_specific": "None",
+        "mode": 0,
+        "modified": "2019-07-11T07:45:04Z",
+        "name": "should-be-jis/ot_ë^û╜é╠âÅâïâc╚é╝é╚é╝Å¼é│é╚èyé╡é▌ùVé╤é▄.longboi",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uid": null,
+        "uncompressed_size": 0
+      }
     },
     {
-      "comment": "",
-      "compressed_size": 0,
-      "crc32": 0,
-      "creator_version": {
-        "host_system": "Unix",
-        "version": 20
+      "central": {
+        "comment": "",
+        "compressed_size": 0,
+        "crc32": 0,
+        "creator_version": {
+          "host_system": "Unix",
+          "version": 20
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 1107230736,
+        "extra": [
+          85,
+          84,
+          5,
+          0,
+          1,
+          0,
+          233,
+          38,
+          93
+        ],
+        "flags": 8,
+        "header_offset": 127,
+        "internal_attrs": 0,
+        "method": "Store",
+        "mode": 2147484159,
+        "modified": "2019-07-11T07:45:04Z",
+        "name": "should-be-jis/",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uncompressed_size": 0
       },
-      "disk_nbr_start": 0,
-      "external_attrs": 1107230736,
-      "extra": [
-        85,
-        84,
-        5,
-        0,
-        1,
-        0,
-        233,
-        38,
-        93
-      ],
-      "flags": 8,
-      "header_offset": 127,
-      "internal_attrs": 0,
-      "method": "Store",
-      "modified": {
-        "date": 20203,
-        "time": 15778
-      },
-      "name": "should-be-jis/",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uncompressed_size": 0
+      "local": {
+        "accessed": null,
+        "compressed_size": 0,
+        "crc32": 0,
+        "created": null,
+        "extra": [
+          85,
+          84,
+          5,
+          0,
+          1,
+          0,
+          233,
+          38,
+          93
+        ],
+        "flags": 8,
+        "gid": null,
+        "header_offset": 0,
+        "method": "Store",
+        "method_specific": "None",
+        "mode": 2147483648,
+        "modified": "2019-07-11T07:45:04Z",
+        "name": "should-be-jis/",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uid": null,
+        "uncompressed_size": 0
+      }
     }
   ],
   "encoding": "ShiftJis",
-  "entries": [
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 10,
-      "crc32": 0,
-      "created": null,
-      "flags": 8,
-      "gid": null,
-      "header_offset": 0,
-      "method": "Deflate",
-      "mode": 438,
-      "modified": "2019-07-11T07:45:04Z",
-      "name": "should-be-jis/ot_運命のワルツﾈぞなぞ小さな楽しみ遊びま.longboi",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uid": null,
-      "uncompressed_size": 0
-    },
-    {
-      "accessed": null,
-      "comment": "",
-      "compressed_size": 0,
-      "crc32": 0,
-      "created": null,
-      "flags": 8,
-      "gid": null,
-      "header_offset": 127,
-      "method": "Store",
-      "mode": 2147484159,
-      "modified": "2019-07-11T07:45:04Z",
-      "name": "should-be-jis/",
-      "reader_version": {
-        "host_system": "MsDos",
-        "version": 20
-      },
-      "uid": null,
-      "uncompressed_size": 0
-    }
-  ],
   "eocd": {
     "dir": {
       "inner": {

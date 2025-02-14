@@ -19,7 +19,7 @@ use winnow::{
 
 use super::{zero_datetime, Entry, ExtraField, ExtraFieldSettings, Mode};
 
-#[derive(Debug, ToOwned, IntoOwned)]
+#[derive(Clone, Debug, ToOwned, IntoOwned)]
 /// 4.3.7 Local file header
 pub struct LocalFileHeader<'a> {
     /// version needed to extract
@@ -53,7 +53,7 @@ pub struct LocalFileHeader<'a> {
     pub method_specific: MethodSpecific,
 }
 
-#[derive(Debug, ToOwned, IntoOwned)]
+#[derive(Clone, Copy, Debug, ToOwned, IntoOwned, serde::Serialize)]
 /// Method-specific properties following the local file header
 pub enum MethodSpecific {
     /// No method-specific properties
@@ -226,7 +226,7 @@ impl DataDescriptorRecord {
 }
 
 /// 5.8.5 LZMA Properties header
-#[derive(Debug, ToOwned, IntoOwned)]
+#[derive(Clone, Copy, Debug, ToOwned, IntoOwned, serde::Serialize)]
 pub struct LzmaProperties {
     /// major version
     pub major: u8,
