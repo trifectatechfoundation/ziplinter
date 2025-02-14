@@ -63,7 +63,7 @@ impl Archive {
 }
 
 /// Describes a zip archive entry (a file, a directory, a symlink)
-#[derive(Clone, serde::Serialize)]
+#[derive(Debug, Clone, serde::Serialize)]
 pub struct Entry {
     /// Name of the file
     ///

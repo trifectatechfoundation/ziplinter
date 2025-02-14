@@ -1,13 +1,13 @@
 use rc_zip::{
     error::Error,
     fsm::{ArchiveFsm, FsmResult},
-    parse::Archive,
+    parse::{Archive, LocalFileHeader},
 };
 use rc_zip::{fsm::EntryFsm, parse::Entry};
 use tracing::trace;
 
-use crate::entry_reader::EntryReader;
 use crate::streaming_entry_reader::StreamingEntryReader;
+use crate::{entry_reader::EntryReader, local_header_reader::LocalHeaderReader};
 use std::{io::Read, ops::Deref};
 
 /// A trait for reading something as a zip archive
@@ -182,6 +182,16 @@ where
     F: HasCursor,
 {
     /// Returns a reader for the entry.
+    pub fn local_header(&'a self) -> std::io::Result<Option<LocalFileHeader<'a>>> {
+        let mut v = vec![0u8; 1];
+        let reader = self.file.cursor_at(self.entry.header_offset);
+        let mut reader = LocalHeaderReader::new(self.entry, reader);
+        let opt_header = reader.run(&mut v)?;
+
+        Ok(opt_header.map(|v| v.to_owned()))
+    }
+
+    /// Returns a reader for the entry.
     pub fn reader(&self) -> impl Read + 'a {
         EntryReader::new(self.entry, self.file.cursor_at(self.entry.header_offset))
     }
@@ -206,7 +216,8 @@ pub trait HasCursor {
 }
 
 impl HasCursor for &[u8] {
-    type Cursor<'a> = &'a [u8]
+    type Cursor<'a>
+        = &'a [u8]
     where
         Self: 'a;
 
@@ -216,7 +227,8 @@ impl HasCursor for &[u8] {
 }
 
 impl HasCursor for Vec<u8> {
-    type Cursor<'a> = &'a [u8]
+    type Cursor<'a>
+        = &'a [u8]
     where
         Self: 'a;
 
@@ -227,7 +239,8 @@ impl HasCursor for Vec<u8> {
 
 #[cfg(feature = "file")]
 impl HasCursor for std::fs::File {
-    type Cursor<'a> = positioned_io::Cursor<&'a std::fs::File>
+    type Cursor<'a>
+        = positioned_io::Cursor<&'a std::fs::File>
     where
         Self: 'a;
 

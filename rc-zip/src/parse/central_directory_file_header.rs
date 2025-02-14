@@ -70,41 +70,6 @@ pub struct CentralDirectoryFileHeader<'a> {
     pub comment: Cow<'a, [u8]>,
 }
 
-impl serde::Serialize for CentralDirectoryFileHeader<'_> {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-
-        // see APPNOTE 4.4.4: Bit 11 is the language encoding flag (EFS)
-        let has_utf8_flag = self.flags & 0x800 == 0;
-        let encoding = if has_utf8_flag && detect_utf8(&self.name[..]).0 {
-            Encoding::Utf8
-        } else {
-            Encoding::Cp437
-        };
-
-        let mut state = serializer.serialize_struct("CentralDirectoryFileHeader", 15)?;
-
-        // Only serialize fields that are not part of the `Entry` generated with `as_entry`
-        // This offset does not have the `global_offset` added to it, unlike the one in `Entry`
-        state.serialize_field("local_header_offset", &self.header_offset)?;
-        state.serialize_field("creator_version", &self.creator_version)?;
-        state.serialize_field("disk_nbr_start", &self.disk_nbr_start)?;
-        state.serialize_field("internal_attrs", &self.internal_attrs)?;
-        state.serialize_field("external_attrs", &self.external_attrs)?;
-
-        if let Ok(string) = encoding.decode(&self.extra[..]) {
-            state.serialize_field("extra", &string)?;
-        } else {
-            state.serialize_field("extra", &self.extra)?;
-        }
-
-        state.end()
-    }
-}
-
 impl<'a> CentralDirectoryFileHeader<'a> {
     const SIGNATURE: &'static str = "PK\x01\x02";
 
