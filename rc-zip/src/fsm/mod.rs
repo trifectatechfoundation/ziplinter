@@ -25,6 +25,9 @@ pub use archive::ArchiveFsm;
 mod entry;
 pub use entry::{DecompressOutcome, EntryFsm};
 
+mod parsed_ranges;
+pub use parsed_ranges::ParsedRanges;
+
 /// Indicates whether or not the state machine has completed its work
 pub enum FsmResult<M, R> {
     /// The I/O loop needs to continue, the state machine is given back.

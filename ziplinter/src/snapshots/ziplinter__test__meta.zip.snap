@@ -2795,5 +2795,177 @@ expression: result
     "dir64": null,
     "global_offset": 0
   },
+  "parsed_ranges": [
+    {
+      "end": 45922,
+      "kind": "eocd",
+      "start": 45900
+    },
+    {
+      "end": 42472,
+      "kind": "cd header",
+      "start": 42383
+    },
+    {
+      "end": 42573,
+      "kind": "cd header",
+      "start": 42472
+    },
+    {
+      "end": 42672,
+      "kind": "cd header",
+      "start": 42662
+    },
+    {
+      "end": 42770,
+      "kind": "cd header",
+      "start": 42951
+    },
+    {
+      "end": 42863,
+      "kind": "cd header",
+      "start": 43338
+    },
+    {
+      "end": 42963,
+      "kind": "cd header",
+      "start": 43818
+    },
+    {
+      "end": 43069,
+      "kind": "cd header",
+      "start": 44398
+    },
+    {
+      "end": 43173,
+      "kind": "cd header",
+      "start": 45084
+    },
+    {
+      "end": 43274,
+      "kind": "cd header",
+      "start": 45874
+    },
+    {
+      "end": 43371,
+      "kind": "cd header",
+      "start": 46765
+    },
+    {
+      "end": 43478,
+      "kind": "cd header",
+      "start": 47753
+    },
+    {
+      "end": 43581,
+      "kind": "cd header",
+      "start": 48848
+    },
+    {
+      "end": 43696,
+      "kind": "cd header",
+      "start": 50046
+    },
+    {
+      "end": 43815,
+      "kind": "cd header",
+      "start": 51359
+    },
+    {
+      "end": 43932,
+      "kind": "cd header",
+      "start": 52791
+    },
+    {
+      "end": 44046,
+      "kind": "cd header",
+      "start": 54340
+    },
+    {
+      "end": 44155,
+      "kind": "cd header",
+      "start": 56003
+    },
+    {
+      "end": 44270,
+      "kind": "cd header",
+      "start": 57775
+    },
+    {
+      "end": 44384,
+      "kind": "cd header",
+      "start": 59662
+    },
+    {
+      "end": 44487,
+      "kind": "cd header",
+      "start": 61663
+    },
+    {
+      "end": 44586,
+      "kind": "cd header",
+      "start": 63767
+    },
+    {
+      "end": 44685,
+      "kind": "cd header",
+      "start": 65970
+    },
+    {
+      "end": 44794,
+      "kind": "cd header",
+      "start": 68272
+    },
+    {
+      "end": 44925,
+      "kind": "cd header",
+      "start": 70683
+    },
+    {
+      "end": 45036,
+      "kind": "cd header",
+      "start": 73225
+    },
+    {
+      "end": 45142,
+      "kind": "cd header",
+      "start": 75878
+    },
+    {
+      "end": 45255,
+      "kind": "cd header",
+      "start": 78637
+    },
+    {
+      "end": 45370,
+      "kind": "cd header",
+      "start": 81509
+    },
+    {
+      "end": 45475,
+      "kind": "cd header",
+      "start": 84496
+    },
+    {
+      "end": 45581,
+      "kind": "cd header",
+      "start": 87588
+    },
+    {
+      "end": 45690,
+      "kind": "cd header",
+      "start": 90786
+    },
+    {
+      "end": 45785,
+      "kind": "cd header",
+      "start": 94093
+    },
+    {
+      "end": 45900,
+      "kind": "cd header",
+      "start": 97495
+    }
+  ],
   "size": 45922
 }

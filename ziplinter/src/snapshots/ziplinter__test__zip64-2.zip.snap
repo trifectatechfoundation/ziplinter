@@ -128,5 +128,27 @@ expression: result
     },
     "global_offset": 0
   },
+  "parsed_ranges": [
+    {
+      "end": 266,
+      "kind": "eocd",
+      "start": 244
+    },
+    {
+      "end": 244,
+      "kind": "eocd64 locator",
+      "start": 224
+    },
+    {
+      "end": 224,
+      "kind": "eocd64",
+      "start": 168
+    },
+    {
+      "end": 168,
+      "kind": "cd header",
+      "start": 72
+    }
+  ],
   "size": 266
 }

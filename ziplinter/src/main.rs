@@ -1,6 +1,7 @@
 use rc_zip::{
     chrono::{DateTime, Utc},
     encoding::Encoding,
+    fsm::ParsedRanges,
     parse::{EndOfCentralDirectory, Entry, Method, MethodSpecific, Mode, Version},
 };
 use rc_zip_sync::{ArchiveHandle, HasCursor, ReadZip};
@@ -189,6 +190,7 @@ struct ZipMetadata<'a> {
     size: u64,
     comment: &'a String,
     contents: Vec<FileMetadata>,
+    parsed_ranges: &'a ParsedRanges,
 }
 
 impl<'a, F> From<&'a ArchiveHandle<'a, F>> for ZipMetadata<'a>
@@ -210,6 +212,7 @@ where
                     // directory_header,
                 })
                 .collect(),
+            parsed_ranges: &(*archive).parsed_ranges,
         }
     }
 }

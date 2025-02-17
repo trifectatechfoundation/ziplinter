@@ -225,5 +225,22 @@ expression: result
     "dir64": null,
     "global_offset": 0
   },
+  "parsed_ranges": [
+    {
+      "end": 314,
+      "kind": "eocd",
+      "start": 292
+    },
+    {
+      "end": 215,
+      "kind": "cd header",
+      "start": 138
+    },
+    {
+      "end": 292,
+      "kind": "cd header",
+      "start": 215
+    }
+  ],
   "size": 314
 }

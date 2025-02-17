@@ -90,5 +90,17 @@ expression: result
     "dir64": null,
     "global_offset": 0
   },
+  "parsed_ranges": [
+    {
+      "end": 140,
+      "kind": "eocd",
+      "start": 118
+    },
+    {
+      "end": 118,
+      "kind": "cd header",
+      "start": 59
+    }
+  ],
   "size": 140
 }
