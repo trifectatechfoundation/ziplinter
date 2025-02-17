@@ -166,7 +166,8 @@ where
 /// A zip entry, read synchronously from a file or other I/O resource.
 pub struct EntryHandle<'a, F> {
     file: &'a F,
-    entry: &'a Entry,
+    /// The entry data from the central directory
+    pub entry: &'a Entry,
 }
 
 impl<F> Deref for EntryHandle<'_, F> {

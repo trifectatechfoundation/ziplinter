@@ -202,13 +202,11 @@ where
             size: archive.size,
             comment: &archive.comment,
             contents: archive
-                .entries
-                .iter()
+                .entries()
                 .zip(archive.directory_headers.iter())
-                .zip(archive.entries())
-                .map(|((entry, directory_header), local_header)| FileMetadata {
-                    central: CentralDirectoryFileHeader::from_rc_zip(directory_header, entry),
-                    local: LocalFileHeader::from(&local_header.local_header().unwrap().unwrap()),
+                .map(|(entry, directory_header)| FileMetadata {
+                    central: CentralDirectoryFileHeader::from_rc_zip(directory_header, entry.entry),
+                    local: LocalFileHeader::from(&entry.local_header().unwrap().unwrap()),
                     // directory_header,
                 })
                 .collect(),
