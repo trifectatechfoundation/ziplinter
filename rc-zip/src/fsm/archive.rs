@@ -1,4 +1,4 @@
-use super::FsmResult;
+use super::{FsmResult, ParsedRanges};
 use crate::{
     encoding::Encoding,
     error::{Error, FormatError},
@@ -41,6 +41,9 @@ pub struct ArchiveFsm {
 
     /// Buffer for reading data from the file
     buffer: Buffer,
+
+    /// The ranges that have been parsed while reading the central directory
+    pub parsed_ranges: ParsedRanges,
 }
 
 #[derive(Default)]
@@ -68,6 +71,7 @@ enum State {
     ReadCentralDirectory {
         eocd: EndOfCentralDirectory<'static>,
         directory_headers: Vec<CentralDirectoryFileHeader<'static>>,
+        current_header_offset: u64,
     },
 
     #[default]
@@ -92,6 +96,7 @@ impl ArchiveFsm {
             size,
             buffer: Buffer::with_capacity(Self::DEFAULT_BUFFER_SIZE),
             state: State::ReadEocd { haystack_size },
+            parsed_ranges: ParsedRanges::new(),
         }
     }
 
@@ -152,6 +157,13 @@ impl ArchiveFsm {
                         self.buffer.reset();
                         eocdr.offset += self.size - haystack_size;
 
+                        self.parsed_ranges.insert_offset_length(
+                            eocdr.offset,
+                            eocdr.inner.len() as u64,
+                            "eocd",
+                            None,
+                        );
+
                         if eocdr.offset < EndOfCentralDirectory64Locator::LENGTH as u64 {
                             // no room for an EOCD64 locator, definitely not a zip64 file
                             trace!(
@@ -160,9 +172,12 @@ impl ArchiveFsm {
                                 "no room for an EOCD64 locator, definitely not a zip64 file"
                             );
                             transition!(self.state => (S::ReadEocd { .. }) {
+                                let eocd = EndOfCentralDirectory::new(self.size, eocdr, None)?;
+                                let current_header_offset = eocd.directory_offset();
                                 S::ReadCentralDirectory {
-                                    eocd: EndOfCentralDirectory::new(self.size, eocdr, None)?,
+                                    eocd,
                                     directory_headers: vec![],
+                                    current_header_offset,
                                 }
                             });
                             Ok(FsmResult::Continue(self))
@@ -193,9 +208,12 @@ impl ArchiveFsm {
                         );
                         self.buffer.reset();
                         transition!(self.state => (S::ReadEocd64Locator { eocdr }) {
+                            let eocd = EndOfCentralDirectory::new(self.size, eocdr, None)?;
+                            let current_header_offset = eocd.directory_offset();
                             S::ReadCentralDirectory {
-                                eocd: EndOfCentralDirectory::new(self.size, eocdr, None)?,
+                                eocd,
                                 directory_headers: vec![],
+                                current_header_offset,
                             }
                         });
                         Ok(FsmResult::Continue(self))
@@ -207,6 +225,14 @@ impl ArchiveFsm {
                         );
                         self.buffer.reset();
                         transition!(self.state => (S::ReadEocd64Locator { eocdr }) {
+                            let length = EndOfCentralDirectory64Locator::LENGTH as u64;
+                            self.parsed_ranges.insert_offset_length(
+                                eocdr.offset - length,
+                                length,
+                                "eocd64 locator",
+                                None,
+                            );
+
                             S::ReadEocd64 {
                                 eocdr64_offset: locator.directory_offset,
                                 eocdr,
@@ -232,12 +258,19 @@ impl ArchiveFsm {
                     Ok((_, eocdr64)) => {
                         self.buffer.reset();
                         transition!(self.state => (S::ReadEocd64 { eocdr, eocdr64_offset }) {
+                            self.parsed_ranges.insert_offset_length(
+                                eocdr64_offset, eocdr64.len() as u64, "eocd64", None
+                            );
+                            let eocd = EndOfCentralDirectory::new(
+                                self.size,
+                                eocdr,
+                                Some(Located{offset:eocdr64_offset,inner:eocdr64})
+                            )?;
+                            let current_header_offset = eocd.directory_offset();
                             S::ReadCentralDirectory {
-                                eocd: EndOfCentralDirectory::new(self.size, eocdr, Some(Located {
-                                    offset: eocdr64_offset,
-                                    inner: eocdr64
-                                }))?,
-                                directory_headers: vec![],
+                                eocd,
+                                directory_headers:vec![],
+                                current_header_offset,
                             }
                         });
                         Ok(FsmResult::Continue(self))
@@ -247,6 +280,7 @@ impl ArchiveFsm {
             S::ReadCentralDirectory {
                 ref eocd,
                 ref mut directory_headers,
+                mut current_header_offset,
             } => {
                 trace!(
                     "ReadCentralDirectory | process(), available: {}",
@@ -262,13 +296,23 @@ impl ArchiveFsm {
                 'read_headers: while !input.is_empty() {
                     match CentralDirectoryFileHeader::parser.parse_next(&mut input) {
                         Ok(dh) => {
+                            valid_consumed = input.as_bytes().offset_from(&self.buffer.data());
                             trace!(
                                 input_empty_now = input.is_empty(),
-                                offset = input.as_bytes().offset_from(&self.buffer.data()),
+                                offset = valid_consumed,
                                 len = input.len(),
                                 "ReadCentralDirectory | parsed directory header"
                             );
-                            valid_consumed = input.as_bytes().offset_from(&self.buffer.data());
+
+                            let current_header_end =
+                                eocd.directory_offset() + valid_consumed as u64;
+                            self.parsed_ranges.insert_range(
+                                current_header_offset..current_header_end,
+                                "cd header",
+                                None,
+                            );
+
+                            current_header_offset += valid_consumed as u64;
                             directory_headers.push(dh.into_owned());
                         }
                         Err(ErrMode::Incomplete(_needed)) => {
@@ -371,6 +415,7 @@ impl ArchiveFsm {
                                 comment,
                                 entries,
                                 encoding,
+                                parsed_ranges: self.parsed_ranges,
                             }));
                         }
                     }

@@ -1,4 +1,5 @@
 use std::borrow::Cow;
+use std::mem::size_of;
 
 use ownable::{traits as ownable_traits, IntoOwned, ToOwned};
 use tracing::trace;
@@ -53,6 +54,11 @@ impl<'a> EndOfCentralDirectoryRecord<'a> {
             }
         }
         None
+    }
+
+    pub fn len(&self) -> usize {
+        let comment_len = size_of::<u16>() + self.comment.len(); // including u16 length value
+        Self::SIGNATURE.len() + 4 * size_of::<u16>() + 2 * size_of::<u32>() + comment_len
     }
 
     /// Parser for the end of central directory record
@@ -133,6 +139,10 @@ pub struct EndOfCentralDirectory64Record {
 
 impl EndOfCentralDirectory64Record {
     const SIGNATURE: &'static str = "PK\x06\x06";
+
+    pub fn len(&self) -> usize {
+        Self::SIGNATURE.len() + 2 * size_of::<u16>() + 2 * size_of::<u32>() + 5 * size_of::<u64>()
+    }
 
     /// Parser for the zip64 end of central directory record
     pub fn parser(i: &mut Partial<&'_ [u8]>) -> PResult<Self> {

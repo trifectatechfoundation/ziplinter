@@ -5,6 +5,7 @@ use winnow::{binary::le_u16, PResult, Partial};
 
 use crate::{
     encoding::Encoding,
+    fsm::ParsedRanges,
     parse::{Mode, Version},
 };
 
@@ -27,6 +28,7 @@ pub struct Archive {
     pub encoding: Encoding,
     pub entries: Vec<Entry>,
     pub comment: String,
+    pub parsed_ranges: ParsedRanges,
 }
 
 impl Archive {
