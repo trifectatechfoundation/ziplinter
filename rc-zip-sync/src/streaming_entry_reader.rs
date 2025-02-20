@@ -12,17 +12,17 @@ use tracing::trace;
 /// can you move on to the next entry.
 ///
 /// However, it only requires an [io::Read], and does not need to seek.
-pub struct StreamingEntryReader<R> {
+pub struct StreamingEntryReader<'a, R> {
     entry: Entry,
     rd: R,
-    state: State,
+    state: State<'a>,
 }
 
 #[derive(Default)]
 #[allow(clippy::large_enum_variant)]
-enum State {
+enum State<'a> {
     Reading {
-        fsm: EntryFsm,
+        fsm: EntryFsm<'a>,
     },
     Finished {
         /// remaining buffer for next entry
@@ -32,11 +32,11 @@ enum State {
     Transition,
 }
 
-impl<R> StreamingEntryReader<R>
+impl<'a, R> StreamingEntryReader<'a, R>
 where
     R: io::Read,
 {
-    pub(crate) fn new(fsm: EntryFsm, entry: Entry, rd: R) -> Self {
+    pub(crate) fn new(fsm: EntryFsm<'a>, entry: Entry, rd: R) -> Self {
         Self {
             entry,
             rd,
@@ -45,7 +45,7 @@ where
     }
 }
 
-impl<R> io::Read for StreamingEntryReader<R>
+impl<'a, R> io::Read for StreamingEntryReader<'a, R>
 where
     R: io::Read,
 {
@@ -99,7 +99,7 @@ where
     }
 }
 
-impl<R> StreamingEntryReader<R>
+impl<'a, R> StreamingEntryReader<'a, R>
 where
     R: io::Read,
 {
@@ -113,7 +113,7 @@ where
     /// any. This panics if the entry is not fully read.
     ///
     /// If this returns None, there's no entries left.
-    pub fn finish(mut self) -> Result<Option<StreamingEntryReader<R>>, Error> {
+    pub fn finish(mut self) -> Result<Option<StreamingEntryReader<'a, R>>, Error> {
         trace!("finishing streaming entry reader");
 
         if matches!(self.state, State::Reading { .. }) {
@@ -127,7 +127,7 @@ where
             }
             State::Finished { remain } => {
                 // parse the next entry, if any
-                let mut fsm = EntryFsm::new(None, Some(remain));
+                let mut fsm = EntryFsm::new(None, Some(remain), None);
 
                 loop {
                     if fsm.wants_read() {

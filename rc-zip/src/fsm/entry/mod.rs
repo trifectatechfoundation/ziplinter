@@ -30,7 +30,7 @@ use crate::{
     parse::{DataDescriptorRecord, Entry, LocalFileHeader, Method},
 };
 
-use super::FsmResult;
+use super::{FsmResult, ParsedRanges};
 
 struct EntryReadMetrics {
     uncompressed_size: u64,
@@ -59,6 +59,9 @@ enum State {
 
         /// The decompression method we're using
         decompressor: AnyDecompressor,
+
+        /// Start of data in file
+        data_start: u64,
     },
 
     ReadDataDescriptor {
@@ -67,6 +70,9 @@ enum State {
 
         /// Size we've decompressed + crc32 hash we've computed
         metrics: EntryReadMetrics,
+
+        /// Start of data descriptor in file
+        data_descriptor_start: u64,
     },
 
     Validate {
@@ -82,16 +88,21 @@ enum State {
 }
 
 /// A state machine that can parse a zip entry
-pub struct EntryFsm {
+pub struct EntryFsm<'a> {
     state: State,
     entry: Option<Entry>,
     local_header: Option<LocalFileHeader<'static>>,
     buffer: Buffer,
+    parsed_ranges: Option<&'a mut ParsedRanges>,
 }
 
-impl EntryFsm {
+impl<'a> EntryFsm<'a> {
     /// Create a new state machine for decompressing a zip entry
-    pub fn new(entry: Option<Entry>, buffer: Option<Buffer>) -> Self {
+    pub fn new(
+        entry: Option<Entry>,
+        buffer: Option<Buffer>,
+        parsed_ranges: Option<&'a mut ParsedRanges>,
+    ) -> Self {
         const BUF_CAPACITY: usize = 256 * 1024;
 
         Self {
@@ -105,6 +116,7 @@ impl EntryFsm {
                 }
                 None => Buffer::with_capacity(BUF_CAPACITY),
             },
+            parsed_ranges,
         }
     }
 
@@ -157,6 +169,17 @@ impl EntryFsm {
                     self.entry.as_ref().map(|entry| entry.uncompressed_size),
                 )?;
 
+                if self.entry.is_none() {
+                    self.entry = Some(header.as_entry()?);
+                }
+
+                let entry = self
+                    .entry
+                    .as_ref()
+                    .expect("should always be Some at this point");
+                let start = entry.header_offset;
+                let length = consumed as u64;
+
                 self.state = State::ReadData {
                     is_zip64: header.compressed_size == u32::MAX
                         || header.uncompressed_size == u32::MAX,
@@ -165,10 +188,16 @@ impl EntryFsm {
                     uncompressed_bytes: 0,
                     hasher: crc32fast::Hasher::new(),
                     decompressor,
+                    data_start: start + length,
                 };
 
-                if self.entry.is_none() {
-                    self.entry = Some(header.as_entry()?);
+                if let Some(parsed_ranges) = &mut self.parsed_ranges {
+                    parsed_ranges.insert_offset_length(
+                        start,
+                        length,
+                        "local file header",
+                        Some(entry.name.clone()),
+                    );
                 }
 
                 self.local_header = Some(header.to_owned());
@@ -230,6 +259,7 @@ impl EntryFsm {
                     uncompressed_bytes,
                     hasher,
                     decompressor,
+                    data_start,
                     ..
                 } => {
                     let in_buf = self.buffer.data();
@@ -276,6 +306,15 @@ impl EntryFsm {
                         "decompressed"
                     );
 
+                    let file_data_end = *data_start + *compressed_bytes;
+                    if let Some(parsed_ranges) = &mut self.parsed_ranges {
+                        parsed_ranges.insert_range(
+                            *data_start..file_data_end,
+                            "file data",
+                            Some(entry.name.clone()),
+                        );
+                    }
+
                     if outcome.bytes_written == 0 && *compressed_bytes == entry.compressed_size {
                         trace!("eof and no bytes written, we're done");
 
@@ -288,7 +327,7 @@ impl EntryFsm {
 
                             if has_data_descriptor {
                                 trace!("transitioning to ReadDataDescriptor");
-                                S::ReadDataDescriptor { metrics, is_zip64 }
+                                S::ReadDataDescriptor { metrics, is_zip64, data_descriptor_start: file_data_end }
                             } else {
                                 trace!("transitioning to Validate");
                                 S::Validate { metrics, descriptor: None }
@@ -319,14 +358,28 @@ impl EntryFsm {
 
                     Ok(FsmResult::Continue((self, outcome)))
                 }
-                S::ReadDataDescriptor { is_zip64, .. } => {
+                S::ReadDataDescriptor {
+                    is_zip64,
+                    data_descriptor_start,
+                    ..
+                } => {
                     let mut input = Partial::new(self.buffer.data());
 
                     match DataDescriptorRecord::mk_parser(*is_zip64).parse_next(&mut input) {
                         Ok(descriptor) => {
-                            self.buffer
-                                .consume(input.as_bytes().offset_from(&self.buffer.data()));
+                            let consumed = input.as_bytes().offset_from(&self.buffer.data());
+                            self.buffer.consume(consumed);
                             trace!("data descriptor = {:#?}", descriptor);
+
+                            if let Some(parsed_ranges) = &mut self.parsed_ranges {
+                                parsed_ranges.insert_offset_length(
+                                    *data_descriptor_start,
+                                    consumed as u64,
+                                    "data descriptor",
+                                    Some(self.entry.as_ref().unwrap().name.clone()),
+                                );
+                            }
+
                             transition!(self.state => (S::ReadDataDescriptor { metrics, .. }) {
                                 S::Validate { metrics, descriptor: Some(descriptor) }
                             });

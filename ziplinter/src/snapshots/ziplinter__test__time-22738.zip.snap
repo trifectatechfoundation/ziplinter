@@ -92,14 +92,33 @@ expression: result
   },
   "parsed_ranges": [
     {
+      "contains": "end of central directory record",
       "end": 140,
-      "kind": "eocd",
       "start": 118
     },
     {
+      "contains": "central directory header",
       "end": 118,
-      "kind": "cd header",
+      "filename": "file",
       "start": 59
+    },
+    {
+      "contains": "local file header",
+      "end": 43,
+      "filename": "file",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 43,
+      "filename": "file",
+      "start": 43
+    },
+    {
+      "contains": "data descriptor",
+      "end": 59,
+      "filename": "file",
+      "start": 43
     }
   ],
   "size": 140

@@ -159,19 +159,56 @@ expression: result
   },
   "parsed_ranges": [
     {
+      "contains": "end of central directory record",
       "end": 404,
-      "kind": "eocd",
       "start": 382
     },
     {
+      "contains": "central directory header",
       "end": 313,
-      "kind": "cd header",
       "start": 196
     },
     {
+      "contains": "central directory header",
       "end": 382,
-      "kind": "cd header",
+      "filename": "should-be-jis/",
       "start": 313
+    },
+    {
+      "contains": "local file header",
+      "end": 101,
+      "filename": "should-be-jis/ot_運命のワルツﾈぞなぞ小さな楽しみ遊びま.longboi",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 111,
+      "filename": "should-be-jis/ot_運命のワルツﾈぞなぞ小さな楽しみ遊びま.longboi",
+      "start": 101
+    },
+    {
+      "contains": "data descriptor",
+      "end": 127,
+      "filename": "should-be-jis/ot_運命のワルツﾈぞなぞ小さな楽しみ遊びま.longboi",
+      "start": 111
+    },
+    {
+      "contains": "local file header",
+      "end": 180,
+      "filename": "should-be-jis/",
+      "start": 127
+    },
+    {
+      "contains": "file data",
+      "end": 180,
+      "filename": "should-be-jis/",
+      "start": 180
+    },
+    {
+      "contains": "data descriptor",
+      "end": 196,
+      "filename": "should-be-jis/",
+      "start": 180
     }
   ],
   "size": 404

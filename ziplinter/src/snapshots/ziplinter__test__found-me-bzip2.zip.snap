@@ -109,14 +109,27 @@ expression: result
   },
   "parsed_ranges": [
     {
+      "contains": "end of central directory record",
       "end": 260,
-      "kind": "eocd",
       "start": 238
     },
     {
+      "contains": "central directory header",
       "end": 238,
-      "kind": "cd header",
+      "filename": "found-me.txt",
       "start": 144
+    },
+    {
+      "contains": "local file header",
+      "end": 42,
+      "filename": "found-me.txt",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 134,
+      "filename": "found-me.txt",
+      "start": 42
     }
   ],
   "size": 260

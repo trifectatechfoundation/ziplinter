@@ -72,13 +72,26 @@ expression: result
   },
   "parsed_ranges": [
     {
+      "contains": "end of central directory record",
       "end": 114,
-      "kind": "eocd",
       "start": 92
     },
     {
+      "contains": "central directory header",
       "end": 92,
-      "kind": "cd header",
+      "filename": "test.txt",
+      "start": 38
+    },
+    {
+      "contains": "local file header",
+      "end": 38,
+      "filename": "test.txt",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 38,
+      "filename": "test.txt",
       "start": 38
     }
   ],

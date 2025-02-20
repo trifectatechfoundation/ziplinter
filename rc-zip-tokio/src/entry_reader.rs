@@ -8,17 +8,17 @@ use rc_zip::{
 use tokio::io::{AsyncRead, ReadBuf};
 
 pin_project! {
-    pub(crate) struct EntryReader<R>
+    pub(crate) struct EntryReader<'a, R>
     where
         R: AsyncRead,
     {
         #[pin]
         rd: R,
-        fsm: Option<EntryFsm>,
+        fsm: Option<EntryFsm<'a>>,
     }
 }
 
-impl<R> EntryReader<R>
+impl<'a, R> EntryReader<'a, R>
 where
     R: AsyncRead,
 {
@@ -28,12 +28,12 @@ where
     {
         Self {
             rd: get_reader(entry.header_offset),
-            fsm: Some(EntryFsm::new(Some(entry.clone()), None)),
+            fsm: Some(EntryFsm::new(Some(entry.clone()), None, None)),
         }
     }
 }
 
-impl<R> AsyncRead for EntryReader<R>
+impl<'a, R> AsyncRead for EntryReader<'a, R>
 where
     R: AsyncRead,
 {
