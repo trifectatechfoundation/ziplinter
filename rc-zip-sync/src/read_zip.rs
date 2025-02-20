@@ -1,6 +1,6 @@
 use rc_zip::{
     error::Error,
-    fsm::{ArchiveFsm, FsmResult},
+    fsm::{ArchiveFsm, FsmResult, ParsedRanges},
     parse::{Archive, LocalFileHeader},
 };
 use rc_zip::{fsm::EntryFsm, parse::Entry};
@@ -8,7 +8,10 @@ use tracing::trace;
 
 use crate::streaming_entry_reader::StreamingEntryReader;
 use crate::{entry_reader::EntryReader, local_header_reader::LocalHeaderReader};
-use std::{io::Read, ops::Deref};
+use std::{
+    io::Read,
+    ops::{Deref, DerefMut},
+};
 
 /// A trait for reading something as a zip archive
 ///
@@ -138,6 +141,15 @@ where
     }
 }
 
+impl<F> DerefMut for ArchiveHandle<'_, F>
+where
+    F: HasCursor,
+{
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.archive
+    }
+}
+
 impl<F> ArchiveHandle<'_, F>
 where
     F: HasCursor,
@@ -183,10 +195,13 @@ where
     F: HasCursor,
 {
     /// Returns a reader for the entry.
-    pub fn local_header(&'a self) -> std::io::Result<Option<LocalFileHeader<'a>>> {
-        let mut v = vec![0u8; 1];
+    pub fn local_header(
+        &'a self,
+        parsed_ranges: &mut ParsedRanges,
+    ) -> std::io::Result<Option<LocalFileHeader<'a>>> {
+        let mut v = vec![0u8; 37];
         let reader = self.file.cursor_at(self.entry.header_offset);
-        let mut reader = LocalHeaderReader::new(self.entry, reader);
+        let mut reader = LocalHeaderReader::new(self.entry, reader, parsed_ranges);
         let opt_header = reader.run(&mut v)?;
 
         Ok(opt_header.map(|v| v.to_owned()))
@@ -264,7 +279,7 @@ impl ReadZip for std::fs::File {
 /// based only on local headers. THIS IS NOT RECOMMENDED, as correctly
 /// reading zip files requires reading the central directory (located at
 /// the end of the file).
-pub trait ReadZipStreaming<R>
+pub trait ReadZipStreaming<'a, R>
 where
     R: Read,
 {
@@ -275,17 +290,17 @@ where
     /// [ReadZipWithSize] instead.
     fn stream_zip_entries_throwing_caution_to_the_wind(
         self,
-    ) -> Result<StreamingEntryReader<R>, Error>;
+    ) -> Result<StreamingEntryReader<'a, R>, Error>;
 }
 
-impl<R> ReadZipStreaming<R> for R
+impl<'a, R> ReadZipStreaming<'a, R> for R
 where
     R: Read,
 {
     fn stream_zip_entries_throwing_caution_to_the_wind(
         mut self,
-    ) -> Result<StreamingEntryReader<Self>, Error> {
-        let mut fsm = EntryFsm::new(None, None);
+    ) -> Result<StreamingEntryReader<'a, Self>, Error> {
+        let mut fsm = EntryFsm::new(None, None, None);
 
         loop {
             if fsm.wants_read() {

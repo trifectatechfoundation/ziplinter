@@ -1252,14 +1252,27 @@ expression: result
   },
   "parsed_ranges": [
     {
+      "contains": "end of central directory record",
       "end": 1885,
-      "kind": "eocd",
       "start": 738
     },
     {
+      "contains": "central directory header",
       "end": 738,
-      "kind": "cd header",
+      "filename": "README",
       "start": 662
+    },
+    {
+      "contains": "local file header",
+      "end": 64,
+      "filename": "README",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 662,
+      "filename": "README",
+      "start": 64
     }
   ],
   "size": 1886

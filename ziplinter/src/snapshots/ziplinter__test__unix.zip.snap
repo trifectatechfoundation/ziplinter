@@ -429,29 +429,81 @@ expression: result
   },
   "parsed_ranges": [
     {
+      "contains": "end of central directory record",
       "end": 620,
-      "kind": "eocd",
       "start": 598
     },
     {
+      "contains": "central directory header",
       "end": 363,
-      "kind": "cd header",
+      "filename": "hello",
       "start": 288
     },
     {
+      "contains": "central directory header",
       "end": 440,
-      "kind": "cd header",
+      "filename": "dir/bar",
       "start": 363
     },
     {
+      "contains": "central directory header",
       "end": 520,
-      "kind": "cd header",
+      "filename": "dir/empty/",
       "start": 515
     },
     {
+      "contains": "central directory header",
       "end": 598,
-      "kind": "cd header",
+      "filename": "readonly",
       "start": 747
+    },
+    {
+      "contains": "local file header",
+      "end": 63,
+      "filename": "hello",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 71,
+      "filename": "hello",
+      "start": 63
+    },
+    {
+      "contains": "local file header",
+      "end": 136,
+      "filename": "dir/bar",
+      "start": 71
+    },
+    {
+      "contains": "file data",
+      "end": 142,
+      "filename": "dir/bar",
+      "start": 136
+    },
+    {
+      "contains": "local file header",
+      "end": 210,
+      "filename": "dir/empty/",
+      "start": 142
+    },
+    {
+      "contains": "file data",
+      "end": 210,
+      "filename": "dir/empty/",
+      "start": 210
+    },
+    {
+      "contains": "local file header",
+      "end": 276,
+      "filename": "readonly",
+      "start": 210
+    },
+    {
+      "contains": "file data",
+      "end": 288,
+      "filename": "readonly",
+      "start": 276
     }
   ],
   "size": 620

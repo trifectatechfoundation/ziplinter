@@ -1,30 +1,34 @@
 use rc_zip::{
-    fsm::{EntryFsm, FsmResult},
+    fsm::{EntryFsm, FsmResult, ParsedRanges},
     parse::{Entry, LocalFileHeader},
 };
 use std::io;
 use tracing::trace;
 
-pub(crate) struct LocalHeaderReader<R>
+pub(crate) struct LocalHeaderReader<'a, R>
 where
     R: io::Read,
 {
     rd: R,
-    fsm: Option<EntryFsm>,
+    fsm: Option<EntryFsm<'a>>,
 }
 
-impl<R> LocalHeaderReader<R>
+impl<'a, R> LocalHeaderReader<'a, R>
 where
     R: io::Read,
 {
-    pub(crate) fn new(entry: &Entry, rd: R) -> Self {
+    pub(crate) fn new(entry: &Entry, rd: R, parsed_ranges: &'a mut ParsedRanges) -> Self {
         Self {
             rd,
-            fsm: Some(EntryFsm::new(Some(entry.clone()), None)),
+            fsm: Some(EntryFsm::new(
+                Some(entry.clone()),
+                None,
+                Some(parsed_ranges),
+            )),
         }
     }
 
-    pub fn run<'a>(&'a mut self, buf: &mut [u8]) -> io::Result<Option<LocalFileHeader<'a>>> {
+    pub fn run<'b>(&'b mut self, buf: &mut [u8]) -> io::Result<Option<LocalFileHeader<'b>>> {
         loop {
             let mut fsm = match self.fsm.take() {
                 Some(fsm) => fsm,

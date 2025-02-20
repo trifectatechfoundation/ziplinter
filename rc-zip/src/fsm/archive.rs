@@ -43,7 +43,7 @@ pub struct ArchiveFsm {
     buffer: Buffer,
 
     /// The ranges that have been parsed while reading the central directory
-    pub parsed_ranges: ParsedRanges,
+    parsed_ranges: ParsedRanges,
 }
 
 #[derive(Default)]
@@ -160,7 +160,7 @@ impl ArchiveFsm {
                         self.parsed_ranges.insert_offset_length(
                             eocdr.offset,
                             eocdr.inner.len() as u64,
-                            "eocd",
+                            "end of central directory record",
                             None,
                         );
 
@@ -229,7 +229,7 @@ impl ArchiveFsm {
                             self.parsed_ranges.insert_offset_length(
                                 eocdr.offset - length,
                                 length,
-                                "eocd64 locator",
+                                "zip64 end of central directory locator",
                                 None,
                             );
 
@@ -259,7 +259,7 @@ impl ArchiveFsm {
                         self.buffer.reset();
                         transition!(self.state => (S::ReadEocd64 { eocdr, eocdr64_offset }) {
                             self.parsed_ranges.insert_offset_length(
-                                eocdr64_offset, eocdr64.len() as u64, "eocd64", None
+                                eocdr64_offset, eocdr64.len() as u64, "zip64 end of central directory record", None
                             );
                             let eocd = EndOfCentralDirectory::new(
                                 self.size,
@@ -304,12 +304,13 @@ impl ArchiveFsm {
                                 "ReadCentralDirectory | parsed directory header"
                             );
 
+                            let entry = dh.as_entry(Encoding::Utf8, eocd.global_offset as u64);
                             let current_header_end =
                                 eocd.directory_offset() + valid_consumed as u64;
                             self.parsed_ranges.insert_range(
                                 current_header_offset..current_header_end,
-                                "cd header",
-                                None,
+                                "central directory header",
+                                entry.map(|e| e.name).ok(),
                             );
 
                             current_header_offset += valid_consumed as u64;

@@ -5,27 +5,27 @@ use rc_zip::{
 use std::io;
 use tracing::trace;
 
-pub(crate) struct EntryReader<R>
+pub(crate) struct EntryReader<'a, R>
 where
     R: io::Read,
 {
     rd: R,
-    fsm: Option<EntryFsm>,
+    fsm: Option<EntryFsm<'a>>,
 }
 
-impl<R> EntryReader<R>
+impl<'a, R> EntryReader<'a, R>
 where
     R: io::Read,
 {
     pub(crate) fn new(entry: &Entry, rd: R) -> Self {
         Self {
             rd,
-            fsm: Some(EntryFsm::new(Some(entry.clone()), None)),
+            fsm: Some(EntryFsm::new(Some(entry.clone()), None, None)),
         }
     }
 }
 
-impl<R> io::Read for EntryReader<R>
+impl<'a, R> io::Read for EntryReader<'a, R>
 where
     R: io::Read,
 {

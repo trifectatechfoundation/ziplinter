@@ -126,14 +126,27 @@ expression: result
   },
   "parsed_ranges": [
     {
+      "contains": "end of central directory record",
       "end": 173,
-      "kind": "eocd",
       "start": 151
     },
     {
+      "contains": "central directory header",
       "end": 151,
-      "kind": "cd header",
+      "filename": "symlink",
       "start": 74
+    },
+    {
+      "contains": "local file header",
+      "end": 65,
+      "filename": "symlink",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 74,
+      "filename": "symlink",
+      "start": 65
     }
   ],
   "size": 173

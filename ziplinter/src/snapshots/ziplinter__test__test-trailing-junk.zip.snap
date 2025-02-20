@@ -254,19 +254,45 @@ expression: result
   },
   "parsed_ranges": [
     {
+      "contains": "end of central directory record",
       "end": 1170,
-      "kind": "eocd",
       "start": 1122
     },
     {
+      "contains": "central directory header",
       "end": 1032,
-      "kind": "cd header",
+      "filename": "test.txt",
       "start": 954
     },
     {
+      "contains": "central directory header",
       "end": 1122,
-      "kind": "cd header",
+      "filename": "gophercolor16x16.png",
       "start": 1032
+    },
+    {
+      "contains": "local file header",
+      "end": 66,
+      "filename": "test.txt",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 91,
+      "filename": "test.txt",
+      "start": 66
+    },
+    {
+      "contains": "local file header",
+      "end": 169,
+      "filename": "gophercolor16x16.png",
+      "start": 91
+    },
+    {
+      "contains": "file data",
+      "end": 206,
+      "filename": "gophercolor16x16.png",
+      "start": 169
     }
   ],
   "size": 1184

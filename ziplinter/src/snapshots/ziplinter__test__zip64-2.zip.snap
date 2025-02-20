@@ -130,24 +130,37 @@ expression: result
   },
   "parsed_ranges": [
     {
+      "contains": "end of central directory record",
       "end": 266,
-      "kind": "eocd",
       "start": 244
     },
     {
+      "contains": "zip64 end of central directory locator",
       "end": 244,
-      "kind": "eocd64 locator",
       "start": 224
     },
     {
+      "contains": "zip64 end of central directory record",
       "end": 224,
-      "kind": "eocd64",
       "start": 168
     },
     {
+      "contains": "central directory header",
       "end": 168,
-      "kind": "cd header",
+      "filename": "README",
       "start": 72
+    },
+    {
+      "contains": "local file header",
+      "end": 36,
+      "filename": "README",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 72,
+      "filename": "README",
+      "start": 36
     }
   ],
   "size": 266

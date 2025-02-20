@@ -193,26 +193,36 @@ struct ZipMetadata<'a> {
     parsed_ranges: &'a ParsedRanges,
 }
 
-impl<'a, F> From<&'a ArchiveHandle<'a, F>> for ZipMetadata<'a>
+impl<'a, F> From<&'a mut ArchiveHandle<'a, F>> for ZipMetadata<'a>
 where
     F: HasCursor,
 {
-    fn from(archive: &'a ArchiveHandle<'a, F>) -> Self {
+    fn from(archive: &'a mut ArchiveHandle<'a, F>) -> Self {
+        let mut parsed_entry_ranges = ParsedRanges::new();
+
+        let contents = archive
+            .entries()
+            .zip(archive.directory_headers.iter())
+            .map(|(entry, directory_header)| FileMetadata {
+                central: CentralDirectoryFileHeader::from_rc_zip(directory_header, entry.entry),
+                local: LocalFileHeader::from(
+                    &entry
+                        .local_header(&mut parsed_entry_ranges)
+                        .unwrap()
+                        .unwrap(),
+                ),
+            })
+            .collect();
+
+        archive.parsed_ranges.append(&mut parsed_entry_ranges);
+
         ZipMetadata {
             eocd: &archive.eocd,
             encoding: archive.encoding,
             size: archive.size,
             comment: &archive.comment,
-            contents: archive
-                .entries()
-                .zip(archive.directory_headers.iter())
-                .map(|(entry, directory_header)| FileMetadata {
-                    central: CentralDirectoryFileHeader::from_rc_zip(directory_header, entry.entry),
-                    local: LocalFileHeader::from(&entry.local_header().unwrap().unwrap()),
-                    // directory_header,
-                })
-                .collect(),
-            parsed_ranges: &(*archive).parsed_ranges,
+            contents,
+            parsed_ranges: &archive.parsed_ranges,
         }
     }
 }
@@ -245,8 +255,8 @@ fn main() {
 
     let file = std::fs::File::open(path).unwrap();
     match file.read_zip() {
-        Ok(archive) => {
-            let metadata = ZipMetadata::from(&archive);
+        Ok(mut archive) => {
+            let metadata = ZipMetadata::from(&mut archive);
             println!("{}", serde_json::to_string_pretty(&metadata).unwrap())
         }
         Err(error) => {
@@ -267,9 +277,9 @@ mod test {
 
     fn process_zip_file(zip_path: &Path) -> Result<serde_json::Value, Box<dyn Error>> {
         let file = std::fs::File::open(zip_path).unwrap();
-        let archive = file.read_zip()?;
+        let mut archive = file.read_zip()?;
 
-        let metadata = ZipMetadata::from(&archive);
+        let metadata = ZipMetadata::from(&mut archive);
         Ok(serde_json::to_value(metadata)?)
     }
 

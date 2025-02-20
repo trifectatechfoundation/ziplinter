@@ -2797,174 +2797,603 @@ expression: result
   },
   "parsed_ranges": [
     {
+      "contains": "end of central directory record",
       "end": 45922,
-      "kind": "eocd",
       "start": 45900
     },
     {
+      "contains": "central directory header",
       "end": 42472,
-      "kind": "cd header",
+      "filename": "rc-zip/",
       "start": 42383
     },
     {
+      "contains": "central directory header",
       "end": 42573,
-      "kind": "cd header",
+      "filename": "rc-zip/CHANGELOG.md",
       "start": 42472
     },
     {
+      "contains": "central directory header",
       "end": 42672,
-      "kind": "cd header",
+      "filename": "rc-zip/Cargo.toml",
       "start": 42662
     },
     {
+      "contains": "central directory header",
       "end": 42770,
-      "kind": "cd header",
+      "filename": "rc-zip/README.md",
       "start": 42951
     },
     {
+      "contains": "central directory header",
       "end": 42863,
-      "kind": "cd header",
+      "filename": "rc-zip/src/",
       "start": 43338
     },
     {
+      "contains": "central directory header",
       "end": 42963,
-      "kind": "cd header",
+      "filename": "rc-zip/src/corpus/",
       "start": 43818
     },
     {
+      "contains": "central directory header",
       "end": 43069,
-      "kind": "cd header",
+      "filename": "rc-zip/src/corpus/mod.rs",
       "start": 44398
     },
     {
+      "contains": "central directory header",
       "end": 43173,
-      "kind": "cd header",
+      "filename": "rc-zip/src/encoding.rs",
       "start": 45084
     },
     {
+      "contains": "central directory header",
       "end": 43274,
-      "kind": "cd header",
+      "filename": "rc-zip/src/error.rs",
       "start": 45874
     },
     {
+      "contains": "central directory header",
       "end": 43371,
-      "kind": "cd header",
+      "filename": "rc-zip/src/fsm/",
       "start": 46765
     },
     {
+      "contains": "central directory header",
       "end": 43478,
-      "kind": "cd header",
+      "filename": "rc-zip/src/fsm/archive.rs",
       "start": 47753
     },
     {
+      "contains": "central directory header",
       "end": 43581,
-      "kind": "cd header",
+      "filename": "rc-zip/src/fsm/entry/",
       "start": 48848
     },
     {
+      "contains": "central directory header",
       "end": 43696,
-      "kind": "cd header",
+      "filename": "rc-zip/src/fsm/entry/bzip2_dec.rs",
       "start": 50046
     },
     {
+      "contains": "central directory header",
       "end": 43815,
-      "kind": "cd header",
+      "filename": "rc-zip/src/fsm/entry/deflate64_dec.rs",
       "start": 51359
     },
     {
+      "contains": "central directory header",
       "end": 43932,
-      "kind": "cd header",
+      "filename": "rc-zip/src/fsm/entry/deflate_dec.rs",
       "start": 52791
     },
     {
+      "contains": "central directory header",
       "end": 44046,
-      "kind": "cd header",
+      "filename": "rc-zip/src/fsm/entry/lzma_dec.rs",
       "start": 54340
     },
     {
+      "contains": "central directory header",
       "end": 44155,
-      "kind": "cd header",
+      "filename": "rc-zip/src/fsm/entry/mod.rs",
       "start": 56003
     },
     {
+      "contains": "central directory header",
       "end": 44270,
-      "kind": "cd header",
+      "filename": "rc-zip/src/fsm/entry/store_dec.rs",
       "start": 57775
     },
     {
+      "contains": "central directory header",
       "end": 44384,
-      "kind": "cd header",
+      "filename": "rc-zip/src/fsm/entry/zstd_dec.rs",
       "start": 59662
     },
     {
+      "contains": "central directory header",
       "end": 44487,
-      "kind": "cd header",
+      "filename": "rc-zip/src/fsm/mod.rs",
       "start": 61663
     },
     {
+      "contains": "central directory header",
       "end": 44586,
-      "kind": "cd header",
+      "filename": "rc-zip/src/lib.rs",
       "start": 63767
     },
     {
+      "contains": "central directory header",
       "end": 44685,
-      "kind": "cd header",
+      "filename": "rc-zip/src/parse/",
       "start": 65970
     },
     {
+      "contains": "central directory header",
       "end": 44794,
-      "kind": "cd header",
+      "filename": "rc-zip/src/parse/archive.rs",
       "start": 68272
     },
     {
+      "contains": "central directory header",
       "end": 44925,
-      "kind": "cd header",
+      "filename": "rc-zip/src/parse/central_directory_file_header.rs",
       "start": 70683
     },
     {
+      "contains": "central directory header",
       "end": 45036,
-      "kind": "cd header",
+      "filename": "rc-zip/src/parse/date_time.rs",
       "start": 73225
     },
     {
+      "contains": "central directory header",
       "end": 45142,
-      "kind": "cd header",
+      "filename": "rc-zip/src/parse/eocd.rs",
       "start": 75878
     },
     {
+      "contains": "central directory header",
       "end": 45255,
-      "kind": "cd header",
+      "filename": "rc-zip/src/parse/extra_field.rs",
       "start": 78637
     },
     {
+      "contains": "central directory header",
       "end": 45370,
-      "kind": "cd header",
+      "filename": "rc-zip/src/parse/local_headers.rs",
       "start": 81509
     },
     {
+      "contains": "central directory header",
       "end": 45475,
-      "kind": "cd header",
+      "filename": "rc-zip/src/parse/mod.rs",
       "start": 84496
     },
     {
+      "contains": "central directory header",
       "end": 45581,
-      "kind": "cd header",
+      "filename": "rc-zip/src/parse/mode.rs",
       "start": 87588
     },
     {
+      "contains": "central directory header",
       "end": 45690,
-      "kind": "cd header",
+      "filename": "rc-zip/src/parse/version.rs",
       "start": 90786
     },
     {
+      "contains": "central directory header",
       "end": 45785,
-      "kind": "cd header",
+      "filename": "rc-zip/tests/",
       "start": 94093
     },
     {
+      "contains": "central directory header",
       "end": 45900,
-      "kind": "cd header",
+      "filename": "rc-zip/tests/integration_tests.rs",
       "start": 97495
+    },
+    {
+      "contains": "local file header",
+      "end": 37,
+      "filename": "rc-zip/",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 37,
+      "filename": "rc-zip/",
+      "start": 37
+    },
+    {
+      "contains": "local file header",
+      "end": 86,
+      "filename": "rc-zip/CHANGELOG.md",
+      "start": 37
+    },
+    {
+      "contains": "file data",
+      "end": 369,
+      "filename": "rc-zip/CHANGELOG.md",
+      "start": 86
+    },
+    {
+      "contains": "local file header",
+      "end": 416,
+      "filename": "rc-zip/Cargo.toml",
+      "start": 369
+    },
+    {
+      "contains": "file data",
+      "end": 1030,
+      "filename": "rc-zip/Cargo.toml",
+      "start": 416
+    },
+    {
+      "contains": "local file header",
+      "end": 1076,
+      "filename": "rc-zip/README.md",
+      "start": 1030
+    },
+    {
+      "contains": "file data",
+      "end": 1235,
+      "filename": "rc-zip/README.md",
+      "start": 1076
+    },
+    {
+      "contains": "local file header",
+      "end": 1276,
+      "filename": "rc-zip/src/",
+      "start": 1235
+    },
+    {
+      "contains": "file data",
+      "end": 1276,
+      "filename": "rc-zip/src/",
+      "start": 1276
+    },
+    {
+      "contains": "local file header",
+      "end": 1324,
+      "filename": "rc-zip/src/corpus/",
+      "start": 1276
+    },
+    {
+      "contains": "file data",
+      "end": 1324,
+      "filename": "rc-zip/src/corpus/",
+      "start": 1324
+    },
+    {
+      "contains": "local file header",
+      "end": 1378,
+      "filename": "rc-zip/src/corpus/mod.rs",
+      "start": 1324
+    },
+    {
+      "contains": "file data",
+      "end": 3982,
+      "filename": "rc-zip/src/corpus/mod.rs",
+      "start": 1378
+    },
+    {
+      "contains": "local file header",
+      "end": 4034,
+      "filename": "rc-zip/src/encoding.rs",
+      "start": 3982
+    },
+    {
+      "contains": "file data",
+      "end": 5768,
+      "filename": "rc-zip/src/encoding.rs",
+      "start": 4034
+    },
+    {
+      "contains": "local file header",
+      "end": 5817,
+      "filename": "rc-zip/src/error.rs",
+      "start": 5768
+    },
+    {
+      "contains": "file data",
+      "end": 7634,
+      "filename": "rc-zip/src/error.rs",
+      "start": 5817
+    },
+    {
+      "contains": "local file header",
+      "end": 7679,
+      "filename": "rc-zip/src/fsm/",
+      "start": 7634
+    },
+    {
+      "contains": "file data",
+      "end": 7679,
+      "filename": "rc-zip/src/fsm/",
+      "start": 7679
+    },
+    {
+      "contains": "local file header",
+      "end": 7734,
+      "filename": "rc-zip/src/fsm/archive.rs",
+      "start": 7679
+    },
+    {
+      "contains": "file data",
+      "end": 12274,
+      "filename": "rc-zip/src/fsm/archive.rs",
+      "start": 7734
+    },
+    {
+      "contains": "local file header",
+      "end": 12325,
+      "filename": "rc-zip/src/fsm/entry/",
+      "start": 12274
+    },
+    {
+      "contains": "file data",
+      "end": 12325,
+      "filename": "rc-zip/src/fsm/entry/",
+      "start": 12325
+    },
+    {
+      "contains": "local file header",
+      "end": 12388,
+      "filename": "rc-zip/src/fsm/entry/bzip2_dec.rs",
+      "start": 12325
+    },
+    {
+      "contains": "file data",
+      "end": 13005,
+      "filename": "rc-zip/src/fsm/entry/bzip2_dec.rs",
+      "start": 12388
+    },
+    {
+      "contains": "local file header",
+      "end": 13072,
+      "filename": "rc-zip/src/fsm/entry/deflate64_dec.rs",
+      "start": 13005
+    },
+    {
+      "contains": "file data",
+      "end": 13533,
+      "filename": "rc-zip/src/fsm/entry/deflate64_dec.rs",
+      "start": 13072
+    },
+    {
+      "contains": "local file header",
+      "end": 13598,
+      "filename": "rc-zip/src/fsm/entry/deflate_dec.rs",
+      "start": 13533
+    },
+    {
+      "contains": "file data",
+      "end": 15382,
+      "filename": "rc-zip/src/fsm/entry/deflate_dec.rs",
+      "start": 13598
+    },
+    {
+      "contains": "local file header",
+      "end": 15444,
+      "filename": "rc-zip/src/fsm/entry/lzma_dec.rs",
+      "start": 15382
+    },
+    {
+      "contains": "file data",
+      "end": 16962,
+      "filename": "rc-zip/src/fsm/entry/lzma_dec.rs",
+      "start": 15444
+    },
+    {
+      "contains": "local file header",
+      "end": 17019,
+      "filename": "rc-zip/src/fsm/entry/mod.rs",
+      "start": 16962
+    },
+    {
+      "contains": "file data",
+      "end": 20665,
+      "filename": "rc-zip/src/fsm/entry/mod.rs",
+      "start": 17019
+    },
+    {
+      "contains": "local file header",
+      "end": 20728,
+      "filename": "rc-zip/src/fsm/entry/store_dec.rs",
+      "start": 20665
+    },
+    {
+      "contains": "file data",
+      "end": 21019,
+      "filename": "rc-zip/src/fsm/entry/store_dec.rs",
+      "start": 20728
+    },
+    {
+      "contains": "local file header",
+      "end": 21081,
+      "filename": "rc-zip/src/fsm/entry/zstd_dec.rs",
+      "start": 21019
+    },
+    {
+      "contains": "file data",
+      "end": 22496,
+      "filename": "rc-zip/src/fsm/entry/zstd_dec.rs",
+      "start": 21081
+    },
+    {
+      "contains": "local file header",
+      "end": 22547,
+      "filename": "rc-zip/src/fsm/mod.rs",
+      "start": 22496
+    },
+    {
+      "contains": "file data",
+      "end": 23131,
+      "filename": "rc-zip/src/fsm/mod.rs",
+      "start": 22547
+    },
+    {
+      "contains": "local file header",
+      "end": 23178,
+      "filename": "rc-zip/src/lib.rs",
+      "start": 23131
+    },
+    {
+      "contains": "file data",
+      "end": 23598,
+      "filename": "rc-zip/src/lib.rs",
+      "start": 23178
+    },
+    {
+      "contains": "local file header",
+      "end": 23645,
+      "filename": "rc-zip/src/parse/",
+      "start": 23598
+    },
+    {
+      "contains": "file data",
+      "end": 23645,
+      "filename": "rc-zip/src/parse/",
+      "start": 23645
+    },
+    {
+      "contains": "local file header",
+      "end": 23702,
+      "filename": "rc-zip/src/parse/archive.rs",
+      "start": 23645
+    },
+    {
+      "contains": "file data",
+      "end": 27334,
+      "filename": "rc-zip/src/parse/archive.rs",
+      "start": 23702
+    },
+    {
+      "contains": "local file header",
+      "end": 27413,
+      "filename": "rc-zip/src/parse/central_directory_file_header.rs",
+      "start": 27334
+    },
+    {
+      "contains": "file data",
+      "end": 29311,
+      "filename": "rc-zip/src/parse/central_directory_file_header.rs",
+      "start": 27413
+    },
+    {
+      "contains": "local file header",
+      "end": 29370,
+      "filename": "rc-zip/src/parse/date_time.rs",
+      "start": 29311
+    },
+    {
+      "contains": "file data",
+      "end": 30603,
+      "filename": "rc-zip/src/parse/date_time.rs",
+      "start": 29370
+    },
+    {
+      "contains": "local file header",
+      "end": 30657,
+      "filename": "rc-zip/src/parse/eocd.rs",
+      "start": 30603
+    },
+    {
+      "contains": "file data",
+      "end": 33000,
+      "filename": "rc-zip/src/parse/eocd.rs",
+      "start": 30657
+    },
+    {
+      "contains": "local file header",
+      "end": 33061,
+      "filename": "rc-zip/src/parse/extra_field.rs",
+      "start": 33000
+    },
+    {
+      "contains": "file data",
+      "end": 35990,
+      "filename": "rc-zip/src/parse/extra_field.rs",
+      "start": 33061
+    },
+    {
+      "contains": "local file header",
+      "end": 36053,
+      "filename": "rc-zip/src/parse/local_headers.rs",
+      "start": 35990
+    },
+    {
+      "contains": "file data",
+      "end": 38570,
+      "filename": "rc-zip/src/parse/local_headers.rs",
+      "start": 36053
+    },
+    {
+      "contains": "local file header",
+      "end": 38623,
+      "filename": "rc-zip/src/parse/mod.rs",
+      "start": 38570
+    },
+    {
+      "contains": "file data",
+      "end": 38933,
+      "filename": "rc-zip/src/parse/mod.rs",
+      "start": 38623
+    },
+    {
+      "contains": "local file header",
+      "end": 38987,
+      "filename": "rc-zip/src/parse/mode.rs",
+      "start": 38933
+    },
+    {
+      "contains": "file data",
+      "end": 40606,
+      "filename": "rc-zip/src/parse/mode.rs",
+      "start": 38987
+    },
+    {
+      "contains": "local file header",
+      "end": 40663,
+      "filename": "rc-zip/src/parse/version.rs",
+      "start": 40606
+    },
+    {
+      "contains": "file data",
+      "end": 41743,
+      "filename": "rc-zip/src/parse/version.rs",
+      "start": 40663
+    },
+    {
+      "contains": "local file header",
+      "end": 41786,
+      "filename": "rc-zip/tests/",
+      "start": 41743
+    },
+    {
+      "contains": "file data",
+      "end": 41786,
+      "filename": "rc-zip/tests/",
+      "start": 41786
+    },
+    {
+      "contains": "local file header",
+      "end": 41849,
+      "filename": "rc-zip/tests/integration_tests.rs",
+      "start": 41786
+    },
+    {
+      "contains": "file data",
+      "end": 42383,
+      "filename": "rc-zip/tests/integration_tests.rs",
+      "start": 41849
     }
   ],
   "size": 45922
