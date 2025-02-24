@@ -159,6 +159,7 @@ impl CentralDirectoryFileHeader<'_> {
             compressed_size: self.compressed_size as _,
             uncompressed_size: self.uncompressed_size as _,
             mode: Mode(0),
+            aex: None,
         };
 
         entry.mode = match self.creator_version.host_system {

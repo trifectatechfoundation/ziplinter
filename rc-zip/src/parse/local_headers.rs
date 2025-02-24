@@ -149,6 +149,7 @@ impl<'a> LocalFileHeader<'a> {
             compressed_size: self.compressed_size as _,
             uncompressed_size: self.uncompressed_size as _,
             mode: Mode(0),
+            aex: None,
         };
 
         if entry.name.ends_with('/') {

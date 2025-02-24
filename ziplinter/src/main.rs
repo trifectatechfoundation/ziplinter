@@ -2,7 +2,7 @@ use rc_zip::{
     chrono::{DateTime, Utc},
     encoding::Encoding,
     fsm::ParsedRanges,
-    parse::{EndOfCentralDirectory, Entry, Method, MethodSpecific, Mode, Version},
+    parse::{EndOfCentralDirectory, Entry, ExtraAexField, Method, MethodSpecific, Mode, Version},
 };
 use rc_zip_sync::{ArchiveHandle, HasCursor, ReadZip};
 
@@ -55,6 +55,8 @@ pub struct CentralDirectoryFileHeader {
 
     /// File mode.
     pub mode: Mode,
+
+    pub aex: Option<ExtraAexField>,
 }
 
 impl CentralDirectoryFileHeader {
@@ -76,6 +78,7 @@ impl CentralDirectoryFileHeader {
             extra: value.extra.to_vec(),
             comment: entry.comment.clone(),
             mode: entry.mode,
+            aex: entry.aex,
         }
     }
 }
@@ -149,6 +152,8 @@ pub struct LocalFileHeader {
 
     /// File mode.
     pub mode: Mode,
+
+    pub aex: Option<ExtraAexField>,
 }
 
 impl From<&rc_zip::parse::LocalFileHeader<'_>> for LocalFileHeader {
@@ -172,6 +177,7 @@ impl From<&rc_zip::parse::LocalFileHeader<'_>> for LocalFileHeader {
             extra: value.extra.to_vec(),
             method_specific: value.method_specific,
             mode: entry.mode,
+            aex: entry.aex,
         }
     }
 }
