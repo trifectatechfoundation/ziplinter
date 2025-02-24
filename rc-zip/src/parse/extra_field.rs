@@ -71,6 +71,8 @@ pub enum ExtraField<'a> {
     NewUnix(ExtraNewUnixField),
     /// NTFS (Win9x/WinNT FileTimes)
     Ntfs(ExtraNtfsField),
+    /// AE-X extra data field
+    Aex(ExtraAexField),
     /// Unknown extra field, with tag
     Unknown {
         /// tag of the extra field
@@ -104,6 +106,9 @@ impl<'a> ExtraField<'a> {
                 }
                 ExtraNewUnixField::TAG => {
                     opt(ExtraNewUnixField::parser.map(EF::NewUnix)).parse_next(payload)?
+                }
+                ExtraAexField::TAG => {
+                    opt(ExtraAexField::parser.map(EF::Aex)).parse_next(payload)?
                 }
                 _ => None,
             }
@@ -346,6 +351,29 @@ impl NtfsAttr1 {
             mtime: NtfsTimestamp::parser,
             atime: NtfsTimestamp::parser,
             ctime: NtfsTimestamp::parser,
+        }}
+        .parse_next(i)
+    }
+}
+
+/// AE-X Extra Data Field (0x9901):
+#[derive(Debug, Clone, Copy, serde::Serialize)]
+pub struct ExtraAexField {
+    pub version_number: u16,
+    pub vendor_id: u16,
+    pub mode: u8,
+    pub compression_method: u16,
+}
+
+impl ExtraAexField {
+    const TAG: u16 = 0x9901;
+
+    fn parser(i: &mut Partial<&'_ [u8]>) -> PResult<Self> {
+        seq! {Self {
+            version_number: le_u16,
+            vendor_id: le_u16,
+            mode: le_u8,
+            compression_method: le_u16,
         }}
         .parse_next(i)
     }

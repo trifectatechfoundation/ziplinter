@@ -12,7 +12,8 @@ use crate::{
 };
 
 use super::{
-    zero_datetime, CentralDirectoryFileHeader, EndOfCentralDirectory, ExtraField, NtfsAttr,
+    zero_datetime, CentralDirectoryFileHeader, EndOfCentralDirectory, ExtraAexField, ExtraField,
+    NtfsAttr,
 };
 
 /// An Archive contains general information about a zip files, along with a list
@@ -158,6 +159,9 @@ pub struct Entry {
 
     /// File mode.
     pub mode: Mode,
+
+    /// Aex field (if present)
+    pub aex: Option<ExtraAexField>,
 }
 
 impl Entry {
@@ -238,6 +242,9 @@ impl Entry {
             ExtraField::NewUnix(uf) => {
                 self.uid = Some(uf.uid as u32);
                 self.gid = Some(uf.uid as u32);
+            }
+            ExtraField::Aex(aex) => {
+                self.aex = Some(*aex);
             }
             _ => {}
         };

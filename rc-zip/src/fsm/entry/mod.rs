@@ -22,6 +22,7 @@ mod bzip2_dec;
 #[cfg(feature = "lzma")]
 mod lzma_dec;
 
+mod aex_dec;
 #[cfg(feature = "zstd")]
 mod zstd_dec;
 
@@ -164,10 +165,7 @@ impl EntryFsm {
             Ok(header) => {
                 let consumed = input.as_bytes().offset_from(&self.buffer.data());
                 tracing::trace!(local_file_header = ?header, consumed, "parsed local file header");
-                let decompressor = AnyDecompressor::new(
-                    header.method,
-                    self.entry.as_ref().map(|entry| entry.uncompressed_size),
-                )?;
+                let decompressor = AnyDecompressor::new(header.method, self.entry.as_ref())?;
 
                 if self.entry.is_none() {
                     self.entry = Some(header.as_entry()?);
@@ -410,7 +408,8 @@ impl EntryFsm {
                         }));
                     }
 
-                    if expected_crc32 != 0 && expected_crc32 != metrics.crc32 {
+                    if expected_crc32 != 0 && expected_crc32 != metrics.crc32 && entry.aex.is_none()
+                    {
                         return Err(Error::Format(FormatError::WrongChecksum {
                             expected: expected_crc32,
                             actual: metrics.crc32,
@@ -461,6 +460,7 @@ enum AnyDecompressor {
     Lzma(Box<lzma_dec::LzmaDec>),
     #[cfg(feature = "zstd")]
     Zstd(zstd_dec::ZstdDec),
+    Aex(aex_dec::AexDec),
 }
 
 /// Outcome of [EntryFsm::process]
@@ -490,7 +490,7 @@ trait Decompressor {
 }
 
 impl AnyDecompressor {
-    fn new(method: Method, #[allow(unused)] uncompressed_size: Option<u64>) -> Result<Self, Error> {
+    fn new(method: Method, entry: Option<&Entry>) -> Result<Self, Error> {
         let dec = match method {
             Method::Store => Self::Store(Default::default()),
 
@@ -519,7 +519,9 @@ impl AnyDecompressor {
             }
 
             #[cfg(feature = "lzma")]
-            Method::Lzma => Self::Lzma(Box::new(lzma_dec::LzmaDec::new(uncompressed_size))),
+            Method::Lzma => Self::Lzma(Box::new(lzma_dec::LzmaDec::new(
+                entry.map(|e| e.uncompressed_size),
+            ))),
             #[cfg(not(feature = "lzma"))]
             Method::Lzma => {
                 let err = Error::Unsupported(UnsupportedError::MethodNotEnabled(method));
@@ -533,6 +535,11 @@ impl AnyDecompressor {
                 let err = Error::Unsupported(UnsupportedError::MethodNotEnabled(method));
                 return Err(err);
             }
+
+            Method::Aex => match entry {
+                Some(Entry { aex: Some(aex), .. }) => Self::Aex(aex_dec::AexDec::new(*aex)),
+                _ => panic!(),
+            },
 
             _ => {
                 let err = Error::Unsupported(UnsupportedError::MethodNotSupported(method));
@@ -564,6 +571,7 @@ impl Decompressor for AnyDecompressor {
             Self::Lzma(dec) => dec.decompress(in_buf, out, has_more_input),
             #[cfg(feature = "zstd")]
             Self::Zstd(dec) => dec.decompress(in_buf, out, has_more_input),
+            Self::Aex(dec) => dec.decompress(in_buf, out, has_more_input),
         }
     }
 }
