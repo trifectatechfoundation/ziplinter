@@ -223,10 +223,7 @@ impl<'a> EntryFsm<'a> {
     pub fn process(
         mut self,
         out: &mut [u8],
-    ) -> Result<
-        FsmResult<(Self, DecompressOutcome), (Buffer, Option<LocalFileHeader<'static>>)>,
-        Error,
-    > {
+    ) -> Result<FsmResult<(Self, DecompressOutcome), Buffer>, Error> {
         tracing::trace!(
             state = match &self.state {
                 State::ReadLocalHeader => "ReadLocalHeader",
@@ -395,6 +392,7 @@ impl<'a> EntryFsm<'a> {
                     metrics,
                     descriptor,
                 } => {
+                    tracing::info!("validating...");
                     let entry = self.entry.as_ref().unwrap();
 
                     let expected_crc32 = if entry.crc32 != 0 {
@@ -419,7 +417,7 @@ impl<'a> EntryFsm<'a> {
                         }));
                     }
 
-                    Ok(FsmResult::Done((self.buffer, self.local_header)))
+                    Ok(FsmResult::Done(self.buffer))
                 }
                 S::Transition => {
                     unreachable!("the state machine should never be in the transition state")
@@ -446,7 +444,7 @@ impl<'a> EntryFsm<'a> {
         self.buffer.fill(count)
     }
 
-    pub fn local_header_entry(&self) -> &Option<LocalFileHeader> {
+    pub fn local_header_entry(&self) -> &Option<LocalFileHeader<'a>> {
         &self.local_header
     }
 }

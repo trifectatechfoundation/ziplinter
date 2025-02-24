@@ -199,12 +199,12 @@ where
         &'a self,
         parsed_ranges: &mut ParsedRanges,
     ) -> std::io::Result<Option<LocalFileHeader<'a>>> {
-        let mut v = vec![0u8; 37];
+        let mut v = vec![];
         let reader = self.file.cursor_at(self.entry.header_offset);
         let mut reader = LocalHeaderReader::new(self.entry, reader, parsed_ranges);
-        let opt_header = reader.run(&mut v)?;
+        reader.read_to_end(&mut v)?;
 
-        Ok(opt_header.map(|v| v.to_owned()))
+        Ok(reader.get_local_header().map(|v| v.to_owned()))
     }
 
     /// Returns a reader for the entry.

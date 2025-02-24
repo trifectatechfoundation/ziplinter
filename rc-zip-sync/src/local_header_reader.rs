@@ -11,6 +11,7 @@ where
 {
     rd: R,
     fsm: Option<EntryFsm<'a>>,
+    local_header: Option<LocalFileHeader<'a>>,
 }
 
 impl<'a, R> LocalHeaderReader<'a, R>
@@ -25,10 +26,20 @@ where
                 None,
                 Some(parsed_ranges),
             )),
+            local_header: None,
         }
     }
 
-    pub fn run<'b>(&'b mut self, buf: &mut [u8]) -> io::Result<Option<LocalFileHeader<'b>>> {
+    pub(crate) fn get_local_header(&self) -> Option<LocalFileHeader<'_>> {
+        self.local_header.to_owned()
+    }
+}
+
+impl<'a, R> io::Read for LocalHeaderReader<'a, R>
+where
+    R: io::Read,
+{
+    fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         loop {
             let mut fsm = match self.fsm.take() {
                 Some(fsm) => fsm,
@@ -52,8 +63,11 @@ where
                     self.fsm = Some(fsm);
 
                     if outcome.bytes_written > 0 {
+                        tracing::debug!("done?");
                         tracing::trace!("wrote {} bytes", outcome.bytes_written);
-                        return Ok(self.fsm.as_ref().unwrap().local_header_entry().to_owned());
+                        let fsm = self.fsm.as_ref().unwrap();
+                        self.local_header = fsm.local_header_entry().to_owned().clone();
+                        return Ok(outcome.bytes_written);
                     } else if filled_bytes > 0 || outcome.bytes_read > 0 {
                         // progress was made, keep reading
                         continue;
@@ -64,9 +78,10 @@ where
                         ));
                     }
                 }
-                FsmResult::Done((_, opt_local_header)) => {
+                FsmResult::Done(_) => {
                     // neat!
-                    return Ok(opt_local_header);
+                    tracing::debug!("neat?");
+                    return Ok(0);
                 }
             }
         }
