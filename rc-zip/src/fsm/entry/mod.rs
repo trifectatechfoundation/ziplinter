@@ -223,7 +223,8 @@ impl<'a> EntryFsm<'a> {
     pub fn process(
         mut self,
         out: &mut [u8],
-    ) -> Result<FsmResult<(Self, DecompressOutcome), Buffer>, Error> {
+    ) -> Result<FsmResult<(Self, DecompressOutcome), (Buffer, Option<LocalFileHeader<'a>>)>, Error>
+    {
         tracing::trace!(
             state = match &self.state {
                 State::ReadLocalHeader => "ReadLocalHeader",
@@ -303,17 +304,17 @@ impl<'a> EntryFsm<'a> {
                         "decompressed"
                     );
 
-                    let file_data_end = *data_start + *compressed_bytes;
-                    if let Some(parsed_ranges) = &mut self.parsed_ranges {
-                        parsed_ranges.insert_range(
-                            *data_start..file_data_end,
-                            "file data",
-                            Some(entry.name.clone()),
-                        );
-                    }
-
                     if outcome.bytes_written == 0 && *compressed_bytes == entry.compressed_size {
                         trace!("eof and no bytes written, we're done");
+
+                        let file_data_end = *data_start + *compressed_bytes;
+                        if let Some(parsed_ranges) = &mut self.parsed_ranges {
+                            parsed_ranges.insert_range(
+                                *data_start..file_data_end,
+                                "file data",
+                                Some(entry.name.clone()),
+                            );
+                        }
 
                         // we're done, let's read the data descriptor (if there's one)
                         transition!(self.state => (S::ReadData {  has_data_descriptor, is_zip64, uncompressed_bytes, hasher, .. }) {
@@ -392,7 +393,6 @@ impl<'a> EntryFsm<'a> {
                     metrics,
                     descriptor,
                 } => {
-                    tracing::info!("validating...");
                     let entry = self.entry.as_ref().unwrap();
 
                     let expected_crc32 = if entry.crc32 != 0 {
@@ -417,7 +417,7 @@ impl<'a> EntryFsm<'a> {
                         }));
                     }
 
-                    Ok(FsmResult::Done(self.buffer))
+                    Ok(FsmResult::Done((self.buffer, self.local_header)))
                 }
                 S::Transition => {
                     unreachable!("the state machine should never be in the transition state")

@@ -209,7 +209,10 @@ where
                     &entry
                         .local_header(&mut parsed_entry_ranges)
                         .unwrap()
-                        .unwrap(),
+                        .expect(&format!(
+                            "Can't get local file header for \"{}\"",
+                            entry.name
+                        )),
                 ),
             })
             .collect();
@@ -251,7 +254,9 @@ fn main() {
 
     let mut args = std::env::args();
     let _ = args.next();
-    let path = args.next().unwrap();
+    let path = args
+        .next()
+        .expect("Please provide a path to the zip file to analyze");
 
     let file = std::fs::File::open(path).unwrap();
     match file.read_zip() {

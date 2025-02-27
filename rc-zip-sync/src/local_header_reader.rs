@@ -63,10 +63,7 @@ where
                     self.fsm = Some(fsm);
 
                     if outcome.bytes_written > 0 {
-                        tracing::debug!("done?");
                         tracing::trace!("wrote {} bytes", outcome.bytes_written);
-                        let fsm = self.fsm.as_ref().unwrap();
-                        self.local_header = fsm.local_header_entry().to_owned().clone();
                         return Ok(outcome.bytes_written);
                     } else if filled_bytes > 0 || outcome.bytes_read > 0 {
                         // progress was made, keep reading
@@ -78,9 +75,12 @@ where
                         ));
                     }
                 }
-                FsmResult::Done(_) => {
+                FsmResult::Done((_, local_file_header)) => {
+                    if let Some(local_header) = local_file_header {
+                        self.local_header = Some(local_header);
+                    }
+
                     // neat!
-                    tracing::debug!("neat?");
                     return Ok(0);
                 }
             }

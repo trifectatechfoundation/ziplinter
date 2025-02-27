@@ -100,7 +100,7 @@ where
                             return self.poll_read(cx, buf);
                         }
                     }
-                    FsmResult::Done(remain) => {
+                    FsmResult::Done((remain, _)) => {
                         *this.state = State::Finished { remain };
 
                         // neat!
