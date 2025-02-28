@@ -216,6 +216,19 @@ where
     }
 }
 
+#[derive(serde::Serialize)]
+struct Error {
+    error: String,
+}
+
+impl From<rc_zip::error::Error> for Error {
+    fn from(error: rc_zip::error::Error) -> Self {
+        Error {
+            error: format!("{:?}", error),
+        }
+    }
+}
+
 fn main() {
     #[cfg(feature = "tracing")]
     {
@@ -230,10 +243,18 @@ fn main() {
     let path = args.next().unwrap();
 
     let file = std::fs::File::open(path).unwrap();
-    let archive = file.read_zip().unwrap();
-
-    let metadata = ZipMetadata::from(&archive);
-    eprintln!("{}", serde_json::to_string_pretty(&metadata).unwrap())
+    match file.read_zip() {
+        Ok(mut archive) => {
+            let metadata = ZipMetadata::from(&mut archive);
+            eprintln!("{}", serde_json::to_string_pretty(&metadata).unwrap())
+        }
+        Err(error) => {
+            eprintln!(
+                "{}",
+                serde_json::to_string_pretty(&Error::from(error)).unwrap()
+            )
+        }
+    }
 }
 
 #[cfg(test)]
