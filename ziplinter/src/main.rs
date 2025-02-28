@@ -217,10 +217,13 @@ where
 }
 
 fn main() {
-    let subscriber = tracing_subscriber::FmtSubscriber::builder()
-        .with_max_level(tracing::Level::TRACE)
-        .finish();
-    tracing::subscriber::set_global_default(subscriber).unwrap();
+    #[cfg(feature = "tracing")]
+    {
+        let subscriber = tracing_subscriber::FmtSubscriber::builder()
+            .with_max_level(tracing::Level::TRACE)
+            .finish();
+        tracing::subscriber::set_global_default(subscriber).unwrap();
+    }
 
     let mut args = std::env::args();
     let _ = args.next();
