@@ -3,13 +3,16 @@ name = "ziplinter"
 version = "0.1.0"
 edition = "2021"
 
+[features]
+tracing = ["dep:tracing", "dep:tracing-subscriber"]
+
 [dependencies]
 rc-zip-sync = { path = "../rc-zip-sync" }
 rc-zip = { path = "../rc-zip", features = ["lzma", "bzip2", "zstd", "deflate", "deflate64" ] }
 serde_json = "1.0.137"
 serde = { version = "1.0", features = ["derive"] }
-tracing-subscriber = "0.3.19"
-tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19", optional = true }
+tracing = { version = "0.1.41", optional = true }
 
 [dev-dependencies]
 insta = { version = "1.42.1", features = ["json"] }
