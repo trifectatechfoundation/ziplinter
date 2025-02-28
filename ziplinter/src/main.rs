@@ -244,12 +244,12 @@ fn main() {
 
     let file = std::fs::File::open(path).unwrap();
     match file.read_zip() {
-        Ok(mut archive) => {
-            let metadata = ZipMetadata::from(&mut archive);
-            eprintln!("{}", serde_json::to_string_pretty(&metadata).unwrap())
+        Ok(archive) => {
+            let metadata = ZipMetadata::from(&archive);
+            println!("{}", serde_json::to_string_pretty(&metadata).unwrap())
         }
         Err(error) => {
-            eprintln!(
+            println!(
                 "{}",
                 serde_json::to_string_pretty(&Error::from(error)).unwrap()
             )
