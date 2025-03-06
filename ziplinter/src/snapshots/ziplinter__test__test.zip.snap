@@ -290,7 +290,7 @@ expression: result
     },
     {
       "contains": "file data",
-      "end": 206,
+      "end": 954,
       "filename": "gophercolor16x16.png",
       "start": 169
     }
