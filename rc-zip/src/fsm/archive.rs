@@ -1,3 +1,5 @@
+use std::{rc::Rc, sync::Mutex};
+
 use super::{FsmResult, ParsedRanges};
 use crate::{
     encoding::Encoding,
@@ -43,7 +45,7 @@ pub struct ArchiveFsm {
     buffer: Buffer,
 
     /// The ranges that have been parsed while reading the central directory
-    parsed_ranges: ParsedRanges,
+    parsed_ranges: Rc<Mutex<ParsedRanges>>,
 }
 
 #[derive(Default)]
@@ -96,7 +98,7 @@ impl ArchiveFsm {
             size,
             buffer: Buffer::with_capacity(Self::DEFAULT_BUFFER_SIZE),
             state: State::ReadEocd { haystack_size },
-            parsed_ranges: ParsedRanges::new(),
+            parsed_ranges: Rc::new(Mutex::new(ParsedRanges::new())),
         }
     }
 
@@ -157,7 +159,7 @@ impl ArchiveFsm {
                         self.buffer.reset();
                         eocdr.offset += self.size - haystack_size;
 
-                        self.parsed_ranges.insert_offset_length(
+                        self.parsed_ranges.try_lock().unwrap().insert_offset_length(
                             eocdr.offset,
                             eocdr.inner.len() as u64,
                             "end of central directory record",
@@ -226,7 +228,7 @@ impl ArchiveFsm {
                         self.buffer.reset();
                         transition!(self.state => (S::ReadEocd64Locator { eocdr }) {
                             let length = EndOfCentralDirectory64Locator::LENGTH as u64;
-                            self.parsed_ranges.insert_offset_length(
+                            self.parsed_ranges.try_lock().unwrap().insert_offset_length(
                                 eocdr.offset - length,
                                 length,
                                 "zip64 end of central directory locator",
@@ -258,7 +260,7 @@ impl ArchiveFsm {
                     Ok((_, eocdr64)) => {
                         self.buffer.reset();
                         transition!(self.state => (S::ReadEocd64 { eocdr, eocdr64_offset }) {
-                            self.parsed_ranges.insert_offset_length(
+                            self.parsed_ranges.try_lock().unwrap().insert_offset_length(
                                 eocdr64_offset, eocdr64.len() as u64, "zip64 end of central directory record", None
                             );
                             let eocd = EndOfCentralDirectory::new(
@@ -307,7 +309,7 @@ impl ArchiveFsm {
                             let entry = dh.as_entry(Encoding::Utf8, eocd.global_offset as u64);
                             let current_header_end =
                                 eocd.directory_offset() + valid_consumed as u64;
-                            self.parsed_ranges.insert_range(
+                            self.parsed_ranges.try_lock().unwrap().insert_range(
                                 current_header_offset..current_header_end,
                                 "central directory header",
                                 entry.map(|e| e.name).ok(),

@@ -1,4 +1,4 @@
-use std::cmp;
+use std::{cmp, rc::Rc, sync::Mutex};
 
 use oval::Buffer;
 use tracing::trace;
@@ -88,20 +88,20 @@ enum State {
 }
 
 /// A state machine that can parse a zip entry
-pub struct EntryFsm<'a> {
+pub struct EntryFsm {
     state: State,
     entry: Option<Entry>,
     local_header: Option<LocalFileHeader<'static>>,
     buffer: Buffer,
-    parsed_ranges: Option<&'a mut ParsedRanges>,
+    parsed_ranges: Option<Rc<Mutex<ParsedRanges>>>,
 }
 
-impl<'a> EntryFsm<'a> {
+impl EntryFsm {
     /// Create a new state machine for decompressing a zip entry
     pub fn new(
         entry: Option<Entry>,
         buffer: Option<Buffer>,
-        parsed_ranges: Option<&'a mut ParsedRanges>,
+        parsed_ranges: Option<Rc<Mutex<ParsedRanges>>>,
     ) -> Self {
         const BUF_CAPACITY: usize = 256 * 1024;
 
@@ -192,7 +192,7 @@ impl<'a> EntryFsm<'a> {
                 };
 
                 if let Some(parsed_ranges) = &mut self.parsed_ranges {
-                    parsed_ranges.insert_offset_length(
+                    parsed_ranges.try_lock().unwrap().insert_offset_length(
                         start,
                         length,
                         "local file header",
@@ -223,7 +223,7 @@ impl<'a> EntryFsm<'a> {
     pub fn process(
         mut self,
         out: &mut [u8],
-    ) -> Result<FsmResult<(Self, DecompressOutcome), (Buffer, Option<LocalFileHeader<'a>>)>, Error>
+    ) -> Result<FsmResult<(Self, DecompressOutcome), (Buffer, Option<LocalFileHeader>)>, Error>
     {
         tracing::trace!(
             state = match &self.state {
@@ -309,7 +309,7 @@ impl<'a> EntryFsm<'a> {
 
                         let file_data_end = *data_start + *compressed_bytes;
                         if let Some(parsed_ranges) = &mut self.parsed_ranges {
-                            parsed_ranges.insert_range(
+                            parsed_ranges.try_lock().unwrap().insert_range(
                                 *data_start..file_data_end,
                                 "file data",
                                 Some(entry.name.clone()),
@@ -370,7 +370,7 @@ impl<'a> EntryFsm<'a> {
                             trace!("data descriptor = {:#?}", descriptor);
 
                             if let Some(parsed_ranges) = &mut self.parsed_ranges {
-                                parsed_ranges.insert_offset_length(
+                                parsed_ranges.try_lock().unwrap().insert_offset_length(
                                     *data_descriptor_start,
                                     consumed as u64,
                                     "data descriptor",
@@ -444,7 +444,7 @@ impl<'a> EntryFsm<'a> {
         self.buffer.fill(count)
     }
 
-    pub fn local_header_entry(&self) -> &Option<LocalFileHeader<'a>> {
+    pub fn local_header_entry(&self) -> &Option<LocalFileHeader> {
         &self.local_header
     }
 }

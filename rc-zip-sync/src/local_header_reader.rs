@@ -2,7 +2,7 @@ use rc_zip::{
     fsm::{EntryFsm, FsmResult, ParsedRanges},
     parse::{Entry, LocalFileHeader},
 };
-use std::io;
+use std::{io, rc::Rc, sync::Mutex};
 use tracing::trace;
 
 pub(crate) struct LocalHeaderReader<'a, R>
@@ -10,7 +10,7 @@ where
     R: io::Read,
 {
     rd: R,
-    fsm: Option<EntryFsm<'a>>,
+    fsm: Option<EntryFsm>,
     local_header: Option<LocalFileHeader<'a>>,
 }
 
@@ -18,7 +18,7 @@ impl<'a, R> LocalHeaderReader<'a, R>
 where
     R: io::Read,
 {
-    pub(crate) fn new(entry: &Entry, rd: R, parsed_ranges: &'a mut ParsedRanges) -> Self {
+    pub(crate) fn new(entry: &Entry, rd: R, parsed_ranges: Rc<Mutex<ParsedRanges>>) -> Self {
         Self {
             rd,
             fsm: Some(EntryFsm::new(
@@ -77,7 +77,7 @@ where
                 }
                 FsmResult::Done((_, local_file_header)) => {
                     if let Some(local_header) = local_file_header {
-                        self.local_header = Some(local_header);
+                        self.local_header = Some(local_header.into_owned());
                     }
 
                     // neat!
