@@ -248,6 +248,12 @@ expression: result
       "start": 61
     },
     {
+      "contains": "data descriptor",
+      "end": 77,
+      "filename": "foo.txt",
+      "start": 65
+    },
+    {
       "contains": "local file header",
       "end": 138,
       "filename": "bar.txt",
@@ -258,6 +264,12 @@ expression: result
       "end": 142,
       "filename": "bar.txt",
       "start": 138
+    },
+    {
+      "contains": "data descriptor",
+      "end": 154,
+      "filename": "bar.txt",
+      "start": 142
     }
   ],
   "size": 330
