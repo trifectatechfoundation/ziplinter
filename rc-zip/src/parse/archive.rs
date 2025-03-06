@@ -1,3 +1,5 @@
+use std::{rc::Rc, sync::Mutex};
+
 use chrono::{offset::Utc, DateTime, TimeZone};
 use num_enum::{FromPrimitive, IntoPrimitive};
 use ownable::{IntoOwned, ToOwned};
@@ -28,7 +30,7 @@ pub struct Archive {
     pub encoding: Encoding,
     pub entries: Vec<Entry>,
     pub comment: String,
-    pub parsed_ranges: ParsedRanges,
+    pub parsed_ranges: Rc<Mutex<ParsedRanges>>,
 }
 
 impl Archive {

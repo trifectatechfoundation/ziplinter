@@ -11,6 +11,8 @@ use crate::{entry_reader::EntryReader, local_header_reader::LocalHeaderReader};
 use std::{
     io::Read,
     ops::{Deref, DerefMut},
+    rc::Rc,
+    sync::Mutex,
 };
 
 /// A trait for reading something as a zip archive
@@ -197,7 +199,7 @@ where
     /// Returns a reader for the entry.
     pub fn local_header(
         &'a self,
-        parsed_ranges: &mut ParsedRanges,
+        parsed_ranges: Rc<Mutex<ParsedRanges>>,
     ) -> std::io::Result<Option<LocalFileHeader<'a>>> {
         let mut v = vec![];
         let reader = self.file.cursor_at(self.entry.header_offset);
@@ -279,7 +281,7 @@ impl ReadZip for std::fs::File {
 /// based only on local headers. THIS IS NOT RECOMMENDED, as correctly
 /// reading zip files requires reading the central directory (located at
 /// the end of the file).
-pub trait ReadZipStreaming<'a, R>
+pub trait ReadZipStreaming<R>
 where
     R: Read,
 {
@@ -290,16 +292,16 @@ where
     /// [ReadZipWithSize] instead.
     fn stream_zip_entries_throwing_caution_to_the_wind(
         self,
-    ) -> Result<StreamingEntryReader<'a, R>, Error>;
+    ) -> Result<StreamingEntryReader<R>, Error>;
 }
 
-impl<'a, R> ReadZipStreaming<'a, R> for R
+impl<R> ReadZipStreaming<R> for R
 where
     R: Read,
 {
     fn stream_zip_entries_throwing_caution_to_the_wind(
         mut self,
-    ) -> Result<StreamingEntryReader<'a, Self>, Error> {
+    ) -> Result<StreamingEntryReader<Self>, Error> {
         let mut fsm = EntryFsm::new(None, None, None);
 
         loop {

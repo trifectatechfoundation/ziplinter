@@ -15,19 +15,19 @@ pin_project! {
     /// can you move on to the next entry.
     ///
     /// However, it only requires an [AsyncRead], and does not need to seek.
-    pub struct StreamingEntryReader<'a, R> {
+    pub struct StreamingEntryReader<R> {
         entry: Entry,
         #[pin]
         rd: R,
-        state: State<'a>,
+        state: State,
     }
 }
 
 #[derive(Default)]
 #[allow(clippy::large_enum_variant)]
-enum State<'a> {
+enum State {
     Reading {
-        fsm: EntryFsm<'a>,
+        fsm: EntryFsm,
     },
     Finished {
         /// remaining buffer for next entry
@@ -37,11 +37,11 @@ enum State<'a> {
     Transition,
 }
 
-impl<'a, R> StreamingEntryReader<'a, R>
+impl<R> StreamingEntryReader<R>
 where
     R: AsyncRead,
 {
-    pub(crate) fn new(fsm: EntryFsm<'a>, entry: Entry, rd: R) -> Self {
+    pub(crate) fn new(fsm: EntryFsm, entry: Entry, rd: R) -> Self {
         Self {
             entry,
             rd,
@@ -50,7 +50,7 @@ where
     }
 }
 
-impl<'a, R> AsyncRead for StreamingEntryReader<'a, R>
+impl<R> AsyncRead for StreamingEntryReader<R>
 where
     R: AsyncRead,
 {
@@ -117,7 +117,7 @@ where
     }
 }
 
-impl<'a, R> StreamingEntryReader<'a, R>
+impl<R> StreamingEntryReader<R>
 where
     R: AsyncRead + Unpin,
 {
@@ -131,7 +131,7 @@ where
     /// any. This panics if the entry is not fully read.
     ///
     /// If this returns None, there's no entries left.
-    pub async fn finish(mut self) -> Result<Option<StreamingEntryReader<'a, R>>, Error> {
+    pub async fn finish(mut self) -> Result<Option<StreamingEntryReader<R>>, Error> {
         trace!("finishing streaming entry reader");
 
         if matches!(self.state, State::Reading { .. }) {

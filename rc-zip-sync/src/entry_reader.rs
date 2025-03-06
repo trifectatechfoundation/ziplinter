@@ -5,15 +5,15 @@ use rc_zip::{
 use std::io;
 use tracing::trace;
 
-pub(crate) struct EntryReader<'a, R>
+pub(crate) struct EntryReader<R>
 where
     R: io::Read,
 {
     rd: R,
-    fsm: Option<EntryFsm<'a>>,
+    fsm: Option<EntryFsm>,
 }
 
-impl<'a, R> EntryReader<'a, R>
+impl<R> EntryReader<R>
 where
     R: io::Read,
 {
@@ -25,7 +25,7 @@ where
     }
 }
 
-impl<'a, R> io::Read for EntryReader<'a, R>
+impl<R> io::Read for EntryReader<R>
 where
     R: io::Read,
 {

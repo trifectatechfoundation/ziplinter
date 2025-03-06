@@ -190,7 +190,7 @@ struct ZipMetadata<'a> {
     size: u64,
     comment: &'a String,
     contents: Vec<FileMetadata>,
-    parsed_ranges: &'a ParsedRanges,
+    parsed_ranges: ParsedRanges,
 }
 
 impl<'a, F> From<&'a mut ArchiveHandle<'a, F>> for ZipMetadata<'a>
@@ -198,8 +198,6 @@ where
     F: HasCursor,
 {
     fn from(archive: &'a mut ArchiveHandle<'a, F>) -> Self {
-        let mut parsed_entry_ranges = ParsedRanges::new();
-
         let contents = archive
             .entries()
             .zip(archive.directory_headers.iter())
@@ -207,7 +205,7 @@ where
                 central: CentralDirectoryFileHeader::from_rc_zip(directory_header, entry.entry),
                 local: LocalFileHeader::from(
                     &entry
-                        .local_header(&mut parsed_entry_ranges)
+                        .local_header(archive.parsed_ranges.clone())
                         .unwrap()
                         .expect(&format!(
                             "Can't get local file header for \"{}\"",
@@ -217,15 +215,13 @@ where
             })
             .collect();
 
-        archive.parsed_ranges.append(&mut parsed_entry_ranges);
-
         ZipMetadata {
             eocd: &archive.eocd,
             encoding: archive.encoding,
             size: archive.size,
             comment: &archive.comment,
             contents,
-            parsed_ranges: &archive.parsed_ranges,
+            parsed_ranges: archive.parsed_ranges.try_lock().unwrap().clone(),
         }
     }
 }
