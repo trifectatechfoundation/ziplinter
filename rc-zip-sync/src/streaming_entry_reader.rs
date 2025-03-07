@@ -81,7 +81,7 @@ where
                             self.read(buf)
                         }
                     }
-                    FsmResult::Done((remain, _)) => {
+                    FsmResult::Done((remain, _, _)) => {
                         self.state = State::Finished { remain };
 
                         // neat!

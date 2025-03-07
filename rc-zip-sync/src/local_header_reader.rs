@@ -1,5 +1,5 @@
 use rc_zip::{
-    fsm::{EntryFsm, FsmResult, ParsedRanges},
+    fsm::{AexData, EntryFsm, FsmResult, ParsedRanges},
     parse::{Entry, LocalFileHeader},
 };
 use std::{io, rc::Rc, sync::Mutex};
@@ -12,6 +12,7 @@ where
     rd: R,
     fsm: Option<EntryFsm>,
     local_header: Option<LocalFileHeader<'a>>,
+    aex_data: Option<AexData>,
 }
 
 impl<R> LocalHeaderReader<'_, R>
@@ -27,11 +28,16 @@ where
                 Some(parsed_ranges),
             )),
             local_header: None,
+            aex_data: None,
         }
     }
 
-    pub(crate) fn get_local_header(&self) -> Option<LocalFileHeader<'_>> {
-        self.local_header.to_owned()
+    pub(crate) fn take_local_header(&mut self) -> Option<LocalFileHeader<'_>> {
+        self.local_header.take()
+    }
+
+    pub(crate) fn take_aex_data(&mut self) -> Option<AexData> {
+        self.aex_data.take()
     }
 }
 
@@ -75,10 +81,9 @@ where
                         ));
                     }
                 }
-                FsmResult::Done((_, local_file_header)) => {
-                    if let Some(local_header) = local_file_header {
-                        self.local_header = Some(local_header.into_owned());
-                    }
+                FsmResult::Done((_, local_file_header, aex_data)) => {
+                    self.local_header = local_file_header.map(|s| s.into_owned());
+                    self.aex_data = aex_data;
 
                     // neat!
                     return Ok(0);
