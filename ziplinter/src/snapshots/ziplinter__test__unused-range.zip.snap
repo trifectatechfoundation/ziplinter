@@ -1,0 +1,98 @@
+---
+source: ziplinter/src/main.rs
+expression: result
+---
+{
+  "comment": "",
+  "contents": [
+    {
+      "central": {
+        "comment": "",
+        "compressed_size": 16,
+        "crc32": 2356372769,
+        "creator_version": {
+          "host_system": "MsDos",
+          "version": 0
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 0,
+        "extra": [],
+        "flags": 0,
+        "header_offset": 0,
+        "internal_attrs": 0,
+        "method": "Deflate",
+        "mode": 438,
+        "modified": "2023-01-05T15:45:16Z",
+        "name": "foo",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uncompressed_size": 3
+      },
+      "local": {
+        "accessed": null,
+        "compressed_size": 16,
+        "crc32": 2356372769,
+        "created": null,
+        "extra": [],
+        "flags": 0,
+        "gid": null,
+        "header_offset": 0,
+        "method": "Deflate",
+        "method_specific": "None",
+        "mode": 0,
+        "modified": "2023-01-05T15:45:16Z",
+        "name": "foo",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uid": null,
+        "uncompressed_size": 3
+      }
+    }
+  ],
+  "encoding": "Utf8",
+  "eocd": {
+    "dir": {
+      "inner": {
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 1,
+        "directory_offset": 133,
+        "directory_records": 1,
+        "directory_size": 49,
+        "disk_nbr": 0
+      },
+      "offset": 182
+    },
+    "dir64": null,
+    "global_offset": 0
+  },
+  "parsed_ranges": [
+    {
+      "contains": "end of central directory record",
+      "end": 204,
+      "start": 182
+    },
+    {
+      "contains": "central directory header",
+      "end": 182,
+      "filename": "foo",
+      "start": 133
+    },
+    {
+      "contains": "local file header",
+      "end": 33,
+      "filename": "foo",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 49,
+      "filename": "foo",
+      "start": 33
+    }
+  ],
+  "size": 204
+}
