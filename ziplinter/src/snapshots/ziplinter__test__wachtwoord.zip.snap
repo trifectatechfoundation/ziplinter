@@ -1,0 +1,240 @@
+---
+source: ziplinter/src/main.rs
+expression: result
+---
+{
+  "comment": "",
+  "contents": [
+    {
+      "central": {
+        "aex": {
+          "compression_method": 8,
+          "mode": 3,
+          "vendor_id": 17729,
+          "version_number": 1
+        },
+        "comment": "",
+        "compressed_size": 357023,
+        "crc32": 1794068177,
+        "creator_version": {
+          "host_system": "Unix",
+          "version": 20
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 2175008768,
+        "extra": [
+          85,
+          84,
+          13,
+          0,
+          7,
+          188,
+          94,
+          184,
+          103,
+          194,
+          94,
+          184,
+          103,
+          188,
+          94,
+          184,
+          103,
+          117,
+          120,
+          11,
+          0,
+          1,
+          4,
+          251,
+          3,
+          0,
+          0,
+          4,
+          254,
+          3,
+          0,
+          0,
+          1,
+          153,
+          7,
+          0,
+          1,
+          0,
+          65,
+          69,
+          3,
+          8,
+          0
+        ],
+        "flags": 9,
+        "header_offset": 0,
+        "internal_attrs": 0,
+        "method": "Aex",
+        "mode": 420,
+        "modified": "2025-02-21T11:08:44Z",
+        "name": "golf.jpg",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uncompressed_size": 357734
+      },
+      "local": {
+        "accessed": null,
+        "aex": {
+          "compression_method": 8,
+          "mode": 3,
+          "vendor_id": 17729,
+          "version_number": 1
+        },
+        "aex_data": {
+          "authentication_code": [
+            74,
+            29,
+            75,
+            46,
+            100,
+            218,
+            76,
+            193,
+            170,
+            228
+          ],
+          "password_verification_value": [
+            221,
+            119
+          ],
+          "salt_value": [
+            110,
+            206,
+            91,
+            102,
+            173,
+            2,
+            59,
+            215,
+            87,
+            119,
+            71,
+            13,
+            83,
+            181,
+            149,
+            207
+          ]
+        },
+        "compressed_size": 0,
+        "crc32": 0,
+        "created": null,
+        "extra": [
+          85,
+          84,
+          13,
+          0,
+          7,
+          188,
+          94,
+          184,
+          103,
+          194,
+          94,
+          184,
+          103,
+          188,
+          94,
+          184,
+          103,
+          117,
+          120,
+          11,
+          0,
+          1,
+          4,
+          251,
+          3,
+          0,
+          0,
+          4,
+          254,
+          3,
+          0,
+          0,
+          1,
+          153,
+          7,
+          0,
+          1,
+          0,
+          65,
+          69,
+          3,
+          8,
+          0
+        ],
+        "flags": 9,
+        "gid": 1019,
+        "header_offset": 0,
+        "method": "Aex",
+        "method_specific": "None",
+        "mode": 0,
+        "modified": "2025-02-21T11:08:44Z",
+        "name": "golf.jpg",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uid": 1019,
+        "uncompressed_size": 357734
+      }
+    }
+  ],
+  "encoding": "Utf8",
+  "eocd": {
+    "dir": {
+      "inner": {
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 1,
+        "directory_offset": 357120,
+        "directory_records": 1,
+        "directory_size": 97,
+        "disk_nbr": 0
+      },
+      "offset": 357217
+    },
+    "dir64": null,
+    "global_offset": 0
+  },
+  "parsed_ranges": [
+    {
+      "contains": "end of central directory record",
+      "end": 357239,
+      "start": 357217
+    },
+    {
+      "contains": "central directory header",
+      "end": 357217,
+      "filename": "golf.jpg",
+      "start": 357120
+    },
+    {
+      "contains": "local file header",
+      "end": 81,
+      "filename": "golf.jpg",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 357104,
+      "filename": "golf.jpg",
+      "start": 81
+    },
+    {
+      "contains": "data descriptor",
+      "end": 357120,
+      "filename": "golf.jpg",
+      "start": 357104
+    }
+  ],
+  "size": 357239
+}
