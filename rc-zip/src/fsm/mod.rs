@@ -23,7 +23,7 @@ mod archive;
 pub use archive::ArchiveFsm;
 
 mod entry;
-pub use entry::{DecompressOutcome, EntryFsm};
+pub use entry::{AexData, DecompressOutcome, EntryFsm};
 
 mod parsed_ranges;
 pub use parsed_ranges::ParsedRanges;

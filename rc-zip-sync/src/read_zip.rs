@@ -1,6 +1,6 @@
 use rc_zip::{
     error::Error,
-    fsm::{ArchiveFsm, FsmResult, ParsedRanges},
+    fsm::{AexData, ArchiveFsm, FsmResult, ParsedRanges},
     parse::{Archive, LocalFileHeader},
 };
 use rc_zip::{fsm::EntryFsm, parse::Entry};
@@ -200,13 +200,16 @@ where
     pub fn local_header(
         &'a self,
         parsed_ranges: Rc<Mutex<ParsedRanges>>,
-    ) -> std::io::Result<Option<LocalFileHeader<'a>>> {
-        let mut v = vec![];
+    ) -> std::io::Result<Option<(LocalFileHeader<'a>, Option<AexData>)>> {
+        let mut v = Vec::new();
         let reader = self.file.cursor_at(self.entry.header_offset);
         let mut reader = LocalHeaderReader::new(self.entry, reader, parsed_ranges);
         reader.read_to_end(&mut v)?;
 
-        Ok(reader.get_local_header().map(|v| v.to_owned()))
+        Ok(reader
+            .take_local_header()
+            .map(|v| v.to_owned())
+            .map(|local_header| (local_header, reader.take_aex_data())))
     }
 
     /// Returns a reader for the entry.
@@ -216,7 +219,7 @@ where
 
     /// Reads the entire entry into a vector.
     pub fn bytes(&self) -> std::io::Result<Vec<u8>> {
-        let mut v = Vec::new();
+        let mut v: Vec<u8> = Vec::new();
         self.reader().read_to_end(&mut v)?;
         Ok(v)
     }

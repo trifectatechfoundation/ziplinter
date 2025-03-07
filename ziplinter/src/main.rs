@@ -1,7 +1,7 @@
 use rc_zip::{
     chrono::{DateTime, Utc},
     encoding::Encoding,
-    fsm::ParsedRanges,
+    fsm::{AexData, ParsedRanges},
     parse::{EndOfCentralDirectory, Entry, ExtraAexField, Method, MethodSpecific, Mode, Version},
 };
 use rc_zip_sync::{ArchiveHandle, HasCursor, ReadZip};
@@ -56,6 +56,7 @@ pub struct CentralDirectoryFileHeader {
     /// File mode.
     pub mode: Mode,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub aex: Option<ExtraAexField>,
 }
 
@@ -153,11 +154,15 @@ pub struct LocalFileHeader {
     /// File mode.
     pub mode: Mode,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub aex: Option<ExtraAexField>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub aex_data: Option<AexData>,
 }
 
-impl From<&rc_zip::parse::LocalFileHeader<'_>> for LocalFileHeader {
-    fn from(value: &rc_zip::parse::LocalFileHeader<'_>) -> Self {
+impl From<&(rc_zip::parse::LocalFileHeader<'_>, Option<AexData>)> for LocalFileHeader {
+    fn from((value, aex_data): &(rc_zip::parse::LocalFileHeader<'_>, Option<AexData>)) -> Self {
         let entry = value.as_entry().unwrap();
 
         LocalFileHeader {
@@ -178,6 +183,7 @@ impl From<&rc_zip::parse::LocalFileHeader<'_>> for LocalFileHeader {
             method_specific: value.method_specific,
             mode: entry.mode,
             aex: entry.aex,
+            aex_data: aex_data.to_owned(),
         }
     }
 }

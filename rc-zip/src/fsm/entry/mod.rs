@@ -23,6 +23,8 @@ mod bzip2_dec;
 mod lzma_dec;
 
 mod aex_dec;
+pub use aex_dec::AexData;
+
 #[cfg(feature = "zstd")]
 mod zstd_dec;
 
@@ -95,6 +97,7 @@ pub struct EntryFsm {
     local_header: Option<LocalFileHeader<'static>>,
     buffer: Buffer,
     parsed_ranges: Option<Rc<Mutex<ParsedRanges>>>,
+    aex_data: Option<AexData>,
 }
 
 impl EntryFsm {
@@ -118,6 +121,7 @@ impl EntryFsm {
                 None => Buffer::with_capacity(BUF_CAPACITY),
             },
             parsed_ranges,
+            aex_data: None,
         }
     }
 
@@ -221,8 +225,10 @@ impl EntryFsm {
     pub fn process(
         mut self,
         out: &mut [u8],
-    ) -> Result<FsmResult<(Self, DecompressOutcome), (Buffer, Option<LocalFileHeader>)>, Error>
-    {
+    ) -> Result<
+        FsmResult<(Self, DecompressOutcome), (Buffer, Option<LocalFileHeader>, Option<AexData>)>,
+        Error,
+    > {
         tracing::trace!(
             state = match &self.state {
                 State::ReadLocalHeader => "ReadLocalHeader",
@@ -314,6 +320,10 @@ impl EntryFsm {
                             );
                         }
 
+                        if let AnyDecompressor::Aex(aex_dec) = decompressor {
+                            self.aex_data = aex_dec.take_aex_data();
+                        }
+
                         // we're done, let's read the data descriptor (if there's one)
                         transition!(self.state => (S::ReadData {  has_data_descriptor, is_zip64, uncompressed_bytes, hasher, .. }) {
                             let metrics = EntryReadMetrics {
@@ -401,7 +411,10 @@ impl EntryFsm {
                         0
                     };
 
-                    if entry.uncompressed_size != metrics.uncompressed_size {
+                    // When AE-X encryption is used, we can't access the file's data
+                    // Since the data is compressed before it is encrypted, the file size of the encrypted data won't match in size
+                    // so we skip this validation check
+                    if entry.uncompressed_size != metrics.uncompressed_size && entry.aex.is_none() {
                         return Err(Error::Format(FormatError::WrongSize {
                             expected: entry.uncompressed_size,
                             actual: metrics.uncompressed_size,
@@ -416,7 +429,11 @@ impl EntryFsm {
                         }));
                     }
 
-                    Ok(FsmResult::Done((self.buffer, self.local_header)))
+                    Ok(FsmResult::Done((
+                        self.buffer,
+                        self.local_header,
+                        self.aex_data,
+                    )))
                 }
                 S::Transition => {
                     unreachable!("the state machine should never be in the transition state")
