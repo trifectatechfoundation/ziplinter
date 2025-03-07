@@ -34,6 +34,7 @@ pub struct EndOfCentralDirectoryRecord<'a> {
     pub directory_offset: u32,
 
     /// .ZIP file comment
+    #[serde(skip)] // this is printed as a string already
     pub comment: Cow<'a, [u8]>,
 }
 
