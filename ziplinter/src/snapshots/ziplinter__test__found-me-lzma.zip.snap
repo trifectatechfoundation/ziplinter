@@ -100,7 +100,6 @@ expression: result
   "eocd": {
     "dir": {
       "inner": {
-        "comment": [],
         "dir_disk_nbr": 0,
         "dir_records_this_disk": 1,
         "directory_offset": 163,
