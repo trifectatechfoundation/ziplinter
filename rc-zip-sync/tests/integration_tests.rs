@@ -61,10 +61,10 @@ fn real_world_files() {
         if let Ok("1") = std::env::var("ONE_BYTE_READ").as_deref() {
             let size = file.metadata().unwrap().len();
             let file = OneByteReadWrapper(file);
-            let archive = file.read_zip_with_size(size).map_err(Error::from);
+            let archive = file.read_zip_with_size(size);
             check_case(&case, archive);
         } else {
-            let archive = file.read_zip().map_err(Error::from);
+            let archive = file.read_zip();
             check_case(&case, archive);
         };
         drop(guarded_path)
@@ -114,7 +114,10 @@ impl<R> HasCursor for OneByteReadWrapper<R>
 where
     R: HasCursor,
 {
-    type Cursor<'a> = OneByteReadWrapper<R::Cursor<'a>> where R: 'a;
+    type Cursor<'a>
+        = OneByteReadWrapper<R::Cursor<'a>>
+    where
+        R: 'a;
 
     fn cursor_at(&self, offset: u64) -> Self::Cursor<'_> {
         OneByteReadWrapper(self.0.cursor_at(offset))

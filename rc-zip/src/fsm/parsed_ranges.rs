@@ -49,3 +49,9 @@ impl ParsedRanges {
         self.0.append(&mut other.0);
     }
 }
+
+impl Default for ParsedRanges {
+    fn default() -> Self {
+        Self::new()
+    }
+}

@@ -57,6 +57,7 @@ impl<'a> EndOfCentralDirectoryRecord<'a> {
         None
     }
 
+    #[allow(clippy::len_without_is_empty)]
     pub fn len(&self) -> usize {
         let comment_len = size_of::<u16>() + self.comment.len(); // including u16 length value
         Self::SIGNATURE.len() + 4 * size_of::<u16>() + 2 * size_of::<u32>() + comment_len
@@ -141,6 +142,7 @@ pub struct EndOfCentralDirectory64Record {
 impl EndOfCentralDirectory64Record {
     const SIGNATURE: &'static str = "PK\x06\x06";
 
+    #[allow(clippy::len_without_is_empty)]
     pub fn len(&self) -> usize {
         Self::SIGNATURE.len() + 2 * size_of::<u16>() + 2 * size_of::<u32>() + 5 * size_of::<u64>()
     }
