@@ -30,7 +30,7 @@ jobs:
           tool: nextest
       - name: Run cargo clippy
         run: |
-          cargo clippy
+          cargo clippy --all-targets -- -D warnings
       - name: Run cargo nextest
         run: |
           cargo nextest run --profile ci --all-features
