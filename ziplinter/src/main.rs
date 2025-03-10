@@ -1,10 +1,13 @@
+use std::{rc::Rc, sync::Mutex};
+
 use rc_zip::{
     chrono::{DateTime, Utc},
     encoding::Encoding,
     fsm::{AexData, ParsedRanges},
     parse::{EndOfCentralDirectory, Entry, ExtraAexField, Method, MethodSpecific, Mode, Version},
 };
-use rc_zip_sync::{ArchiveHandle, HasCursor, ReadZip};
+use rc_zip_sync::{ArchiveHandle, EntryHandle, HasCursor, ReadZip};
+use serde::ser::SerializeStruct;
 
 #[derive(serde::Serialize)]
 pub struct CentralDirectoryFileHeader {
@@ -161,11 +164,17 @@ pub struct LocalFileHeader {
     pub aex_data: Option<AexData>,
 }
 
-impl From<&(rc_zip::parse::LocalFileHeader<'_>, Option<AexData>)> for LocalFileHeader {
-    fn from((value, aex_data): &(rc_zip::parse::LocalFileHeader<'_>, Option<AexData>)) -> Self {
-        let entry = value.as_entry().unwrap();
+impl LocalFileHeader {
+    fn from_rc_zip<F: HasCursor>(
+        entry: EntryHandle<'_, F>,
+        parsed_ranges: Rc<Mutex<ParsedRanges>>,
+    ) -> Result<Self, Error> {
+        let (value, aex_data) = entry.local_header(parsed_ranges)?.ok_or(Error {
+            error: format!("Can't get local file header for \"{}\"", entry.name),
+        })?;
+        let entry = value.as_entry()?;
 
-        LocalFileHeader {
+        Ok(LocalFileHeader {
             reader_version: value.reader_version,
             flags: value.flags,
             method: value.method,
@@ -184,15 +193,30 @@ impl From<&(rc_zip::parse::LocalFileHeader<'_>, Option<AexData>)> for LocalFileH
             mode: entry.mode,
             aex: entry.aex,
             aex_data: aex_data.to_owned(),
-        }
+        })
     }
 }
 
 /// File metadata which consists of an `Entry`, and some additional data from  the`CentralDirectoryFileHeader`
-#[derive(serde::Serialize)]
 struct FileMetadata {
     central: CentralDirectoryFileHeader,
-    local: LocalFileHeader,
+    local: Result<LocalFileHeader, Error>,
+}
+
+impl serde::Serialize for FileMetadata {
+    // custom serialize implementation to unpack Result type
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let mut file_metadata = serializer.serialize_struct("FileMetadata", 2)?;
+        file_metadata.serialize_field("central", &self.central)?;
+        match &self.local {
+            Ok(local) => file_metadata.serialize_field("local", &local)?,
+            Err(error) => file_metadata.serialize_field("local", &error)?,
+        }
+        file_metadata.end()
+    }
 }
 
 #[derive(serde::Serialize)]
@@ -215,14 +239,7 @@ where
             .zip(archive.directory_headers.iter())
             .map(|(entry, directory_header)| FileMetadata {
                 central: CentralDirectoryFileHeader::from_rc_zip(directory_header, entry.entry),
-                local: LocalFileHeader::from(
-                    &entry
-                        .local_header(archive.parsed_ranges.clone())
-                        .unwrap()
-                        .unwrap_or_else(|| {
-                            panic!("Can't get local file header for \"{}\"", entry.name)
-                        }),
-                ),
+                local: LocalFileHeader::from_rc_zip(entry, archive.parsed_ranges.clone()),
             })
             .collect();
 
@@ -242,8 +259,8 @@ struct Error {
     error: String,
 }
 
-impl From<rc_zip::error::Error> for Error {
-    fn from(error: rc_zip::error::Error) -> Self {
+impl<T: std::fmt::Debug> From<T> for Error {
+    fn from(error: T) -> Self {
         Error {
             error: format!("{:?}", error),
         }
@@ -266,18 +283,11 @@ fn main() {
         .expect("Please provide a path to the zip file to analyze");
 
     let file = std::fs::File::open(path).unwrap();
-    match file.read_zip() {
-        Ok(mut archive) => {
-            let metadata = ZipMetadata::from(&mut archive);
-            println!("{}", serde_json::to_string_pretty(&metadata).unwrap())
-        }
-        Err(error) => {
-            println!(
-                "{}",
-                serde_json::to_string_pretty(&Error::from(error)).unwrap()
-            )
-        }
-    }
+    let value = match file.read_zip() {
+        Ok(mut archive) => serde_json::to_value(ZipMetadata::from(&mut archive)).unwrap(),
+        Err(error) => serde_json::to_value(Error::from(error)).unwrap(),
+    };
+    println!("{}", serde_json::to_string_pretty(&value).unwrap());
 }
 
 #[cfg(test)]
