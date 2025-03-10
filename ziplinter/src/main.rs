@@ -207,10 +207,9 @@ where
                     &entry
                         .local_header(archive.parsed_ranges.clone())
                         .unwrap()
-                        .expect(&format!(
-                            "Can't get local file header for \"{}\"",
-                            entry.name
-                        )),
+                        .unwrap_or_else(|| {
+                            panic!("Can't get local file header for \"{}\"", entry.name)
+                        }),
                 ),
             })
             .collect();

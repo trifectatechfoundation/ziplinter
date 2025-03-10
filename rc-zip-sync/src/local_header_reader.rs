@@ -14,7 +14,7 @@ where
     local_header: Option<LocalFileHeader<'a>>,
 }
 
-impl<'a, R> LocalHeaderReader<'a, R>
+impl<R> LocalHeaderReader<'_, R>
 where
     R: io::Read,
 {
@@ -35,7 +35,7 @@ where
     }
 }
 
-impl<'a, R> io::Read for LocalHeaderReader<'a, R>
+impl<R> io::Read for LocalHeaderReader<'_, R>
 where
     R: io::Read,
 {
