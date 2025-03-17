@@ -81,22 +81,16 @@ enum State {
 }
 
 impl ArchiveFsm {
-    /// This should be > 65KiB, because the section at the end of the
-    /// file that we check for end of central directory record is 65KiB.
-    const DEFAULT_BUFFER_SIZE: usize = 256 * 1024;
-
     /// Create a new archive reader with a specified file size.
     pub fn new(size: u64) -> Self {
-        let haystack_size: u64 = 65 * 1024;
-        let haystack_size = if size < haystack_size {
-            size
-        } else {
-            haystack_size
-        };
+        // just keep looking for the EndOfCentralDirectory. This is not very efficient, but that's
+        // not a priority for our usecase.
+        let haystack_size: u64 = size;
+        let buffer = Buffer::with_capacity(size as usize);
 
         Self {
             size,
-            buffer: Buffer::with_capacity(Self::DEFAULT_BUFFER_SIZE),
+            buffer,
             state: State::ReadEocd { haystack_size },
             parsed_ranges: Rc::new(Mutex::new(ParsedRanges::new())),
         }
