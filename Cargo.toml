@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["rc-zip-cli", "rc-zip", "rc-zip-sync", "rc-zip-tokio", "ziplinter"]
+members = ["rc-zip-cli", "rc-zip", "rc-zip-sync", "rc-zip-tokio", "ziplinter", "ziplinter-python"]
 exclude = ["fuzz"]
 
 # The profile that 'cargo dist' will build with

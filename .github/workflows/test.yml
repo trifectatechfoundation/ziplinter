@@ -34,3 +34,43 @@ jobs:
       - name: Run cargo nextest
         run: |
           cargo nextest run --profile ci --all-features
+
+  test-maturin-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Set up Rust
+        run: rustup show
+
+      - name: Install Maturin
+        run: pip install maturin
+
+      - name: Create and activate virtualenv
+        working-directory: "ziplinter-python"
+        run: |
+            python -m venv .venv
+            source .venv/bin/activate
+            pip install -U pip maturin
+            pip freeze
+
+      - name: Build the Python module
+        working-directory: "ziplinter-python"
+        run: |
+          source .venv/bin/activate
+          maturin develop
+
+      - name: Run test script
+        working-directory: "ziplinter-python"
+        run: |
+          source .venv/bin/activate
+          python test.py
