@@ -262,7 +262,7 @@ struct Error {
 impl<T: std::fmt::Debug> From<T> for Error {
     fn from(error: T) -> Self {
         Error {
-            error: format!("{:?}", error),
+            error: format!("{error:?}"),
         }
     }
 }

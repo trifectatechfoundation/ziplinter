@@ -276,8 +276,8 @@ pub fn check_case(case: &Case, archive: Result<&Archive, &Error>) {
             Err(e) => e,
             Ok(_) => panic!("should have failed"),
         };
-        let expected = format!("{:#?}", expected);
-        let actual = format!("{:#?}", actual);
+        let expected = format!("{expected:#?}");
+        let actual = format!("{actual:#?}");
         assert_eq!(expected, actual);
         return;
     }

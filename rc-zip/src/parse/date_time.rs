@@ -24,7 +24,7 @@ pub struct MsdosTimestamp {
 impl fmt::Debug for MsdosTimestamp {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self.to_datetime() {
-            Some(dt) => write!(f, "MsdosTimestamp({})", dt),
+            Some(dt) => write!(f, "MsdosTimestamp({dt})"),
             None => write!(f, "MsdosTimestamp(?)"),
         }
     }
@@ -78,7 +78,7 @@ pub struct NtfsTimestamp {
 impl fmt::Debug for NtfsTimestamp {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self.to_datetime() {
-            Some(dt) => write!(f, "NtfsTimestamp({})", dt),
+            Some(dt) => write!(f, "NtfsTimestamp({dt})"),
             None => write!(f, "NtfsTimestamp(?)"),
         }
     }

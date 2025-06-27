@@ -350,7 +350,7 @@ impl AsyncRead for AsyncRandomAccessFileCursor {
                 let core = futures_util::ready!(fut
                     .as_mut()
                     .poll(cx)
-                    .map_err(|e| io::Error::new(io::ErrorKind::Other, e.to_string()))??);
+                    .map_err(|e| io::Error::other(e.to_string()))??);
                 let is_eof = core.inner_buf_len == 0;
                 self.state = ARAFCState::Idle(core);
 
