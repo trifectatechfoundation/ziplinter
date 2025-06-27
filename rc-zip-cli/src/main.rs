@@ -22,7 +22,7 @@ where
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if let Some(x) = self.0.as_ref() {
-            write!(f, "{}", x)
+            write!(f, "{x}")
         } else {
             write!(f, "∅")
         }
@@ -35,7 +35,7 @@ where
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if let Some(x) = self.0.as_ref() {
-            write!(f, "{:?}", x)
+            write!(f, "{x:?}")
         } else {
             write!(f, "∅")
         }
@@ -111,7 +111,7 @@ fn do_main(cli: Cli) -> Result<(), Box<dyn std::error::Error>> {
                 }
             }
         }
-        println!("Versions: {:?}", reader_versions);
+        println!("Versions: {reader_versions:?}");
         println!("Encoding: {}, Methods: {:?}", archive.encoding(), methods);
         println!(
             "{} ({:.2}% compression) ({} files, {} dirs, {} symlinks)",
@@ -160,7 +160,7 @@ fn do_main(cli: Cli) -> Result<(), Box<dyn std::error::Error>> {
                     if let EntryKind::Symlink = entry.kind() {
                         let mut target = String::new();
                         entry.reader().read_to_string(&mut target).unwrap();
-                        print!("\t{target}", target = target);
+                        print!("\t{target}");
                     }
 
                     print!("\t{:?}", entry.method);

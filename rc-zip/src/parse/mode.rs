@@ -99,7 +99,7 @@ impl fmt::Display for Mode {
         let rwx = "rwxrwxrwx";
         for (i, c) in rwx.char_indices() {
             if self.has(Mode(1 << (9 - 1 - i))) {
-                write!(f, "{}", c)?;
+                write!(f, "{c}")?;
             } else {
                 write!(f, "-")?;
             }
