@@ -1,0 +1,142 @@
+---
+source: ziplinter/src/lib.rs
+expression: result
+---
+{
+  "comment": "",
+  "contents": [
+    {
+      "central": {
+        "comment": "",
+        "compressed_size": 4,
+        "crc32": 1838506280,
+        "creator_version": {
+          "host_system": "Unix",
+          "version": 30
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 293601280,
+        "extra": [],
+        "flags": 0,
+        "header_offset": 0,
+        "internal_attrs": 1,
+        "method": "Store",
+        "mode": 33554816,
+        "modified": "2025-06-27T15:25:46Z",
+        "name": "-",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 45
+        },
+        "uncompressed_size": 4
+      },
+      "local": {
+        "accessed": null,
+        "compressed_size": 4,
+        "crc32": 1838506280,
+        "created": null,
+        "extra": [
+          1,
+          0,
+          16,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "flags": 0,
+        "gid": null,
+        "header_offset": 0,
+        "method": "Store",
+        "method_specific": "None",
+        "mode": 0,
+        "modified": "2025-06-27T15:25:46Z",
+        "name": "-",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 45
+        },
+        "uid": null,
+        "uncompressed_size": 4
+      }
+    }
+  ],
+  "encoding": "Utf8",
+  "eocd": {
+    "dir": {
+      "inner": {
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 1,
+        "directory_offset": 55,
+        "directory_records": 1,
+        "directory_size": 47,
+        "disk_nbr": 0
+      },
+      "offset": 178
+    },
+    "dir64": {
+      "inner": {
+        "creator_version": 798,
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 1,
+        "directory_offset": 55,
+        "directory_records": 1,
+        "directory_size": 47,
+        "disk_nbr": 0,
+        "reader_version": 45,
+        "record_size": 44
+      },
+      "offset": 102
+    },
+    "global_offset": 0
+  },
+  "parsed_ranges": [
+    {
+      "contains": "end of central directory record",
+      "end": 200,
+      "start": 178
+    },
+    {
+      "contains": "zip64 end of central directory locator",
+      "end": 178,
+      "start": 158
+    },
+    {
+      "contains": "zip64 end of central directory record",
+      "end": 158,
+      "start": 102
+    },
+    {
+      "contains": "central directory header",
+      "end": 102,
+      "filename": "-",
+      "start": 55
+    },
+    {
+      "contains": "local file header",
+      "end": 51,
+      "filename": "-",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 55,
+      "filename": "-",
+      "start": 51
+    }
+  ],
+  "size": 200
+}

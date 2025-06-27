@@ -1,0 +1,15 @@
+To create a file without a name using ZIP streaming:
+
+$ echo "bla" | zip -r streaming.zip -
+  adding: - (stored 0%)
+
+$ file streaming.zip 
+streaming.zip: Zip archive data, at least v4.5 to extract, compression method=store
+
+$ unzip -l streaming.zip 
+Archive:  streaming.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        4  06-27-2025 15:25   -
+---------                     -------
+        4                     1 file
