@@ -5,17 +5,12 @@ pkgs.python3Packages.buildPythonPackage rec {
   version = "0.1.0";
   pyproject = true;
 
-  # Currently, it uses the current directory as a source:
-  src = ./.;
-
-  # When the repository becomes public, we probably want something like this instead:
-
-  # src = fetchFromGitHub {
-  #   owner = "trifectatechfoundation";
-  #   repo = "ziplinter";
-  #   rev = "4cac21b3bbf83b71409c6747248b98ea6f8d5306";  # can be a commit hash or a release tag
-  #   hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-  # };
+  src = pkgs.fetchFromGitHub {
+    owner = "trifectatechfoundation";
+    repo = "ziplinter";
+    rev = "698922aff67194f511da0586433504cdf43fe965";
+    hash = "sha256-YL41HUoQfc9StAAHBR0Gt7r5NFQsh6LjfdFfiYRNB4s=";
+  };
 
   cargoDeps = pkgs.rust.packages.stable.rustPlatform.fetchCargoVendor {
     inherit pname version src;
