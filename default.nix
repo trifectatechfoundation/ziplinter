@@ -13,7 +13,7 @@ python3.pkgs.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "trifectatechfoundation";
     repo = "ziplinter";
-    rev = "698922aff67194f511da0586433504cdf43fe965";
+    rev = "v${version}";
     hash = "sha256-YL41HUoQfc9StAAHBR0Gt7r5NFQsh6LjfdFfiYRNB4s=";
   };
 
