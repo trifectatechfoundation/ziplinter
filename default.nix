@@ -23,4 +23,19 @@ pkgs.python3Packages.buildPythonPackage rec {
     cargoSetupHook
     maturinBuildHook
   ];
+
+  meta = {
+    description = "A zip file analyzer Python module";
+    homepage = "https://github.com/trifectatechfoundation/ziplinter";
+    license = with pkgs.lib.licenses; [
+      asl20
+      mit
+    ];
+    maintainers = with pkgs.lib.maintainers; [
+      folkertdev
+      michielp1807
+      armijnhemel
+    ];
+    platforms = pkgs.lib.platforms.all;
+  };
 }
