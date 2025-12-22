@@ -1,0 +1,54 @@
+The use of absolute paths in file names is not allowed according to the
+specifications (section 4.4.17):
+
+```
+The path stored MUST NOT contain a drive or
+device letter, or a leading slash.
+```
+
+In `unzip` it is not possible to create a file with absolute paths, but
+creating a file with a leading slash (or even multiple) is absolutely no
+problem using Python's `zipfile` module:
+
+```
+>>> import zipfile
+>>> z = zipfile.ZipInfo('/tmp/absolute')
+>>> contents = 10*b'c'
+>>> bla = zipfile.ZipFile('/tmp/absolute-name.zip', mode='w')
+>>> bla.writestr(z, contents)
+>>> bla.close()
+```
+
+`unzip` will unpack this to a relative path but also issue a warning:
+
+```
+$ unzip /tmp/bla.zip
+Archive:  /tmp/bla.zip
+warning:  stripped absolute path spec from /tmp/absolute
+ extracting: tmp/absolute
+```
+
+`p7zip` will also correctly unpack the file, but not issue a warning:
+
+```
+$ 7z x /tmp/bla.zip
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,8 CPUs Intel(R) Core(TM) i7-6770HQ CPU @ 2.60GHz (506E3),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 134 bytes (1 KiB)
+
+Extracting archive: /tmp/bla.zip
+--
+Path = /tmp/bla.zip
+Type = zip
+Physical Size = 134
+
+Everything is Ok
+
+Size:       10
+Compressed: 134
+```
+
+Python's `zipfile` will also correctly unpack the file, but issue no warning.
