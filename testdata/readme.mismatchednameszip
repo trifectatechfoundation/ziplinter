@@ -1,0 +1,59 @@
+# Mismatched names between local file header and central directory
+
+The name of the file is recorded in both the local file header and the central
+directory. These should be the same according to the specification and if these
+are not the same, then the file is invalid (according to the specification),
+but that's not how the tools behave.
+
+Let's take the regular test file `test.zip`:
+
+```
+$ unzip -l test.zip 
+Archive:  test.zip
+This is a zipfile comment.
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+       26  09-05-2010 04:12   test.txt
+      785  09-05-2010 07:52   gophercolor16x16.png
+---------                     -------
+      811                     2 files
+```
+
+and change the name of the file `test.txt` in the local file header
+`tets.txt` (for example using `ghex`) and then moved to a file called
+`test-mismatched-names.zip`.
+
+The `unzip` program will report that there is a mismatch, but then proceeed
+to use the name found in the central directory:
+
+```
+ unzip test-mismatched-names.zip 
+Archive:  test-mismatched-names.zip
+This is a zipfile comment.
+test.txt:  mismatching "local" filename (tets.txt),
+         continuing with "central" filename version
+  inflating: test.txt                
+ extracting: gophercolor16x16.png
+```
+
+`p7zip` will not report anything about a mismatch, but simply use the name
+from the central directory. `zipinfo` will not report a mismatch but report
+the name from the central directory.
+
+Python's `zipfile` will report an error:
+
+```
+>>> import zipfile
+>>> test_zip = zipfile.ZipFile('test-mismatched-names.zip')
+>>> test_zip.extractall()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib64/python3.12/zipfile/__init__.py", line 1744, in extractall
+    self._extract_member(zipinfo, path, pwd)
+  File "/usr/lib64/python3.12/zipfile/__init__.py", line 1800, in _extract_member
+    with self.open(member, pwd=pwd) as source, \
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.12/zipfile/__init__.py", line 1646, in open
+    raise BadZipFile(
+zipfile.BadZipFile: File name in directory 'test.txt' and header b'tets.txt' differ.
+```
