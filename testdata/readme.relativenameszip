@@ -1,0 +1,61 @@
+# Names containing current or parent directories
+
+The ZIP specifications do not say anything about paths containing the current
+directory (`.`) or the parent directory (`..`). The only thing that is said is:
+
+```
+The name of the file, with optional relative path.
+The path stored MUST NOT contain a drive or
+device letter, or a leading slash.
+```
+
+As both `.` and `..` are relative paths this could be interpreted
+to read that that these paths are valid.
+
+Creating a file with any of these paths is trivial using Python's `zipfile`
+module:
+
+```
+>>> import zipfile
+>>> z = zipfile.ZipInfo('../../.././tmp/relative')
+>>> contents = 10*b'c'
+>>> bla = zipfile.ZipFile('relative.zip', mode='w')
+>>> bla.writestr(z, contents)
+>>> bla.close()
+```
+
+The relative path with the current and parent directory will be stored in the
+file:
+
+```
+$ unzip -l relative.zip 
+Archive:  relative.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+       10  01-01-1980 00:00   ../../.././tmp/relative
+---------                     -------
+       10                     1 file
+```
+
+`unzip` processes this file but issues a warning:
+
+```
+$ unzip relative.zip 
+Archive:  relative.zip
+warning:  skipped "../" path component(s) in ../../.././tmp/relative
+ extracting: tmp/relative            
+```
+
+`p7zip` extracts the file without a warning.
+
+Both implementations will strip all `..` components and basically rewrite
+the filename from `../../.././tmp/relative` to `tmp/relative`.
+
+Other ZIP implementations might not and this could be used for a path traversal
+attack. This is actually a very old attack [dating back to 1991][phrack]
+although it was [rediscovered in 2018 as Zip Slip][zip_slip] with
+[many implementations affected][zip_slip_2].
+
+[phrack]:http://phrack.org/issues/34/5.html
+[zip_slip]:https://security.snyk.io/research/zip-slip-vulnerability
+[zip_slip_2]:https://github.com/snyk/zip-slip-vulnerability
