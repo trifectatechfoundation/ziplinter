@@ -1,0 +1,97 @@
+---
+source: ziplinter/src/lib.rs
+expression: result
+---
+{
+  "comment": "",
+  "contents": [
+    {
+      "central": {
+        "comment": "ëPNG\r\n\u001a\n\u0000\u0000\u0000\rIHDR\u0000\u0000\u0000(\u0000\u0000\u0000(\b\u0002\u0000\u0000\u0000\u0003£/:\u0000\u0000\u0000iIDATX├φ╓▒\r└ \fDQêÿäé)2>Sñ`\u0015╙E)\u0002æ░eèⁿ\u001bα₧l╣p\u0014æ░#G╪\u0014`````αaÆ'vµ╦\u0003~2╞\u0013╧½╡½╓┤ÅR[I\u000e^mσcΓe∞╡┌∞¬\u0017┌U░¡w'≥▐\u0002\u0003\u0003\u0003\u0003\u0003 \u0017εΩí\u0016æïîó─\u0000\u0000\u0000\u0000IEND«B`é",
+        "compressed_size": 10,
+        "crc32": 4044738111,
+        "creator_version": {
+          "host_system": "Unix",
+          "version": 20
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 25165824,
+        "extra": [],
+        "flags": 0,
+        "header_offset": 0,
+        "internal_attrs": 0,
+        "method": "Store",
+        "mode": 384,
+        "modified": "1980-01-01T00:00:00Z",
+        "name": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uncompressed_size": 10
+      },
+      "local": {
+        "accessed": null,
+        "compressed_size": 10,
+        "crc32": 4044738111,
+        "created": null,
+        "extra": [],
+        "flags": 0,
+        "gid": null,
+        "header_offset": 0,
+        "method": "Store",
+        "method_specific": "None",
+        "mode": 0,
+        "modified": "1980-01-01T00:00:00Z",
+        "name": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 20
+        },
+        "uid": null,
+        "uncompressed_size": 10
+      }
+    }
+  ],
+  "encoding": "Cp437",
+  "eocd": {
+    "dir": {
+      "inner": {
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 1,
+        "directory_offset": 80,
+        "directory_records": 1,
+        "directory_size": 248,
+        "disk_nbr": 0
+      },
+      "offset": 328
+    },
+    "dir64": null,
+    "global_offset": 0
+  },
+  "parsed_ranges": [
+    {
+      "contains": "end of central directory record",
+      "end": 350,
+      "start": 328
+    },
+    {
+      "contains": "central directory header",
+      "end": 328,
+      "start": 80
+    },
+    {
+      "contains": "local file header",
+      "end": 70,
+      "filename": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 80,
+      "filename": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "start": 70
+    }
+  ],
+  "size": 350
+}

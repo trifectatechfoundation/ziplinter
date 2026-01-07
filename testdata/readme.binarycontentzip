@@ -1,0 +1,95 @@
+# File comment contents
+
+The ZIP specification does not specify what the contents of a file
+comment can be. Intuitively it makes sense to assume that it should be text
+but it hasn't been defined. In fact, the Python `zipfile` module documentation
+says:
+
+```
+ZipInfo.comment
+    Comment for the individual archive member as a bytes object.
+```
+
+Because it is a bytes object it basically means that there are no restrictions
+on the *contents* of the file comment itself and any kind of data is accepted
+when assembling a ZIP file using Python. For example, embedding a small PNG
+as a file comment is absolutely no problem at all:
+
+```
+>>> import zipfile
+>>> z = zipfile.ZipInfo(40*'a')
+>>> test_image = open('blue.png', 'rb').read()
+>>> len(test_image)
+162
+>>> z.comment = test_image
+>>> contents = 10*b'c'
+>>> bla = zipfile.ZipFile('binary_comment.zip', mode='w')
+>>> bla.writestr(z, contents)
+>>> bla.close()
+```
+
+When expecting the file with `hexdump` it is very easy to see that there
+is a PNG file embedded in the file comment:
+
+```
+$ hexdump -C binary_comment.zip  | grep PNG
+000000a0  61 61 61 61 61 61 89 50  4e 47 0d 0a 1a 0a 00 00  |aaaaaa.PNG......|
+```
+
+`zipinfo` tries to display the content when run in verbose mode, but cannot:
+
+```
+$ zipinfo -v binary_comment.zip 
+Archive:  binary_comment.zip
+There is no zipfile comment.
+
+End-of-central-directory record:
+-------------------------------
+
+  Zip archive file size:                       350 (000000000000015Eh)
+  Actual end-cent-dir record offset:           328 (0000000000000148h)
+  Expected end-cent-dir record offset:         328 (0000000000000148h)
+  (based on the length of the central directory and its expected offset)
+
+  This zipfile constitutes the sole disk of a single-part archive; its
+  central directory contains 1 entry.
+  The central directory is 248 (00000000000000F8h) bytes long,
+  and its (expected) offset in bytes from the beginning of the zipfile
+  is 80 (0000000000000050h).
+
+
+Central directory entry #1:
+---------------------------
+
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+  offset of local header from start of archive:   0
+                                                  (0000000000000000h) bytes
+  file system or operating system of origin:      Unix
+  version of encoding software:                   2.0
+  minimum file system compatibility required:     MS-DOS, OS/2 or NT FAT
+  minimum software version required to extract:   2.0
+  compression method:                             none (stored)
+  file security status:                           not encrypted
+  extended local header:                          no
+  file last modified on (DOS date/time):          1980 Jan 1 00:00:00
+  32-bit CRC value (hex):                         f115ce3f
+  compressed size:                                10 bytes
+  uncompressed size:                              10 bytes
+  length of filename:                             40 characters
+  length of extra field:                          0 bytes
+  length of file comment:                         162 characters
+  disk number on which file begins:               disk 1
+  apparent file type:                             binary
+  Unix file attributes (000600 octal):            ?rw-------
+  MS-DOS file attributes (00 hex):                none
+
+------------------------- file comment begins ----------------------------
+�PNG
+�
+-------------------------- file comment ends -----------------------------
+```
+
+This would allow someone to hide information in the ZIP file that is not
+easy to extract unless the ZIP file is parsed in a particular way (and not
+with regular unpacking tools).
