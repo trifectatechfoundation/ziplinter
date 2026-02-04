@@ -1,0 +1,66 @@
+Section 4.3.6 specifies the layout of a ZIP file:
+
+```
+ 4.3.6 Overall .ZIP file format:
+
+      [local file header 1]
+      [encryption header 1]
+      [file data 1]
+      [data descriptor 1]
+      . 
+      .
+      .
+      [local file header n]
+      [encryption header n]
+      [file data n]
+      [data descriptor n]
+      [archive decryption header] 
+      [archive extra data record] 
+      [central directory header 1]
+      .
+      .
+      .
+      [central directory header n]
+      [zip64 end of central directory record]
+      [zip64 end of central directory locator] 
+      [end of central directory record]
+```
+
+According to this layout there can be no layout between the last local file
+header and the first central directory header, yet there are many files in
+which this happens. As an example, Android packages store a signing block right
+after the last local file header:
+
+<https://source.android.com/docs/security/features/apksigning/v2>
+
+Although this is not allowed APK files can still be unpacked, as programs use
+the central directory to find the offsets to each individual file and
+effectively skip the extra data. None of the regular ZIP programs seem to be
+able to extract this extra data.
+
+To create a file with extra data only one field needs to be adapted (not
+tested for ZIP64 files) in the "end of central directory" (section 4.3.16),
+namely:
+
+```
+offset of start of central directory with respect to the starting disk number
+```
+
+The file `test_with_extra_data_before_central_directory.zip` is a modified
+version of `test.zip` with an addition 1024 bytes added in between the last
+local file header and the first central directory header. This means that the
+central directory is moved an additional 1024 bytes. This can be shown by
+comparing the output of `hexdump -C` for both files:
+
+The position of the central directory in the original file is `ba 03`:
+
+```
+00000470  00 00 ba 03 00 00 1a 00  54 68 69 73 20 69 73 20  |........This is |
+```
+
+In the new file the central directory has been moved 1024 bytes and is now
+`ba 07`:
+
+```
+00000870  00 00 ba 07 00 00 1a 00  54 68 69 73 20 69 73 20  |........This is |
+```
