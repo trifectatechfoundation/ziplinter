@@ -1,0 +1,158 @@
+# Directory names
+
+Most (not all) ZIP implementations rely on names of directories being stored
+with a `/` at the end of the entry name, even though the official ZIP
+specification does not mention that a `/` is mandatory for a directory. At some
+point this just became a convention. For example, the .NET API seems to rely on
+it:
+
+<https://github.com/PowerShell/Microsoft.PowerShell.Archive/blob/b783599348e726069f17b90bd490f4f856f661f6/src/ZipArchive.cs#L43>
+<https://github.com/dotnet/runtime/blob/96a0fb1cd6210fc4842f32f549870a1d82e95c6f/src/libraries/System.IO.Compression.ZipFile/src/System/IO/Compression/ZipFile.Create.cs#L394>
+
+as does `unzip` (comment from `zip30.tar.gz`, file `unix/unix.c`, line 163):
+
+```
+/* Add trailing / to the directory name */
+```
+
+Python's `zipfile` module also requires it. `p7zip` on the other hand does not.
+
+There actually are some ZIP files that contain files where directory names do
+not end in `/` and where most implementations fail: instead of creating a
+directory a zero byte file with the same name as the directory is written.
+Despite bug reports having been filed this is still a problem. A bug report
+describing this problem can be found at:
+
+<http://web.archive.org/web/20190814185417/https://bugzilla.redhat.com/show_bug.cgi?id=907442>
+
+Trying to unpack the file mentioned in this bug report leads to the following
+error with `unzip`:
+
+```
+$ unzip 1_06_03P.zip
+Archive:  1_06_03P.zip
+ extracting: online_upgrade_img
+checkdir error:  online_upgrade_img exists but is not directory
+                 unable to process online_upgrade_img/bp28v_md5.
+checkdir error:  online_upgrade_img exists but is not directory
+                 unable to process online_upgrade_img/bp28_md5.
+checkdir error:  online_upgrade_img exists but is not directory
+                 unable to process online_upgrade_img/emergency_recovery.sh.
+checkdir error:  online_upgrade_img exists but is not directory
+                 unable to process online_upgrade_img/J120.bp28.
+checkdir error:  online_upgrade_img exists but is not directory
+                 unable to process online_upgrade_img/machine_type.
+checkdir error:  online_upgrade_img exists but is not directory
+                 unable to process online_upgrade_img/md5.
+checkdir error:  online_upgrade_img exists but is not directory
+                 unable to process online_upgrade_img/ouimg.bin.
+checkdir error:  online_upgrade_img exists but is not directory
+                 unable to process online_upgrade_img/ouimg.ver.
+checkdir error:  online_upgrade_img exists but is not directory
+                 unable to process online_upgrade_img/OU_Burner.
+checkdir error:  online_upgrade_img exists but is not directory
+                 unable to process online_upgrade_img/Software_Version.
+checkdir error:  online_upgrade_img exists but is not directory
+                 unable to process online_upgrade_img/V10X.bp28v.
+```
+
+`p7zip` will correctly unpack the archive:
+
+```
+$ 7z x 1_06_03P.zip
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,8 CPUs Intel(R) Core(TM) i7-6770HQ CPU @ 2.60GHz (506E3),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 180253537 bytes (172 MiB)
+
+Extracting archive: 1_06_03P.zip
+--
+Path = 1_06_03P.zip
+Type = zip
+Physical Size = 180253537
+
+Everything is Ok
+
+Folders: 1
+Files: 12
+Size:       190915623
+Compressed: 180253537
+```
+
+A workaround for programs depending on Python's `zipfile` module (which cannot
+correctly unpack these files) some workarounds are needed by first looking at
+the "external file attributes" field from the central directory (section
+4.3.12) and checking if the low order byte corresponds to the MS-DOS directory
+attribute byte (section 4.4.15) while also checking that the size recorded for
+the file is 0 and that Python's `zipfile` module does not recognize the file as
+a directory. If this is the case, then the directory is not unpacked with
+Python's `zipfile` module, and a directory with the name of the entry can be
+created instead.
+
+This might not be entirely fool proof, but it seems to be such a very rare edge
+case that so far only very few examples have been found in the wild.
+
+The test file `test_dir_no_slash.zip` contains a single entry with a directory
+named `test`. In the file the slash character was replaced by a NUL character.
+`unzip` unpacks an empty file, while `p7zip` unpacks a directory. `zipinfo`
+correctly identifies it as a directory in the field `MS-DOS file attributes`
+as well as in the Unix file attributes (stored as an "extra" field).
+
+```
+$ zipinfo -v test_dir_no_slash.zip 
+Archive:  test_dir_no_slash.zip
+There is no zipfile comment.
+
+End-of-central-directory record:
+-------------------------------
+
+  Zip archive file size:                       160 (00000000000000A0h)
+  Actual end-cent-dir record offset:           138 (000000000000008Ah)
+  Expected end-cent-dir record offset:         138 (000000000000008Ah)
+  (based on the length of the central directory and its expected offset)
+
+  This zipfile constitutes the sole disk of a single-part archive; its
+  central directory contains 1 entry.
+  The central directory is 75 (000000000000004Bh) bytes long,
+  and its (expected) offset in bytes from the beginning of the zipfile
+  is 63 (000000000000003Fh).
+
+
+Central directory entry #1:
+---------------------------
+
+  test
+
+  offset of local header from start of archive:   0
+                                                  (0000000000000000h) bytes
+  file system or operating system of origin:      Unix
+  version of encoding software:                   3.0
+  minimum file system compatibility required:     MS-DOS, OS/2 or NT FAT
+  minimum software version required to extract:   1.0
+  compression method:                             none (stored)
+  file security status:                           not encrypted
+  extended local header:                          no
+  file last modified on (DOS date/time):          2026 Feb 5 13:30:40
+  file last modified on (UT extra field modtime): 2026 Feb 5 13:30:40 local
+  file last modified on (UT extra field modtime): 2026 Feb 5 12:30:40 UTC
+  32-bit CRC value (hex):                         00000000
+  compressed size:                                0 bytes
+  uncompressed size:                              0 bytes
+  length of filename:                             5 characters
+  length of extra field:                          24 bytes
+  length of file comment:                         0 characters
+  disk number on which file begins:               disk 1
+  apparent file type:                             binary
+  Unix file attributes (040755 octal):            drwxr-xr-x
+  MS-DOS file attributes (10 hex):                dir 
+
+  The central-directory extra field contains:
+  - A subfield with ID 0x5455 (universal time) and 5 data bytes.
+    The local extra field has UTC/GMT modification/access times.
+  - A subfield with ID 0x7875 (Unix UID/GID (any size)) and 11 data bytes:
+    01 04 e8 03 00 00 04 e8 03 00 00.
+
+  There is no file comment.
+```
