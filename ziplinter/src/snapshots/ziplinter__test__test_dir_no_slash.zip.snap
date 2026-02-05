@@ -1,0 +1,152 @@
+---
+source: ziplinter/src/lib.rs
+expression: result
+---
+{
+  "comment": "",
+  "contents": [
+    {
+      "central": {
+        "comment": "",
+        "compressed_size": 0,
+        "crc32": 0,
+        "creator_version": {
+          "host_system": "Unix",
+          "version": 30
+        },
+        "disk_nbr_start": 0,
+        "external_attrs": 1106051088,
+        "extra": [
+          85,
+          84,
+          5,
+          0,
+          3,
+          112,
+          141,
+          132,
+          105,
+          117,
+          120,
+          11,
+          0,
+          1,
+          4,
+          232,
+          3,
+          0,
+          0,
+          4,
+          232,
+          3,
+          0,
+          0
+        ],
+        "flags": 0,
+        "header_offset": 0,
+        "internal_attrs": 0,
+        "method": "Store",
+        "mode": 2147484141,
+        "modified": "2026-02-05T12:30:40Z",
+        "name": "test\u0000",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 10
+        },
+        "uncompressed_size": 0
+      },
+      "local": {
+        "accessed": null,
+        "compressed_size": 0,
+        "crc32": 0,
+        "created": null,
+        "extra": [
+          85,
+          84,
+          9,
+          0,
+          3,
+          112,
+          141,
+          132,
+          105,
+          125,
+          141,
+          132,
+          105,
+          117,
+          120,
+          11,
+          0,
+          1,
+          4,
+          232,
+          3,
+          0,
+          0,
+          4,
+          232,
+          3,
+          0,
+          0
+        ],
+        "flags": 0,
+        "gid": 1000,
+        "header_offset": 0,
+        "method": "Store",
+        "method_specific": "None",
+        "mode": 0,
+        "modified": "2026-02-05T12:30:40Z",
+        "name": "test\u0000",
+        "reader_version": {
+          "host_system": "MsDos",
+          "version": 10
+        },
+        "uid": 1000,
+        "uncompressed_size": 0
+      }
+    }
+  ],
+  "encoding": "Utf8",
+  "eocd": {
+    "dir": {
+      "inner": {
+        "dir_disk_nbr": 0,
+        "dir_records_this_disk": 1,
+        "directory_offset": 63,
+        "directory_records": 1,
+        "directory_size": 75,
+        "disk_nbr": 0
+      },
+      "offset": 138
+    },
+    "dir64": null,
+    "global_offset": 0
+  },
+  "parsed_ranges": [
+    {
+      "contains": "end of central directory record",
+      "end": 160,
+      "start": 138
+    },
+    {
+      "contains": "central directory header",
+      "end": 138,
+      "filename": "test\u0000",
+      "start": 63
+    },
+    {
+      "contains": "local file header",
+      "end": 63,
+      "filename": "test\u0000",
+      "start": 0
+    },
+    {
+      "contains": "file data",
+      "end": 63,
+      "filename": "test\u0000",
+      "start": 63
+    }
+  ],
+  "size": 160
+}
