@@ -1,0 +1,120 @@
+# Mismatched compression in local file header and central directory
+
+When processing entries in a ZIP file it is assumed that the local file header
+and the central directory match, which does not need to be the case. One field
+that is in both is the `compression method`. If these do not match, then the
+different programs don't behave in the same way.
+
+The two files `test_mismatched_compression_central.zip` and
+`test_mismatched_compression_local.zip` are modified versions of `test.zip` and
+both contain a file (compressed with "deflate") where the compression method in
+the header has been changed to "bzip". The first file has the wrong value in
+the central directory, the other in the the local file header.
+
+Extracting these with different programs reveals some interesting behaviour:
+
+```
+$ unzip test_mismatched_compression_central.zip
+Archive:  test_mismatched_compression_central.zip
+This is a zipfile comment.
+  inflating: test.txt                
+ extracting: gophercolor16x16.png 
+```
+The files are correctly extracted, and the exit code of the program is `0`
+(success):
+
+```
+$ echo $?
+0
+```
+
+This means that `unzip` ignores the `compression method` field in the central
+directory and only looks at the local file header.
+
+When unpacking the one with the value changed in the local file header `unzip`
+is not successful:
+
+```
+$ unzip test_mismatched_compression_local.zip
+Archive:  test_mismatched_compression_local.zip
+This is a zipfile comment.
+ bunzipping: test.txt
+```
+
+and the process ends there. Only a 0 byte file `test.txt` is extracted and the
+exit code is `6`, meaning there was an error:
+
+```
+$ echo $?
+6
+```
+
+`p7zip` has similar behaviour, although it reports an error in both cases.
+
+```
+$ 7z x test_mismatched_compression_central.zip
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,8 CPUs Intel(R) Core(TM) i7-6770HQ CPU @ 2.60GHz (506E3),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 1170 bytes (2 KiB)
+
+Extracting archive: test_mismatched_compression_central.zip
+
+ERRORS:
+Headers Error
+
+--
+Path = test_mismatched_compression_central.zip
+Type = zip
+ERRORS:
+Headers Error
+Physical Size = 1170
+Comment = This is a zipfile comment.
+
+    
+
+Archives with Errors: 1
+
+Open Errors: 1
+```
+
+When the error is in the central directory the file `test.txt` is successfully
+unpacked.
+
+```
+$ 7z x test_mismatched_compression_local.zip 
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,8 CPUs Intel(R) Core(TM) i7-6770HQ CPU @ 2.60GHz (506E3),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 1170 bytes (2 KiB)
+
+Extracting archive: test_mismatched_compression_local.zip
+
+ERRORS:
+Headers Error
+
+--
+Path = test_mismatched_compression_local.zip
+Type = zip
+ERRORS:
+Headers Error
+Physical Size = 1170
+Comment = This is a zipfile comment.
+
+ERROR: Data Error : test.txt
+               
+Sub items Errors: 1
+
+Archives with Errors: 1
+
+Open Errors: 1
+
+Sub items Errors: 1
+```
+
+When the error is in the local file header the file `test.txt` is not unpacked
+and instead a 0 byte file is created.
