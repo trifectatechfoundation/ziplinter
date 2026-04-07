@@ -222,11 +222,14 @@ impl EntryFsm {
     /// Also, after writing all the output, process will read the data
     /// descriptor (if any), and make sur the CRC32 hash and the uncompressed
     /// size match the expected values.
-    pub fn process(
+    pub fn process<'a>(
         mut self,
-        out: &mut [u8],
+        out: &'a mut [u8],
     ) -> Result<
-        FsmResult<(Self, DecompressOutcome), (Buffer, Option<LocalFileHeader>, Option<AexData>)>,
+        FsmResult<
+            (Self, DecompressOutcome),
+            (Buffer, Option<LocalFileHeader<'a>>, Option<AexData>),
+        >,
         Error,
     > {
         tracing::trace!(
@@ -460,7 +463,7 @@ impl EntryFsm {
         self.buffer.fill(count)
     }
 
-    pub fn local_header_entry(&self) -> &Option<LocalFileHeader> {
+    pub fn local_header_entry<'a>(&self) -> &Option<LocalFileHeader<'a>> {
         &self.local_header
     }
 }

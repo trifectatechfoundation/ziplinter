@@ -2,7 +2,7 @@ use pyo3::prelude::*;
 use pythonize::pythonize;
 
 #[pyfunction]
-fn parse_file(py: Python, path: String) -> PyResult<pyo3::Bound<'_, PyAny>> {
+fn parse_file<'a>(py: Python<'a>, path: String) -> PyResult<pyo3::Bound<'a, PyAny>> {
     let file = std::fs::File::open(&path)?;
     let value = ::ziplinter::parse_file(&file);
 
@@ -10,7 +10,7 @@ fn parse_file(py: Python, path: String) -> PyResult<pyo3::Bound<'_, PyAny>> {
 }
 
 #[pyfunction]
-fn parse_bytes(py: Python, bytes: Vec<u8>) -> PyResult<pyo3::Bound<'_, PyAny>> {
+fn parse_bytes<'a>(py: Python<'a>, bytes: Vec<u8>) -> PyResult<pyo3::Bound<'a, PyAny>> {
     let value = ::ziplinter::parse_bytes(&bytes);
     Ok(pythonize(py, &value)?)
 }
