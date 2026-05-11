@@ -19,7 +19,7 @@ python3.pkgs.buildPythonPackage rec {
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit pname version src;
-    hash = "sha256-RjMp+9VfIalGcDGLdncYg/6KjIodR/9IMGQZw9/g2EM=";
+    hash = "sha256-/3W9UtsUwkpkTA5kCnvKsO6O/f1Tzg1Dgp3Y7gGO7Kw=";
   };
 
   buildAndTestSubdir = "ziplinter-python";
